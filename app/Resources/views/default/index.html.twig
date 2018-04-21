@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <header class="am-header">
+                <h1>支付宝手机网站支付接口快速通道(接口名：alipay.trade.wap.pay)</h1>
+            </header>
+            <div id="main">
+                <form name=alipayment action='{{ path('pay') }}' method=post target="_blank">
+                    <div id="body" style="clear:left">
+                        <dl class="content">
+                            <dt>商户订单号
+                                ：</dt>
+                            <dd>
+                                <input id="WIDout_trade_no" name="WIDout_trade_no" />
+                            </dd>
+                            <hr class="one_line">
+                            <dt>订单名称
+                                ：</dt>
+                            <dd>
+                                <input id="WIDsubject" name="WIDsubject" />
+                            </dd>
+                            <hr class="one_line">
+                            <dt>付款金额
+                                ：</dt>
+                            <dd>
+                                <input id="WIDtotal_amount" name="WIDtotal_amount" />
+                            </dd>
+                            <hr class="one_line">
+                            <dt>商品描述：</dt>
+                            <dd>
+                                <input id="WIDbody" name="WIDbody" />
+                            </dd>
+                            <hr class="one_line">
+                            <dt></dt>
+                            <dd id="btn-dd">
+                        <span class="new-btn-login-sp">
+                            <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+                                <span class="note-help">如果您点击“确认”按钮，即表示您同意该次的执行操作。</span>
+                            </dd>
+                        </dl>
+                    </div>
+                </form>
+                <div id="foot">
+                    <ul class="foot-ul">
+                        <li>
+                            支付宝版权所有 2015-2018 ALIPAY.COM
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script language="javascript">
+        function GetDateNow() {
+            var vNow = new Date();
+            var sNow = "";
+            sNow += String(vNow.getFullYear());
+            sNow += String(vNow.getMonth() + 1);
+            sNow += String(vNow.getDate());
+            sNow += String(vNow.getHours());
+            sNow += String(vNow.getMinutes());
+            sNow += String(vNow.getSeconds());
+            sNow += String(vNow.getMilliseconds());
+            document.getElementById("WIDout_trade_no").value =  sNow;
+            document.getElementById("WIDsubject").value = "测试";
+            document.getElementById("WIDtotal_amount").value = "0.01";
+            document.getElementById("WIDbody").value = "购买测试商品0.01元";
+        }
+        GetDateNow();
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
+    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 21px; margin-bottom: 1em; }
+    p { margin: 0 0 1em 0; }
+    a { color: #0000F0; }
+    a:hover { text-decoration: none; }
+    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
+    #container { padding: 2em; }
+    #welcome, #status { margin-bottom: 2em; }
+    #welcome h1 span { display: block; font-size: 75%; }
+    #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
+    #icon-book { display: none; }
+
+    @media (min-width: 768px) {
+        #wrapper { width: 80%; margin: 2em auto; }
+        #icon-book { display: inline-block; }
+        #status a, #next a { display: block; }
+
+        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
+    }
+</style>
+{% endblock %}
