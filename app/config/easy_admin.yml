@@ -1,0 +1,7 @@
+imports:
+    - { resource: 'easy_admin/' }
+easy_admin:
+    site_name: '管理系统'
+    design:
+        menu:
+            - 'Settings'

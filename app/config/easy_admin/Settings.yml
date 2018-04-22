@@ -1,0 +1,5 @@
+easy_admin:
+    entities:
+        Settings:
+            class: 'AppBundle\Entity\Settings'
+            label: '网站设置'
