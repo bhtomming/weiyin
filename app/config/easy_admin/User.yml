@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        User:
+            label: '网站管理员'
+            class: 'AppBundle\Entity\User'
+            list:
+                title: '%%entity_label%%列表'
+                dql_filter:  "entity.roles = 'a:1:{i:0;s:16:\"ROLE_SUPER_ADMIN\";}'"
+                fields:
+                    - { property: 'username', label: '用户名'}
+                    - { property: 'email', label: '邮箱'}
+                    - { property: 'roles', label: '权限'}
+            form:
+                fields:
+                    - { property: 'username', label: '用户名' }
+                    - { property: 'email', label: '邮箱' }
+                    - { property: 'plainPassword', label: '密码', type: 'password' }
+                    - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_SUPER_ADMIN'  }}
+            new:
+                title: '添加%%entity_label%%'
+            edit:
+                title: '编辑%%entity_label%%'

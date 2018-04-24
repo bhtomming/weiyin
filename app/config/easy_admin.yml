@@ -4,4 +4,7 @@ easy_admin:
     site_name: '管理系统'
     design:
         menu:
-            - 'Settings'
+            - {entity: 'Settings', label: '网站设置'}
+            - {entity: 'User', label: '网站管理员'}
+            - {entity: 'Member', label: '会员管理'}
+            - {entity: 'Provider', label: '商家管理'}
