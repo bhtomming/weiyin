@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        Goods:
+            class: 'AppBundle\Entity\Goods'
+            label: '订单'
+            form:
+                fields:
+                    - { property: 'tradeNo', label: '编号' }
+                    - { property: 'subject', label: '订单名称' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'description', label: '订单描述' }
+                    - { property: 'goodsDetail', label: '商品详情' }
+            list:
+                title: '%%entity_label%%列表'
+                fields:
+                    - { property: 'tradeNo', label: '编号' }
+                    - { property: 'subject', label: '订单名称' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'description', label: '订单描述' }
+                    - { property: 'goodsDetail', label: '商品详情' }
+                    - { property: 'userId', label: '消费者' }
+                    - { property: 'createdAt', label: '购买时间' }
+            new:
+                title: '添加%%entity_label%%'
+            edit:
+                title: '修改%%entity_label%%'

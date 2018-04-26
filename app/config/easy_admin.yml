@@ -8,3 +8,8 @@ easy_admin:
             - {entity: 'User', label: '网站管理员'}
             - {entity: 'Member', label: '会员管理'}
             - {entity: 'Provider', label: '商家管理'}
+            - {entity: 'Product', label: '服装管理'}
+            - {entity: 'Goods', label: '订单管理'}
+            - {entity: 'Coupon', label: '礼券管理'}
+            - {entity: 'Company', label: '品牌信息'}
+            - {entity: 'Contact', label: '联系信息'}

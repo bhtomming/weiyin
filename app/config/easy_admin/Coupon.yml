@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        Coupon:
+            class: 'AppBundle\Entity\Coupon'
+            label: '优惠券'
+            form:
+                fields:
+                    - { property: 'amount', label: '金额' }
+                    - { property: 'expiredAt', label: '过期时间' }
+                    - { property: 'owner', label: '获得者' }
+            list:
+                title: '%%entity_label%%列表'
+                fields:
+                    - { property: 'couponNo', label: '编号' }
+                    - { property: 'amount', label: '金额' }
+                    - { property: 'owner', label: '获得者' }
+                    - { property: 'status', label: '状态' }
+                    - { property: 'expiredAt', label: '过期时间' }
+            new:
+                title: '添加%%entity_label%%'
+            edit:
+                title: '修改%%entity_label%%'

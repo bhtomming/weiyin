@@ -1,0 +1,21 @@
+easy_admin:
+    entities:
+        Product:
+            class: 'AppBundle\Entity\Product'
+            label: '服装'
+            form:
+                fields:
+                    - { property: 'model', label: '型号' }
+                    - { property: 'stock', label: '库存量' }
+                    - { property: 'image', label: '图片' }
+                    - { property: 'description', label: '详细信息' }
+            list:
+                title: '%%entity_label%%列表'
+                fields:
+                    - { property: 'model', label: '型号' }
+                    - { property: 'image', label: '图片' }
+                    - { property: 'sales', label: '销量' }
+            new:
+                title: '添加%%entity_label%%'
+            edit:
+                title: '修改%%entity_label%%'

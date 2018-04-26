@@ -1,0 +1,20 @@
+easy_admin:
+    entities:
+        Contact:
+            class: 'AppBundle\Entity\Contact'
+            label: '联系信息'
+            form:
+                fields:
+                    - { property: 'title', label: '标题' }
+                    - { property: 'image', label: '标题图片' }
+                    - { property: 'content', label: '内容' }
+            list:
+                title: '%%entity_label%%列表'
+                fields:
+                    - { property: 'title', label: '标题' }
+                    - { property: 'image', label: '标题图片' }
+                    - { property: 'content', label: '内容' }
+            new:
+                title: '添加%%entity_label%%'
+            edit:
+                title: '修改%%entity_label%%'
