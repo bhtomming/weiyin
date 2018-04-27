@@ -3,12 +3,14 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: easy_admin.yml }
+    - { resource: ckeditor_config.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: zh_CN
     app.path.product_images: /uploads/images/products
+    app.path.swipper_images: /uploads/images/swipper
 
 framework:
     #esi: ~
@@ -85,5 +87,8 @@ vich_uploader:
         product_images:
             uri_prefix:         '%app.path.product_images%'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/products'
+        swipper_images:
+            uri_prefix:         '%app.path.swipper_images%'
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/swipper'
 
 

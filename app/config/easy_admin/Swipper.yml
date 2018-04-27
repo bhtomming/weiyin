@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+        Swipper:
+            class: 'AppBundle\Entity\Swipper'
+            label: '幻灯片'
+            form:
+                fields:
+                    - { property: 'imageFile', label: '图片', type: 'vich_image' }
+                    - { property: 'link', label: '链接' }
+            list:
+                title: '%%entity_label%%列表'
+                fields:
+                    - { property: 'image', label: '图片', type: 'image', base_path: '%app.path.swipper_images%' }
+                    - { property: 'link', label: '链接' }

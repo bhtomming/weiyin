@@ -13,3 +13,6 @@ easy_admin:
             - {entity: 'Coupon', label: '礼券管理'}
             - {entity: 'Company', label: '品牌信息'}
             - {entity: 'Contact', label: '联系信息'}
+            - label: '网站首页'
+              children:
+                - { entity: 'Swipper', label: '幻灯片管理' }

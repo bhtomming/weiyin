@@ -6,13 +6,13 @@ easy_admin:
             form:
                 fields:
                     - { property: 'title', label: '标题' }
-                    - { property: 'image', label: '标题图片' }
-                    - { property: 'content', label: '内容' }
+                    - { property: 'imageFile', label: '标题图片', type: 'vich_image' }
+                    - { property: 'content', label: '内容', type: 'ckeditor' }
             list:
                 title: '%%entity_label%%列表'
                 fields:
                     - { property: 'title', label: '标题' }
-                    - { property: 'image', label: '标题图片' }
+                    - { property: 'image', label: '标题图片', type: 'image', base_path: '%app.path.product_images%' }
                     - { property: 'content', label: '内容' }
             new:
                 title: '添加%%entity_label%%'
