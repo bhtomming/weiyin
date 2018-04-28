@@ -5,13 +5,20 @@ easy_admin:
             label: '联系信息'
             form:
                 fields:
-                    - { property: 'title', label: '标题' }
-                    - { property: 'content', label: '内容', type: 'ckeditor' }
+                    - { property: 'companyName', label: '公司名称' }
+                    - { property: 'address', label: '地址' }
+                    - { property: 'tel', label: '固定电话' }
+                    - { property: 'phone', label: '手机' }
+                    - { property: 'email', label: '邮箱' }
+                    - { property: 'weibo', label: '微博' }
+                    - { property: 'qq', label: 'QQ' }
+                    - { property: 'wechat', label: '微信' }
             list:
                 title: '%%entity_label%%列表'
                 fields:
-                    - { property: 'title', label: '标题' }
-                    - { property: 'content', label: '内容' }
+                    - { property: 'companyName', label: '公司名称' }
+                    - { property: 'address', label: '地址' }
+                    - { property: 'phone', label: '手机' }
             new:
                 title: '添加%%entity_label%%'
             edit:

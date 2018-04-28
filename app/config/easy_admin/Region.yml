@@ -1,0 +1,14 @@
+easy_admin:
+    entities:
+        Region:
+            class: 'AppBundle\Entity\Region'
+            label: '自定义区域'
+            form:
+                fields:
+                    - { property: 'content', type: 'ckeditor', label: '区域内容' }
+            new:
+                title: '添加%%entity_label%%'
+            list:
+                title: '%%entity_label%%列表'
+            edit:
+                title: '编辑%%entity_label%%'

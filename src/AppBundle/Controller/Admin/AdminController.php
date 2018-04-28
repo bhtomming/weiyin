@@ -26,6 +26,20 @@ class AdminController extends BaseAdminController
         parent::updateEntity($user);
     }
 
+    public function persistCouponEntity($coupon){
+        if($coupon->getCreator() == null){
+            $coupon->setCreator($this->getUser());
+        }
+        parent::persistEntity($coupon);
+    }
+
+    public function persistGoodsEntity($goods){
+        if($goods->getUser() == null){
+            $goods->setUser($this->getUser());
+        }
+        parent::persistEntity($goods);
+    }
+
 
 
 }

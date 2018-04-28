@@ -2,12 +2,13 @@ imports:
     - { resource: 'easy_admin/' }
 easy_admin:
     site_name: '管理系统'
+    formats:
+        date: 'Y年m月d日'
+        time: 'H:i:s'
+        datetime: 'Y年m月d日H:i:s'
     design:
         menu:
             - {entity: 'Settings', label: '网站设置'}
-            - {entity: 'User', label: '网站管理员'}
-            - {entity: 'Member', label: '会员管理'}
-            - {entity: 'Provider', label: '商家管理'}
             - {entity: 'Product', label: '服装管理'}
             - {entity: 'Goods', label: '订单管理'}
             - {entity: 'Coupon', label: '礼券管理'}
@@ -16,3 +17,9 @@ easy_admin:
             - label: '网站首页'
               children:
                 - { entity: 'Swipper', label: '幻灯片管理' }
+                - { entity: 'Region', label: '自定义区域' }
+            - label: '用户管理'
+              children:
+                - {entity: 'User', label: '管理员'}
+                - {entity: 'Provider', label: '商家'}
+                - {entity: 'Member', label: '会员'}

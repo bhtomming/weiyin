@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +24,7 @@ class Goods
     /**
      * @var string
      *
-     * @ORM\Column(name="tradeNo", type="string", length=50, unique=true)
+     * @ORM\Column(name="tradeNo", type="string", length=255, unique=true)
      */
     private $tradeNo;
 
@@ -51,21 +50,18 @@ class Goods
     private $description;
 
     /**
-     * @var Product[] | ArrayCollection
+     * @var int
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product" ,cascade={"persist"})
-     * @ORM\JoinTable(name="goods_product")
-     * @ORM\OrderBy({"id":"ASC"})
+     * @ORM\Column(name="goodsDetail", type="integer")
      */
     private $goodsDetail;
 
     /**
-     * @var User
+     * @var int
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn()
+     * @ORM\Column(name="userId", type="integer")
      */
-    private $user;
+    private $userId;
 
     /**
      * @var \DateTime
@@ -212,13 +208,13 @@ class Goods
     /**
      * Set goodsDetail
      *
-     * @param Product $goodsDetail
+     * @param integer $goodsDetail
      *
      * @return Goods
      */
     public function setGoodsDetail($goodsDetail)
     {
-        $this->addGoodsDetail($goodsDetail);
+        $this->goodsDetail = $goodsDetail;
 
         return $this;
     }
@@ -226,46 +222,35 @@ class Goods
     /**
      * Get goodsDetail
      *
-     * @return Product[] | ArrayCollection
+     * @return int
      */
     public function getGoodsDetail()
     {
         return $this->goodsDetail;
     }
 
-    public function addGoodsDetail($goodsDetail){
-        if(!$this->goodsDetail->contains($goodsDetail)){
-            $this->goodsDetail[] = $goodsDetail;
-        }
-
-    }
-
-    public function removeGoodsDetail($goodsDetail){
-        $this->goodsDetail->remove($goodsDetail);
-    }
-
     /**
-     * Set user
+     * Set userId
      *
-     * @param User $user
+     * @param integer $userId
      *
      * @return Goods
      */
-    public function setUser($user)
+    public function setUserId($userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get userId
      *
-     * @return User
+     * @return int
      */
-    public function getUser()
+    public function getUserId()
     {
-        return $this->user;
+        return $this->userId;
     }
 
     /**
@@ -369,10 +354,7 @@ class Goods
 
     public function __construct()
     {
-        $this->setTradeNo('WYDD'.date('YmdHis').rand(1,9999));
         $this->setCreatedAt(new \DateTime('now'));
-        $this->goodsDetail = new ArrayCollection();
-        $this->setStatus(1);
     }
 
     /**

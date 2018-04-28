@@ -24,7 +24,7 @@ class Coupon
     /**
      * @var string
      *
-     * @ORM\Column(name="couponNo", type="string", length=12)
+     * @ORM\Column(name="couponNo", type="string", length=30)
      */
     private $couponNo;
 
@@ -50,16 +50,16 @@ class Coupon
     private $expiredAt;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="creator", type="integer")
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn()
      */
     private $creator;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="owner", type="integer", nullable=true)
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn()
      */
     private $owner;
 
@@ -180,7 +180,7 @@ class Coupon
     /**
      * Set creator
      *
-     * @param integer $creator
+     * @param User $creator
      *
      * @return Coupon
      */
@@ -194,7 +194,7 @@ class Coupon
     /**
      * Get creator
      *
-     * @return int
+     * @return User
      */
     public function getCreator()
     {
@@ -204,7 +204,7 @@ class Coupon
     /**
      * Set owner
      *
-     * @param integer $owner
+     * @param User $owner
      *
      * @return Coupon
      */
@@ -218,7 +218,7 @@ class Coupon
     /**
      * Get owner
      *
-     * @return int
+     * @return User
      */
     public function getOwner()
     {
@@ -247,6 +247,13 @@ class Coupon
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function __construct()
+    {
+        $this->setCouponNo('WYYH'.date('YmdHis').rand(1,9999));
+        $this->setCreatedAt(new \DateTime('now'));
+        $this->setStatus(1);
     }
 }
 

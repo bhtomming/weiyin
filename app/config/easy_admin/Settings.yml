@@ -2,4 +2,18 @@ easy_admin:
     entities:
         Settings:
             class: 'AppBundle\Entity\Settings'
-            label: '网站设置'
+            label: '网站基本信息'
+            form:
+                fields:
+                    - { property: 'siteName', label: '网站名称' }
+                    - { property: 'company', label: '公司名称' }
+                    - { property: 'phone', label: '电话' }
+                    - { property: 'address', label: '地址' }
+                    - { property: 'beian', label: '备案号' }
+                    - { property: 'copyRight', label: '版权声明' }
+            edit:
+                title: '编辑%%entity_label%%'
+            list:
+                title: '%%entity_label%%列表'
+            new:
+                title: '新建%%entity_label%%'
