@@ -3,11 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}未因{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}" />
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/style.css') }}" />
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {% block menu %}
+            {{ render(controller('AppBundle:Default:menu')) }}
+        {% endblock %}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('bundles/app/js/jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/frontend.config.js') }}"></script>
+        {% endblock %}
+        {% block footer %}
+            {{ render(controller('AppBundle:Default:footer')) }}
+        {% endblock %}
     </body>
 </html>

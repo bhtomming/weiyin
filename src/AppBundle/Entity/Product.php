@@ -33,8 +33,14 @@ class Product
 
     /**
      * @var string
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var float
      *
-     * @ORM\Column(name="price", type="string", length=11)
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 
@@ -75,6 +81,11 @@ class Product
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="boolean",name="is_front")
+     */
+    private $isFront;
+
 
     /**
      * Get id
@@ -113,7 +124,7 @@ class Product
     /**
      * Set price
      *
-     * @param string $price
+     * @param float $price
      *
      * @return Product
      */
@@ -127,7 +138,7 @@ class Product
     /**
      * Get price
      *
-     * @return string
+     * @return float
      */
     public function getPrice()
     {
@@ -241,5 +252,83 @@ class Product
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function __construct()
+    {
+        $this->setSales();
+        $this->setIsFront();
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Product
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Product
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set isFront
+     *
+     * @param boolean $isFront
+     *
+     * @return Product
+     */
+    public function setIsFront($isFront = true)
+    {
+        $this->isFront = $isFront;
+
+        return $this;
+    }
+
+    /**
+     * Get isFront
+     *
+     * @return boolean
+     */
+    public function getIsFront()
+    {
+        return $this->isFront;
     }
 }

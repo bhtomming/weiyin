@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminContr
 class AdminController extends BaseAdminController
 {
     public function createNewUserEntity(){
+
         return $this->container->get('fos_user.user_manager')->createUser();
     }
 
@@ -22,11 +23,13 @@ class AdminController extends BaseAdminController
     }
 
     public function updateUserEntity($user){
+
         $this->container->get('fos_user.user_manager')->updateUser($user,false);
         parent::updateEntity($user);
     }
 
     public function persistCouponEntity($coupon){
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN',NULL, '你无权访问');
         if($coupon->getCreator() == null){
             $coupon->setCreator($this->getUser());
         }
@@ -40,6 +43,11 @@ class AdminController extends BaseAdminController
         parent::persistEntity($goods);
     }
 
+    public function createNewEntity()
+    {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN',NULL, '你无权访问');
+        return parent::createNewEntity();
+    }
 
 
 }

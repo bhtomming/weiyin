@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Product
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -30,8 +33,14 @@ class Product
 
     /**
      * @var string
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var float
      *
-     * @ORM\Column(name="price", type="string", length=11)
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 
@@ -59,6 +68,23 @@ class Product
      * @ORM\Column(name="image", type="string", nullable=true)
      */
     private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="boolean",name="is_front")
+     */
+    private $isFront;
 
 
     /**
@@ -98,7 +124,7 @@ class Product
     /**
      * Set price
      *
-     * @param string $price
+     * @param float $price
      *
      * @return Product
      */
@@ -112,7 +138,7 @@ class Product
     /**
      * Get price
      *
-     * @return string
+     * @return float
      */
     public function getPrice()
     {
@@ -174,7 +200,7 @@ class Product
      *
      * @return Product
      */
-    public function setSales($sales)
+    public function setSales($sales = 0)
     {
         $this->sales = $sales;
 
@@ -189,5 +215,95 @@ class Product
     public function getSales()
     {
         return $this->sales;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return Product
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function __construct()
+    {
+        $this->setSales();
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Product
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Product
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

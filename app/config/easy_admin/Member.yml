@@ -10,6 +10,7 @@ easy_admin:
                     - {property: 'username', label: '姓名'}
                     - {property: 'email', label: '邮箱'}
                     - {property: 'phone', label: '电话'}
+                    - {property: 'enabled', label: '激活'}
                     - {property: 'sex', label: '性别'}
                     - {property: 'address', label: '地址'}
             form:

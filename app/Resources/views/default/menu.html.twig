@@ -1,0 +1,26 @@
+<div class="header sticky-top bg-white">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="/" >未因</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainMenuContent" aria-controls="navbarMainMenuContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarMainMenuContent">
+                <ul class="navbar-nav">
+                    {% if menus %}{%- for menu in menus -%}
+                        <li class="nav-item{% if menu.submenu %} dropdown{% endif %}" >
+                            <a href="{% if menu.submenu %}#{% else %}{{ menu.0.link }}{% endif %}" class="nav-link {% if menu.submenu %}dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false{% endif %}">{{ menu.0.name }}</a>
+                            {% if menu.submenu %}
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    {% for smenu in menu.submenu -%}
+                                        <a class="dropdown-item" href="{{ smenu.link }}"  title="{{ smenu.name }}">{{ smenu.name }} </a>
+                                    {% endfor -%}
+                                </div>
+                            {%- endif -%}
+                        </li>
+                    {%- endfor -%}{% endif -%}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

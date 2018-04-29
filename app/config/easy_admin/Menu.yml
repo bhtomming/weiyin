@@ -1,0 +1,16 @@
+easy_admin:
+    entities:
+        Menu:
+            class: 'AppBundle\Entity\Menu'
+            label: '导航菜单'
+            form:
+                fields:
+                    - { property: 'name', label: '名称' }
+                    - { property: 'link', label: '链接' }
+                    - { property: 'parentMenu', label: '父菜单', type: 'AppBundle\Form\Type\MenuType' }
+            new:
+                title: '添加%%entity_label%%'
+            edit:
+                title: '编辑%%entity_label%%'
+            list:
+                title: '%%entity_label%%列表'

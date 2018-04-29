@@ -6,14 +6,17 @@ easy_admin:
             form:
                 fields:
                     - { property: 'model', label: '型号' }
+                    - { property: 'title', label: '标题' }
                     - { property: 'stock', label: '库存量' }
                     - { property: 'imageFile', label: '图片', type: 'vich_image' }
                     - { property: 'price', label: '价格' }
+                    - { property: 'isFront', label: '推荐到首页' }
                     - { property: 'description', label: '详细信息', type: 'ckeditor' }
             list:
                 title: '%%entity_label%%列表'
                 fields:
                     - { property: 'model', label: '型号' }
+                    - { property: 'title', label: '标题' }
                     - { property: 'image', label: '图片',type: 'image', base_path: '%app.path.product_images%' }
                     - { property: 'sales', label: '销量' }
             new:

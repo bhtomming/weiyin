@@ -1,0 +1,33 @@
+body{
+    font-family: "微软雅黑";
+}
+.navbar-brand{
+    color:#000;
+    font-weight: bold;
+    font-size:26px;
+}
+.nav-item{
+    position: relative;
+}
+
+.nav-link{
+    color:#000;
+    font-weight: bolder;
+}
+.nav-link:after{
+    content: '';
+    position: absolute;
+    width: 50%;
+    left:25%;
+    height:2px;
+    top:2.5rem;
+}
+.nav-item .active{
+    color: #ff6700;
+}
+.nav-item .active::after{
+    background: #ff6700;
+}
+#footer{
+    border-top:1px solid #ff6700;
+}

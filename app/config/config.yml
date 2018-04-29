@@ -39,6 +39,9 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        product_image: '%app.path.product_images%'
+        swiper_image: '%app.path.swipper_images%'
 
 # Doctrine Configuration
 doctrine:
