@@ -11,6 +11,7 @@ easy_admin:
                     - { property: 'imageFile', label: '图片', type: 'vich_image' }
                     - { property: 'price', label: '价格' }
                     - { property: 'isFront', label: '推荐到首页' }
+                    - { property: 'category', label: '分类', type: 'AppBundle\Form\Type\CategoryType' }
                     - { property: 'description', label: '详细信息', type: 'ckeditor' }
             list:
                 title: '%%entity_label%%列表'

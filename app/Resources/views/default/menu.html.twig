@@ -9,11 +9,11 @@
                 <ul class="navbar-nav">
                     {% if menus %}{%- for menu in menus -%}
                         <li class="nav-item{% if menu.submenu %} dropdown{% endif %}" >
-                            <a href="{% if menu.submenu %}#{% else %}{{ menu.0.link }}{% endif %}" class="nav-link {% if menu.submenu %}dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false{% endif %}">{{ menu.0.name }}</a>
+                            <a href="{% if menu.submenu %}#{% else %}{% if menu.0.link  %}{{ path( menu.0.link ) }}{% endif %}{% endif %}" class="nav-link {% if menu.submenu %}dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false{% endif %}">{{ menu.0.name }}</a>
                             {% if menu.submenu %}
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     {% for smenu in menu.submenu -%}
-                                        <a class="dropdown-item" href="{{ smenu.link }}"  title="{{ smenu.name }}">{{ smenu.name }} </a>
+                                        <a class="dropdown-item" href="{{ path('product_list',{ 'category':smenu.link}) }}"  title="{{ smenu.name }}">{{ smenu.name }} </a>
                                     {% endfor -%}
                                 </div>
                             {%- endif -%}

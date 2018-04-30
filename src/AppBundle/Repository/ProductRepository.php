@@ -10,11 +10,16 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findMax($num, array $order){
+    /**
+     * @param integer $num
+     * @param array $order
+     */
+    public function findMax($num, $order){
         $query = $this->createQueryBuilder('p')
-            ->orderBy($order[0],$order[1])
+            ->where('p.isFront = true')
+            ->orderBy('p.'.$order[0],$order[1])
             ->getQuery()
         ;
-        return $query->getMaxResults($num);
+        return $query->setMaxResults($num)->getResult();
     }
 }

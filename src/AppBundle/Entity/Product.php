@@ -86,6 +86,14 @@ class Product
      */
     private $isFront;
 
+    /**
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumn()
+     * @ORM\OrderBy({"title":"ASC"})
+     */
+    private $category;
+
 
     /**
      * Get id
@@ -330,5 +338,29 @@ class Product
     public function getIsFront()
     {
         return $this->isFront;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

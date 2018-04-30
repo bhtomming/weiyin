@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Company;
+use AppBundle\Entity\Contact;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Region;
@@ -28,6 +30,24 @@ class DefaultController extends Controller
             'swipers' => $swipers,
             'products' => $products,
         ]);
+    }
+
+    /**
+     * @Route("/brand", name="brand")
+     */
+    public function brandAction(){
+        $em = $this->getDoctrine()->getManager();
+        $brand = $em->getRepository(Company::class)->findOneBy(['id'=>1]);
+        return $this->render('default/brand.html.twig',['brand' => $brand]);
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contactAction(){
+        $em = $this->getDoctrine()->getManager();
+        $contact = $em->getRepository(Contact::class)->findOneBy(['id'=>1]);
+        return $this->render('default/contact.html.twig',['contact' => $contact]);
     }
 
     /**
@@ -74,9 +94,11 @@ class DefaultController extends Controller
     }
 
     public function getProduct(ObjectManager $em){
-        //$products = $em->getRepository(Product::class)->findBy(['isFront'=> true],['updatedAt'=>'desc'],4);
-        $products = $em->getRepository(Product::class)->findMax(4,['updatedAt'=>'desc']);
+
+        $products = $em->getRepository(Product::class)->findMax(4,['updatedAt','desc']);
 
         return $products;
     }
+
+
 }

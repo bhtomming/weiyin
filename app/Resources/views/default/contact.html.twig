@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <iframe src=""></iframe>
+            </div>
+            <div class="col-md-7">
+                <p>公司名称：{{ contact.companyName }}</p>
+                <p>公司地址：{{ contact.address }}</p>
+                <p>电话：{{ contact.tel }}</p>
+                <p>手机：{{ contact.phone }}</p>
+                <p>邮箱：{{ contact.email }}</p>
+                <p>微博：{{ contact.weibo }}</p>
+                <p>QQ：{{ contact.qq }}</p>
+                <p>微信：{{ contact.wechat }}</p>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

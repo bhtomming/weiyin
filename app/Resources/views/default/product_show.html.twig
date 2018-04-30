@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {% if product %}
+        <div class="card">
+            <h2 class="card-title">{{ product.title }}</h2>
+            <img class="card-img img-responsive" src="{{ product_image }}/{{ product.image }}" />
+            <div class="card-body">
+                {{ product.model }}<br/>
+                {{ product.price }}<br/>
+                {{ product.description | raw }}
+            </div>
+        </div>
+            {% endif %}
+    </div>
+{% endblock %}

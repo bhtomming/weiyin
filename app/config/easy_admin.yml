@@ -11,6 +11,7 @@ easy_admin:
             - {entity: 'Settings', label: '网站设置'}
             - {entity: 'Menu', label: '网站菜单'}
             - {entity: 'Product', label: '服装管理'}
+            - {entity: 'Category', label: '分类管理'}
             - {entity: 'Goods', label: '订单管理'}
             - {entity: 'Coupon', label: '礼券管理'}
             - {entity: 'Company', label: '品牌信息'}

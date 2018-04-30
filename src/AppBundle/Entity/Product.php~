@@ -86,6 +86,12 @@ class Product
      */
     private $isFront;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     * @ORM\JoinColumn()
+     */
+    private $category;
+
 
     /**
      * Get id
@@ -257,6 +263,7 @@ class Product
     public function __construct()
     {
         $this->setSales();
+        $this->setIsFront();
     }
 
     /**
@@ -305,5 +312,29 @@ class Product
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set isFront
+     *
+     * @param boolean $isFront
+     *
+     * @return Product
+     */
+    public function setIsFront($isFront = true)
+    {
+        $this->isFront = $isFront;
+
+        return $this;
+    }
+
+    /**
+     * Get isFront
+     *
+     * @return boolean
+     */
+    public function getIsFront()
+    {
+        return $this->isFront;
     }
 }

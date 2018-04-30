@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% if products %}
+                {% for product in products %}
+                    <div class="card">
+                        <a href="{{ path('product_show',{'id':product.id}) }}">
+                            <img class="card-img img-responsive" src="{{ product_image }}/{{ product.image }}" />
+                        </a>
+                        <div class="card-title text-center">{{ product.title }}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
