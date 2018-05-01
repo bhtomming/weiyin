@@ -6,11 +6,19 @@
             <h2 class="card-title">{{ product.title }}</h2>
             <img class="card-img img-responsive" src="{{ product_image }}/{{ product.image }}" />
             <div class="card-body">
-                {{ product.model }}<br/>
-                {{ product.price }}<br/>
-                {{ product.description | raw }}
+                衣服型号:{{ product.model }}<br/>
+                价格:{{ product.price }}<br/>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+                <div id="add-car" class="btn btn-danger" data-id="{{ product.id }}">添加到购物车</div><br/>
+                具体信息:{{ product.description | raw }}
             </div>
         </div>
             {% endif %}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/shopping_car.js') }}"></script>
 {% endblock %}

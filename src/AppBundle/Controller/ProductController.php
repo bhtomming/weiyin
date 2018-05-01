@@ -12,6 +12,10 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductController extends Controller
 {
@@ -30,6 +34,25 @@ class ProductController extends Controller
      * @Route("/product/{id}", name="product_show")
      */
     public function showAction(Product $product){
-        return $this->render('default/product_show.html.twig',['product'=>$product]);
+        $form = $this->createFormBuilder()
+            ->add('num',IntegerType::class,array(
+                'label'=>'数量:',
+                'data'=>1,
+            ))
+            ->getForm();
+        return $this->render('default/product_show.html.twig',[
+            'product'=>$product,
+            'form'=> $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/shopping_car/add/{id}/{num}",name="car",defaults={"num" : 1})
+     */
+    public function shoppingCarAction($id,$num){
+        $data=[
+            'code'=> 200,
+        ];
+        return new JsonResponse($data);
     }
 }
