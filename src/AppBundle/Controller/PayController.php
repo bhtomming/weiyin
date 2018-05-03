@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Goods;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Yansongda\Pay\Pay;
 use Yansongda\Pay\Log;
@@ -31,14 +32,17 @@ class PayController extends Controller
     ];
 
     /**
-     * @Route("/alipay/pay",name="pay")
+     * @Route("/alipay/pay/{id}",name="pay")
      */
-    public function indexAction()
+    public function indexAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $trade = $em->getRepository(Goods::class)->find($id);
+
         $order = [
-            'out_trade_no' => time(),
-            'total_amount' => '1',
-            'subject' => 'test subject - 测试',
+            'out_trade_no' => $trade->getTradeNo(),
+            'total_amount' => $trade->getTotalAmount(),
+            'subject' => $trade->getSubject(),
         ];
         if($this->is_mobile()){
             $alipay = Pay::alipay($this->config)->wap($order);

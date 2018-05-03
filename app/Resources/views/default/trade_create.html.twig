@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% if clothes %}
+        <h2>订单号:{{ trade.tradeNo }}</h2>
+        {% for clothe in clothes %}
+            <h2>{{ clothe.product.title }}</h2>
+            <p>型号:{{ clothe.product.model }}</p>
+            价格:{{ clothe.product.price }}<br/>
+            数量: {{ clothe.num }}
+            金额:{{ clothe.amount }}<br/>
+        {% endfor %}
+        总金额:{{ trade.totalAmount }}<br/>
+        <a class="btn btn-warning" href="{{ path('pay',{'id':trade.id}) }}">现在付款</a>
+    {% endif %}
+{% endblock %}

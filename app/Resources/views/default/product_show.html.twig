@@ -11,7 +11,9 @@
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}
-                <div id="add-car" class="btn btn-danger" data-id="{{ product.id }}">添加到购物车</div><br/>
+                <div id="add-car" class="btn btn-danger" data-id="{{ product.id }}">添加到购物车</div>
+                <a class="btn btn-success" href="{{ path('view_car') }}">查看购物车</a>
+                <br/>
                 具体信息:{{ product.description | raw }}
             </div>
         </div>
