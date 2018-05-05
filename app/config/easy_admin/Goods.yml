@@ -14,6 +14,10 @@ easy_admin:
                     - { property: 'goodsDetail', label: '商品详情', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Product' } }
             list:
                 title: '%%entity_label%%列表'
+                actions:
+                    - { name: 'show', label: '查看', icon: 'eye' }
+                    - '-edit'
+                    - '-delete'
                 fields:
                     - { property: 'tradeNo', label: '编号' }
                     - { property: 'subject', label: '订单名称' }
@@ -26,3 +30,15 @@ easy_admin:
                 title: '添加%%entity_label%%'
             edit:
                 title: '修改%%entity_label%%'
+            show:
+                title: '查看%%entity_label%%'
+                actions: ['-edit','-delete']
+                fields:
+                    - { property: 'tradeNo', label: '编号' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'subject', label: '订单名称' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'description', label: '订单描述' }
+                    - { property: 'goodsDetail', label: '商品详情' }
+                    - { property: 'user', label: '消费者' }
+                    - { property: 'createdAt', label: '购买时间' }

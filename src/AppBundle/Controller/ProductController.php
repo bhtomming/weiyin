@@ -130,6 +130,7 @@ class ProductController extends Controller
      * @Route("/trade/create/",name="create_trade")
      */
     public function createTradeAction(Request $request){
+
         $session = $request->getSession();
         $goods = $session->get('gwc');
         $em = $this->getDoctrine()->getManager();

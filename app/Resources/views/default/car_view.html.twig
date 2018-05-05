@@ -6,9 +6,9 @@
             <h2>{{ clothe.product.title }}</h2>
             <p>型号:{{ clothe.product.model }}</p>
             价格:<em id="item-{{ clothe.product.id }}-price">{{ clothe.product.price }}</em> <br/>
-            <div class="btn reduce" data-id="{{ clothe.product.id }}">-</div>
-            <label for="num">数量:<input class="num-{{ clothe.product.id }}" pattern="[0-9]+" type="text" size="2"  value="{{ clothe.num }}"  /> </label>
-            <div class="btn add" data-id="{{ clothe.product.id }}">+</div>
+            <button class="btn reduce" data-id="{{ clothe.product.id }}">-</button>
+            <label for="num">数量:<input class="num-{{ clothe.product.id }} number" data-id="{{ clothe.product.id }}" pattern="[0-9]+" type="text" size="2"  value="{{ clothe.num }}"  /> </label>
+            <button class="btn add" data-id="{{ clothe.product.id }}">+</button>
 
             金额:<em class="item-{{ clothe.product.id }}-sum amount" >{{ clothe.amount }}</em><br/>
         {% endfor %}

@@ -14,7 +14,7 @@ easy_admin:
                 fields:
                     - { property: 'username', label: '用户名' }
                     - { property: 'email', label: '邮箱' }
-                    - { property: 'plainPassword', label: '密码', type: 'password' }
+                    - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'} } }
                     - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_SUPER_ADMIN'  }}
             new:
                 title: '添加%%entity_label%%'

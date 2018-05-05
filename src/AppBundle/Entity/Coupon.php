@@ -255,5 +255,10 @@ class Coupon
         $this->setCreatedAt(new \DateTime('now'));
         $this->setStatus(1);
     }
+
+    public function __toString()
+    {
+        return $this->couponNo;
+    }
 }
 

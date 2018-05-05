@@ -11,6 +11,7 @@ parameters:
     locale: zh_CN
     app.path.product_images: /uploads/images/products
     app.path.swipper_images: /uploads/images/swipper
+    admin_path: '/adminabc'
 
 framework:
     #esi: ~
