@@ -51,10 +51,10 @@ class Goods
     private $description;
 
     /**
-     * @var Product[] | ArrayCollection
+     * @var SingleStrade[] | ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Product" ,cascade={"persist"})
-     * @ORM\JoinTable(name="goods_product")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\SingleStrade" ,cascade={"persist"})
+     * @ORM\JoinTable(name="goods_SingleStrade")
      * @ORM\OrderBy({"id":"ASC"})
      */
     private $goodsDetail;
@@ -94,13 +94,6 @@ class Goods
      * @ORM\Column(name="couponId", type="integer", nullable=true)
      */
     private $couponId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="number", type="integer")
-     */
-    private $number;
 
 
     /**
@@ -212,7 +205,7 @@ class Goods
     /**
      * Set goodsDetail
      *
-     * @param Product $goodsDetail
+     * @param SingleStrade $goodsDetail
      *
      * @return Goods
      */
@@ -226,7 +219,7 @@ class Goods
     /**
      * Get goodsDetail
      *
-     * @return Product[] | ArrayCollection
+     * @return SingleStrade[] | ArrayCollection
      */
     public function getGoodsDetail()
     {
@@ -343,29 +336,6 @@ class Goods
         return $this->couponId;
     }
 
-    /**
-     * Set number
-     *
-     * @param integer $number
-     *
-     * @return Goods
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return int
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
 
     public function __construct()
     {
@@ -398,4 +368,7 @@ class Goods
     {
         return $this->updatedAt;
     }
+
+
+
 }

@@ -9,10 +9,16 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\SingleStrade;
+use Doctrine\DBAL\Types\TextType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
@@ -85,9 +91,11 @@ class ProductController extends Controller
      * @Route("/shopping_car/view/",name="view_car")
      */
     public function viewCarAction(Request $request){
+
         $session = $request->getSession();
         $goods = $session->get('gwc');
-        $em = $this->getDoctrine()->getManager()->getRepository(Product::class);
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository(Product::class);
         $amount = 0;
         $msg = '';
         if(!$goods){
@@ -95,18 +103,61 @@ class ProductController extends Controller
         }else{
             foreach ($goods as $good){
                 $index = array_search($good,$goods);
-                $good['product'] = $em->find($good['id']);
+                $good['product'] = $product->find($good['id']);
                 $good['amount'] = $good['product']->getPrice() * $good['num'];
                 $amount += $good['amount'];
+                $form = $this->createFormBuilder()
+                    ->add('reduce',ButtonType::class,array(
+                        'label' => '-',
+                        'attr'=> array(
+                            'id'=>'reduce',
+                            'class' => 'btn reduce',
+                            'data-id' => $good['id'],
+                        )))
+                    ->add('number',null,array(
+                        'label' => '数量',
+                        'attr'=>array(
+                            'size'=>2,
+                            'value'=>$good['num'],
+                            'class' => 'number num-'.$good['id'],
+                            'data-id' => $good['id'],
+                        )
+                    ))
+                    ->add('add',ButtonType::class,array(
+                        'label' => '+',
+                        'attr'=> array(
+                            'id'=>'add',
+                            'class' => 'btn add',
+                            'data-id' => $good['id'],
+                        )))
+                    ->getForm();
+                ;
+                $good['form'] = $form->createView();
                 $goods[$index] = $good;
             }
-        }
 
+        }
+        $coupons = $em->getRepository(Coupon::class)->findBy([
+            'owner'=>$this->getUser()->getId(),
+            'status' => 1,
+        ]);
+        $chioces = [];
+        foreach ($coupons as $coupon ){
+            $chioces[$coupon->getCouponNo()] = $coupon->getId();
+        }
+        $form = $this->createFormBuilder()
+            ->add('use_coupons',CheckboxType::class)
+            ->add('coupons',ChoiceType::class,array(
+                'choices' =>$chioces,
+            ))
+            ->getForm()
+        ;
         //$data = $session->get('gwc');
         return $this->render('default/car_view.html.twig',[
             'clothes' => $goods,
             'total_amount' => $amount,
             'msg' => $msg,
+            'coupons' => $form->createView(),
         ]);
     }
 
@@ -137,14 +188,18 @@ class ProductController extends Controller
         $amount = 0;
         $trade = new Goods();
         $trade->setSubject('在未因购买衣服');
-        $product = $em->getRepository(Product::class);
+        $productEm = $em->getRepository(Product::class);
         foreach ($goods as $good){
             $index = array_search($good,$goods);
-            $good['product'] = $product->find($good['id']);
-            $good['amount'] = $good['product']->getPrice() * $good['num'];
+            $singleStrade = new SingleStrade();
+            $good['product'] = $product = $productEm->find($good['id']);
+            $good['amount'] = $product->getPrice() * $good['num'];
             $amount += $good['amount'];
+            $singleStrade->setProduct($product);
+            $singleStrade->setNumber($good['num']);
+            $singleStrade->setAmount($good['amount']);
             $goods[$index] = $good;
-            $trade->setGoodsDetail($good['product']);
+            $trade->setGoodsDetail($singleStrade);
         }
         $trade->setStatus(1);
         $trade->setNumber(1);
@@ -161,4 +216,5 @@ class ProductController extends Controller
             'trade' => $trade,
         ]);
     }
+
 }

@@ -6,13 +6,22 @@
             <h2>{{ clothe.product.title }}</h2>
             <p>型号:{{ clothe.product.model }}</p>
             价格:<em id="item-{{ clothe.product.id }}-price">{{ clothe.product.price }}</em> <br/>
-            <button class="btn reduce" data-id="{{ clothe.product.id }}">-</button>
-            <label for="num">数量:<input class="num-{{ clothe.product.id }} number" data-id="{{ clothe.product.id }}" pattern="[0-9]+" type="text" size="2"  value="{{ clothe.num }}"  /> </label>
-            <button class="btn add" data-id="{{ clothe.product.id }}">+</button>
-
+            {{ include('default/goods_number.html.twig') }}
             金额:<em class="item-{{ clothe.product.id }}-sum amount" >{{ clothe.amount }}</em><br/>
         {% endfor %}
         总金额:<em id="total_amount">{{ total_amount }}</em> <br/>
+        {% if coupons %}
+            {{ form_start(coupons) }}
+            {{ form_widget(coupons) }}
+            {{ form_end(coupons) }}
+           {# 使用优惠券<input type="checkbox" name="use_coupon" />
+            <select>
+                {% for coupon in coupons %}
+                <option value="{{ coupon.id }}">{{ coupon.couponNo }}</option>
+                {% endfor %}
+            </select>#}
+        {% endif %}
+
         <a class="btn btn-warning" href="{{ path('create_trade') }}">结算</a>
     {% endif %}
 {% endblock %}

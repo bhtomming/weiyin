@@ -1,1 +1,10 @@
-{{ dump(value) }}
+{% for strade in value.owner.goodsDetail %}
+    {% set product = strade.product %}
+    <div class="panel-body">
+    衣服{{ product.title }}
+    单价{{ product.price }}
+    描述{{ product.description | raw }}
+    数量{{ strade.number }}
+    金额{{ strade.amount }}
+    </div>
+{% endfor %}

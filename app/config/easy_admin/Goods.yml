@@ -9,7 +9,7 @@ easy_admin:
                     - { property: 'subject', label: '订单名称' }
                     - { property: 'totalAmount', label: '总金额' }
                     - { property: 'number', label: '购买数量' }
-                    - { property: 'couponId', label: '优惠券',type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Coupon' } }
+                    - { property: 'couponId', label: '优惠券', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Coupon' } }
                     - { property: 'description', label: '订单描述' }
                     - { property: 'goodsDetail', label: '商品详情', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Product' } }
             list:
@@ -39,6 +39,6 @@ easy_admin:
                     - { property: 'subject', label: '订单名称' }
                     - { property: 'totalAmount', label: '总金额' }
                     - { property: 'description', label: '订单描述' }
-                    - { property: 'goodsDetail', label: '商品详情' }
+                    - { property: 'goodsDetail', label: '商品详情', template: 'default/good_details.html.twig' }
                     - { property: 'user', label: '消费者' }
                     - { property: 'createdAt', label: '购买时间' }
