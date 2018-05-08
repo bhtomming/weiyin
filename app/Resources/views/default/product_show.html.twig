@@ -8,9 +8,7 @@
             <div class="card-body">
                 衣服型号:{{ product.model }}<br/>
                 价格:{{ product.price }}<br/>
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
+                {{ include('default/goods_number.html.twig') }}
                 <div id="add-car" class="btn btn-danger" data-id="{{ product.id }}">添加到购物车</div>
                 <a class="btn btn-success" href="{{ path('view_car') }}">查看购物车</a>
                 <br/>
@@ -22,5 +20,5 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/app/js/shopping_car.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/mody_car.js') }}"></script>
 {% endblock %}

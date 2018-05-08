@@ -13,17 +13,17 @@ use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\SingleStrade;
-use Doctrine\DBAL\Types\TextType;
+use AppBundle\Form\Type\NumberType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
@@ -42,12 +42,13 @@ class ProductController extends Controller
      * @Route("/product/{id}", name="product_show")
      */
     public function showAction(Product $product){
-        $form = $this->createFormBuilder()
-            ->add('num',IntegerType::class,array(
-                'label'=>'数量:',
-                'data'=>1,
-            ))
-            ->getForm();
+        $form = $this->createForm(NumberType::class,null,array(
+            'attr'=>array(
+                'value' => 1,
+                'data-id' => $product->getId(),
+            ),
+            'class' => 'num-'.$product->getId(),
+        ));
         return $this->render('default/product_show.html.twig',[
             'product'=>$product,
             'form'=> $form->createView(),
@@ -93,6 +94,7 @@ class ProductController extends Controller
     public function viewCarAction(Request $request){
 
         $session = $request->getSession();
+        //$session->remove('gwc');
         $goods = $session->get('gwc');
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository(Product::class);
@@ -106,58 +108,63 @@ class ProductController extends Controller
                 $good['product'] = $product->find($good['id']);
                 $good['amount'] = $good['product']->getPrice() * $good['num'];
                 $amount += $good['amount'];
-                $form = $this->createFormBuilder()
-                    ->add('reduce',ButtonType::class,array(
-                        'label' => '-',
-                        'attr'=> array(
-                            'id'=>'reduce',
-                            'class' => 'btn reduce',
-                            'data-id' => $good['id'],
-                        )))
-                    ->add('number',null,array(
-                        'label' => '数量',
-                        'attr'=>array(
-                            'size'=>2,
-                            'value'=>$good['num'],
-                            'class' => 'number num-'.$good['id'],
-                            'data-id' => $good['id'],
-                        )
-                    ))
-                    ->add('add',ButtonType::class,array(
-                        'label' => '+',
-                        'attr'=> array(
-                            'id'=>'add',
-                            'class' => 'btn add',
-                            'data-id' => $good['id'],
-                        )))
-                    ->getForm();
+                $form = $this->createForm(NumberType::class,null,array(
+                    'attr'=>array(
+                        'value' => $good['num'],
+                        'data-id' => $good['id'],
+                    ),
+                    'class' => 'num-'.$good['id'],
+                ))
                 ;
                 $good['form'] = $form->createView();
                 $goods[$index] = $good;
             }
 
         }
-        $coupons = $em->getRepository(Coupon::class)->findBy([
-            'owner'=>$this->getUser()->getId(),
-            'status' => 1,
-        ]);
-        $chioces = [];
-        foreach ($coupons as $coupon ){
-            $chioces[$coupon->getCouponNo()] = $coupon->getId();
-        }
+        $coupons = '';
         $form = $this->createFormBuilder()
-            ->add('use_coupons',CheckboxType::class)
-            ->add('coupons',ChoiceType::class,array(
-                'choices' =>$chioces,
-            ))
-            ->getForm()
-        ;
-        //$data = $session->get('gwc');
+            ->add('submit',SubmitType::class,array(
+                'label'=>'结算',
+                'attr' => array(
+                    'class' => 'btn btn-warning'
+                ),
+            ))->getForm();
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $coupons = $em->getRepository(Coupon::class)->findBy([
+                'owner'=>$this->getUser()->getId(),
+                'status' => Coupon::UNUSE,
+            ]);
+            $chioces = [];
+            if(!empty($coupons)){
+                foreach ($coupons as $coupon ){
+                    $chioces[$coupon->getCouponNo()] = $coupon->getId();
+                }
+                $form->add('use_coupons',CheckboxType::class,array(
+                    'label'=>'使用优惠券',
+                    'required' => false,
+                ))
+                    ->add('coupons',ChoiceType::class,array(
+                        'label' => '优惠券',
+                        'choices' =>$chioces,
+                    ));
+            }
+
+        }
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            $couponId = '';
+            if(!empty($data) && $data['use_coupons']){
+                $couponId = $data['coupons'];
+            }
+            return $this->redirectToRoute('create_trade',array('couponId'=>$couponId));
+        }
+
         return $this->render('default/car_view.html.twig',[
             'clothes' => $goods,
             'total_amount' => $amount,
             'msg' => $msg,
-            'coupons' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -178,9 +185,9 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/trade/create/",name="create_trade")
+     * @Route("/trade/create/{couponId}",name="create_trade",defaults={"couponId":null})
      */
-    public function createTradeAction(Request $request){
+    public function createTradeAction($couponId,Request $request){
 
         $session = $request->getSession();
         $goods = $session->get('gwc');
@@ -189,20 +196,32 @@ class ProductController extends Controller
         $trade = new Goods();
         $trade->setSubject('在未因购买衣服');
         $productEm = $em->getRepository(Product::class);
+        $couponEm = $em->getRepository(Coupon::class);
+
         foreach ($goods as $good){
             $index = array_search($good,$goods);
             $singleStrade = new SingleStrade();
             $good['product'] = $product = $productEm->find($good['id']);
             $good['amount'] = $product->getPrice() * $good['num'];
             $amount += $good['amount'];
+            $product->setSales($product->getSales() + 1);
             $singleStrade->setProduct($product);
             $singleStrade->setNumber($good['num']);
             $singleStrade->setAmount($good['amount']);
             $goods[$index] = $good;
             $trade->setGoodsDetail($singleStrade);
         }
-        $trade->setStatus(1);
-        $trade->setNumber(1);
+        if(null != $couponId){
+            $coupon = $couponEm->find($couponId);
+            $amount -= $coupon->getAmount();
+            if($amount <= 0){
+                $amount = 0;
+            }
+            $coupon->setStatus(Coupon::USED);
+            $em->persist($coupon);
+            $em->flush();
+        }
+        $trade->setStatus(Goods::UNPAID);
         $trade->setUser($this->getUser());
         $trade->setTotalAmount($amount);
         $em->persist($trade);

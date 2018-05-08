@@ -2,27 +2,28 @@
 {% block body %}
     {{ msg ? msg }}
     {% if clothes %}
+        <ul>
         {% for clothe in clothes %}
-            <h2>{{ clothe.product.title }}</h2>
-            <p>型号:{{ clothe.product.model }}</p>
-            价格:<em id="item-{{ clothe.product.id }}-price">{{ clothe.product.price }}</em> <br/>
-            {{ include('default/goods_number.html.twig') }}
-            金额:<em class="item-{{ clothe.product.id }}-sum amount" >{{ clothe.amount }}</em><br/>
+            <li>
+                <h2>{{ clothe.product.title }}</h2>
+                <p>型号:{{ clothe.product.model }}</p>
+                价格:<em id="item-{{ clothe.product.id }}-price">{{ clothe.product.price }}</em> <br/>
+                {{ include('default/goods_number.html.twig',{'form': clothe.form}) }}
+                金额:<em class="item-{{ clothe.product.id }}-sum amount" >{{ clothe.amount }}</em><br/>
+                <i class="btn icon icon-trash" data-id="{{ clothe.product.id }}">删除</i>
+            </li>
         {% endfor %}
+        </ul>
         总金额:<em id="total_amount">{{ total_amount }}</em> <br/>
-        {% if coupons %}
-            {{ form_start(coupons) }}
-            {{ form_widget(coupons) }}
-            {{ form_end(coupons) }}
-           {# 使用优惠券<input type="checkbox" name="use_coupon" />
-            <select>
-                {% for coupon in coupons %}
-                <option value="{{ coupon.id }}">{{ coupon.couponNo }}</option>
-                {% endfor %}
-            </select>#}
+        {{ form_start(form) }}
+        {% if form.use_coupons is defined %}
+            {{ form_label(form.use_coupons) }}
+            {{ form_widget(form.use_coupons) }}
+            {{ form_label(form.coupons) }}
+            {{ form_widget(form.coupons) }}
         {% endif %}
-
-        <a class="btn btn-warning" href="{{ path('create_trade') }}">结算</a>
+        {{ form_row(form.submit) }}
+        {{ form_end(form) }}
     {% endif %}
 {% endblock %}
 {% block javascripts %}

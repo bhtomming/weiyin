@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Goods
 {
+    const UNPAID = 0;
+    const PAID = 1;
+    const UNSENT = 2;
+    const SEND_OUT = 3;
+    const RETURN_BACK = 4;
+
+
     /**
      * @var int
      *
@@ -24,7 +32,7 @@ class Goods
     /**
      * @var string
      *
-     * @ORM\Column(name="tradeNo", type="string", length=255, unique=true)
+     * @ORM\Column(name="tradeNo", type="string", length=50, unique=true)
      */
     private $tradeNo;
 
@@ -50,18 +58,29 @@ class Goods
     private $description;
 
     /**
-     * @var int
+     * @var SingleStrade[] | ArrayCollection
      *
-     * @ORM\Column(name="goodsDetail", type="integer")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\SingleStrade" ,cascade={"persist"})
+     * @ORM\JoinTable(name="goods_SingleStrade")
+     * @ORM\OrderBy({"id":"ASC"})
      */
     private $goodsDetail;
 
     /**
-     * @var int
+     * @var User
      *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn()
      */
-    private $userId;
+    private $user;
+
+    /**
+     * @var User
+     *  @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable = true)
+     *
+     */
+    private $giveTo;
 
     /**
      * @var \DateTime
@@ -90,13 +109,6 @@ class Goods
      * @ORM\Column(name="couponId", type="integer", nullable=true)
      */
     private $couponId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="number", type="integer")
-     */
-    private $number;
 
 
     /**
@@ -208,13 +220,13 @@ class Goods
     /**
      * Set goodsDetail
      *
-     * @param integer $goodsDetail
+     * @param SingleStrade $goodsDetail
      *
      * @return Goods
      */
     public function setGoodsDetail($goodsDetail)
     {
-        $this->goodsDetail = $goodsDetail;
+        $this->addGoodsDetail($goodsDetail);
 
         return $this;
     }
@@ -222,35 +234,46 @@ class Goods
     /**
      * Get goodsDetail
      *
-     * @return int
+     * @return SingleStrade[] | ArrayCollection
      */
     public function getGoodsDetail()
     {
         return $this->goodsDetail;
     }
 
+    public function addGoodsDetail($goodsDetail){
+        if(!$this->goodsDetail->contains($goodsDetail)){
+            $this->goodsDetail[] = $goodsDetail;
+        }
+
+    }
+
+    public function removeGoodsDetail($goodsDetail){
+        $this->goodsDetail->remove($goodsDetail);
+    }
+
     /**
-     * Set userId
+     * Set user
      *
-     * @param integer $userId
+     * @param User $user
      *
      * @return Goods
      */
-    public function setUserId($userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get user
      *
-     * @return int
+     * @return User
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
@@ -328,33 +351,13 @@ class Goods
         return $this->couponId;
     }
 
-    /**
-     * Set number
-     *
-     * @param integer $number
-     *
-     * @return Goods
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return int
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
 
     public function __construct()
     {
+        $this->setTradeNo('WYDD'.date('YmdHis').rand(1,9999));
         $this->setCreatedAt(new \DateTime('now'));
+        $this->goodsDetail = new ArrayCollection();
+        $this->setStatus($this::UNPAID);
     }
 
     /**
@@ -380,4 +383,7 @@ class Goods
     {
         return $this->updatedAt;
     }
+
+
+
 }

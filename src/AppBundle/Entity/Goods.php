@@ -13,6 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Goods
 {
+    const UNPAID = 0;
+    const PAID = 1;
+    const UNSENT = 2;
+    const SEND_OUT = 3;
+    const RETURN_BACK = 4;
+
+
     /**
      * @var int
      *
@@ -66,6 +73,14 @@ class Goods
      * @ORM\JoinColumn()
      */
     private $user;
+
+    /**
+     * @var User
+     *  @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable = true)
+     *
+     */
+    private $giveTo;
 
     /**
      * @var \DateTime
@@ -342,7 +357,7 @@ class Goods
         $this->setTradeNo('WYDD'.date('YmdHis').rand(1,9999));
         $this->setCreatedAt(new \DateTime('now'));
         $this->goodsDetail = new ArrayCollection();
-        $this->setStatus(1);
+        $this->setStatus($this::UNPAID);
     }
 
     /**
@@ -371,4 +386,28 @@ class Goods
 
 
 
+
+    /**
+     * Set giveTo
+     *
+     * @param \AppBundle\Entity\User $giveTo
+     *
+     * @return Goods
+     */
+    public function setGiveTo(\AppBundle\Entity\User $giveTo = null)
+    {
+        $this->giveTo = $giveTo;
+
+        return $this;
+    }
+
+    /**
+     * Get giveTo
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getGiveTo()
+    {
+        return $this->giveTo;
+    }
 }

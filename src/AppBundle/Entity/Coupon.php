@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Coupon
 {
+    const UNUSE = 1;
+    const USED = 2;
     /**
      * @var int
      *
@@ -253,7 +255,7 @@ class Coupon
     {
         $this->setCouponNo('WYYH'.date('YmdHis').rand(1,9999));
         $this->setCreatedAt(new \DateTime('now'));
-        $this->setStatus(1);
+        $this->setStatus($this::UNUSE);
     }
 
     public function __toString()

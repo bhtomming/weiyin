@@ -4,6 +4,7 @@
         订单号是:{{ data.out_trade_no }}
         支付宝交易号:{{ data.trade_no }}
         订单总金额:{{ data.total_amount }}
+        支付单号:{{ data.trade_no }}
         {#交易状态:{{ data.trade_status }}
         订单金额:{{ data.total_amount }}
         实收金额:{{ data.receipt_amount }}
@@ -11,6 +12,5 @@
         订单标题:{{ data.subject }}
         商品描述:{{ data.body }}
         优惠券信息:{{ data.voucher_detail_list }}#}
-        {{ dump(data) }}
     </pre>
 {% endblock %}
