@@ -13,17 +13,17 @@ use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\SingleStrade;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\NumberType;
+use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
@@ -60,8 +60,9 @@ class ProductController extends Controller
      */
     public function shoppingCarAction($id,$num,Request $request){
         $session = $request->getSession();
-        /*$session->remove('gwc');
-        $session->clear();*/
+        if(!preg_match('/[0-9]/',$id) || !preg_match('/[0-9]/',$num)){
+            return new JsonResponse(array('error'=>'数据不正确'));
+        }
         $good = array(
             'id'=> $id,
             'num' => $num,
@@ -122,7 +123,18 @@ class ProductController extends Controller
 
         }
         $coupons = '';
+
         $form = $this->createFormBuilder()
+            ->add('friend',null,array(
+                'label' => '朋友手机号',
+                'required' => false,
+            ))
+            ->add('check_phone',ButtonType::class,array(
+                'label' => '确定',
+                'attr' => array(
+                    'class' => 'btn btn-primary'
+                ),
+            ))
             ->add('submit',SubmitType::class,array(
                 'label'=>'结算',
                 'attr' => array(
@@ -150,14 +162,15 @@ class ProductController extends Controller
             }
 
         }
+
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
-            $couponId = '';
-            if(!empty($data) && $data['use_coupons']){
-                $couponId = $data['coupons'];
+            if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                return $this->redirectToRoute('fos_user_security_login');
             }
-            return $this->redirectToRoute('create_trade',array('couponId'=>$couponId));
+            $tradeId = $this->createTrade($data,$request);
+            return $this->redirectToRoute('view_trade',array('id'=>$tradeId));
         }
 
         return $this->render('default/car_view.html.twig',[
@@ -185,10 +198,44 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/trade/create/{couponId}",name="create_trade",defaults={"couponId":null})
+     * @Route("/trade/{id}",name="view_trade",defaults={"id":0})
      */
-    public function createTradeAction($couponId,Request $request){
+    public function createTradeAction(Goods $trade){
+        if(!$trade){
+            throw new EntityNotFoundException('没有此订单');
+        }
 
+        return $this->render('default/trade_create.html.twig',[
+            'trade' => $trade,
+        ]);
+    }
+
+    /**
+     * @Route("/friend/quire/{phone}",name="friend_quire",defaults={"phone":null})
+     */
+    public function quireFriendAction($phone){
+        $data = array(
+            'msg' => '有效会员用户',
+            'member' => false,
+        );
+        if(!preg_match("/^1[34578]{1}\d{9}$/",$phone)){
+            $data['msg'] = '无效手机号码';
+            return new JsonResponse($data);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $member = $em->getRepository(User::class)->findOneBy(array(
+            'phone' => $phone,
+        ));
+        if(empty($member)){
+            $data['msg'] = '不是会员用户';
+            return new JsonResponse($data);
+        }
+        $data['member'] = true;
+        return new JsonResponse($data);
+    }
+
+    //创建订单
+    public function createTrade(array $data, Request $request){
         $session = $request->getSession();
         $goods = $session->get('gwc');
         $em = $this->getDoctrine()->getManager();
@@ -211,8 +258,8 @@ class ProductController extends Controller
             $goods[$index] = $good;
             $trade->setGoodsDetail($singleStrade);
         }
-        if(null != $couponId){
-            $coupon = $couponEm->find($couponId);
+        if(array_key_exists('use_coupons', $data) && null != $data['coupons']){
+            $coupon = $couponEm->find($data['coupons']);
             $amount -= $coupon->getAmount();
             if($amount <= 0){
                 $amount = 0;
@@ -221,6 +268,13 @@ class ProductController extends Controller
             $em->persist($coupon);
             $em->flush();
         }
+        if(null != $data['friend'] && preg_match("/^1[34578]{1}\d{9}$/",$data['friend'])){
+            $friendEm = $em->getRepository(User::class);
+            $friend = $friendEm->findOneBy(array('phone'=>$data['friend']));
+            if (!empty($friend)){
+                $trade->setGiveTo($friend);
+            }
+        }
         $trade->setStatus(Goods::UNPAID);
         $trade->setUser($this->getUser());
         $trade->setTotalAmount($amount);
@@ -228,12 +282,7 @@ class ProductController extends Controller
         $em->flush();
 
         $session->remove('gwc');
-
-        return $this->render('default/trade_create.html.twig',[
-            'clothes' => $goods,
-            'total_amount' => $amount,
-            'trade' => $trade,
-        ]);
+        return $trade->getId();
     }
 
 }

@@ -22,11 +22,22 @@
             {{ form_label(form.coupons) }}
             {{ form_widget(form.coupons) }}
         {% endif %}
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            帮朋友购买
+        </button>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <div class="alert" id="friend-alert"></div>
+                {{ form_row(form.friend) }}
+                {{ form_row(form.check_phone) }}
+            </div>
+        </div>
         {{ form_row(form.submit) }}
         {{ form_end(form) }}
     {% endif %}
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/app/js/mody_car.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/modify_car.js') }}"></script>
 {% endblock %}

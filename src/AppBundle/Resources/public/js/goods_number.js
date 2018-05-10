@@ -21,15 +21,6 @@ $(function(){
         send();
     });
 
-    $(".icon-trash").click(function(){
-        id = $(this).attr("data-id");
-        del = confirm('你要删除该商品?');
-        if(del === true){
-            del_car(id);
-            $(this).parent().remove();
-        }
-    });
-
     number_text.change(function(){
         id = $(this).attr("data-id");
         num = $(this).val();
@@ -56,14 +47,6 @@ $(function(){
         $("#total_amount").text(total_amount);
 
         route = "/app_dev.php/shopping_car/add/"+id+"/"+num;
-        $.ajax({
-            url: route,
-            dataType: 'json'
-        });
-    }
-
-    function del_car(id){
-        route = "/app_dev.php/shopping_car/del/"+id;
         $.ajax({
             url: route,
             dataType: 'json'

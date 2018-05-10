@@ -410,4 +410,11 @@ class Goods
     {
         return $this->giveTo;
     }
+
+    public function getAddress(){
+        if($this->getGiveTo()){
+            return $this->getGiveTo()->getAddress();
+        }
+        return $this->getUser()->getAddress();
+    }
 }

@@ -12,5 +12,8 @@ easy_admin:
                 title: '添加%%entity_label%%'
             edit:
                 title: '编辑%%entity_label%%'
+                fields:
+                    - '-parentMenu'
             list:
                 title: '%%entity_label%%列表'
+                dql_filter: 'entity.parentMenu = 2'

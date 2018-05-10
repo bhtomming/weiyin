@@ -7,18 +7,25 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarMainMenuContent">
                 <ul class="navbar-nav">
-                    {% if menus %}{%- for menu in menus -%}
-                        <li class="nav-item{% if menu.submenu %} dropdown{% endif %}" >
-                            <a href="{% if menu.submenu %}#{% else %}{% if menu.0.link  %}{{ path( menu.0.link ) }}{% endif %}{% endif %}" class="nav-link {% if menu.submenu %}dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false{% endif %}">{{ menu.0.name }}</a>
-                            {% if menu.submenu %}
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    {% for smenu in menu.submenu -%}
-                                        <a class="dropdown-item" href="{{ path('product_list',{ 'category':smenu.link}) }}"  title="{{ smenu.name }}">{{ smenu.name }} </a>
-                                    {% endfor -%}
-                                </div>
-                            {%- endif -%}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('homepage') }}"> 首页</a></li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdownMenuLink" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >产品展示</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% for menu in menus.2.submenu %}
+                            <a class="dropdown-item" href="{{ path('product_list',{ 'category':menu.link}) }}"  title="{{ menu.name }}">{{ menu.name }} </a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('brand') }}"> 品牌展示</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('contact') }}"> 联系我们</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item">
+                            <a id="navbarDropdownMember" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
+                            {{ include('member/member_menu.html.twig') }}
                         </li>
-                    {%- endfor -%}{% endif -%}
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('member') }}"> 会员登录</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

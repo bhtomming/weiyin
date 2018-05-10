@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>找不到你要的页面</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %}
+
+    <p>
+        出现错误，请核对你输入的链接 <a href="{{ path('homepage') }}">返回主页</a>.
+    </p>
+{% endblock %}

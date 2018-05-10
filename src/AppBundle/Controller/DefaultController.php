@@ -70,7 +70,9 @@ class DefaultController extends Controller
     }
 
     public function getMenu(ObjectManager $em){
-        $menus = $em->getRepository(Menu::class)->findAll();
+        $menus = $em->getRepository(Menu::class)->findBy(array(
+            'parentMenu' => 2,
+        ));
         $parentMenus = [];
         foreach ($menus as $menu){
             if(null == $menu->getParentMenu()){

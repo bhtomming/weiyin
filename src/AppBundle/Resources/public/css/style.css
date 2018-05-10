@@ -14,7 +14,7 @@ body{
     color:#000;
     font-weight: bolder;
 }
-.nav-link:after{
+.nav-item:after{
     content: '';
     position: absolute;
     width: 50%;
@@ -23,9 +23,9 @@ body{
     top:2.5rem;
 }
 .nav-item .active{
-    color: #ff6700;
+    color: #ff6700 !important;
 }
-.nav-item .active::after{
+.nav-item:hover:after{
     background: #ff6700;
 }
 #footer{
