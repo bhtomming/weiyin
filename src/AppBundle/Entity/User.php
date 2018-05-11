@@ -32,7 +32,7 @@ class User extends FOSUser
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=11, nullable=true)
+     * @ORM\Column(name="phone", type="string", length=11, unique=true)
      */
     private $phone;
 
@@ -42,6 +42,7 @@ class User extends FOSUser
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
+
 
     /**
      * Set sex
@@ -129,5 +130,6 @@ class User extends FOSUser
 
         return implode(',',$roles);
     }
+
 }
 

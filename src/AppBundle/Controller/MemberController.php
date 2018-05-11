@@ -34,12 +34,27 @@ class MemberController extends Controller
         if($this->getUser() != $member){
             return $this->render('member/alc.html.twig');
         }
-        $em = $this->getDoctrine()->getManager();
-        $trades = $em->getRepository(Goods::class)->findBy(array('user'=>$member->getId()));
         return $this->render('member/index.html.twig',array(
             'member' => $member,
-            'trades' => $trades,
         ));
+    }
+
+    /**
+     * @Route("/trade/list", name="trade_list")
+     */
+    public function tradeListAction(){
+        $em = $this->getDoctrine()->getManager();
+        $trades = $em->getRepository(Goods::class)->findBy(array('user'=>$this->getUser()->getId()));
+        return $this->render('member/trade_list.html.twig',[
+            'trades' => $trades
+            ]);
+    }
+
+    /**
+     * @Route("/register", name="register")
+     */
+    public function registerAction(){
+        $user = $this->get('fos_user.user_manager')->createUser();
     }
 
 }

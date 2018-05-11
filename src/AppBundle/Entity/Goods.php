@@ -15,9 +15,8 @@ class Goods
 {
     const UNPAID = 0;
     const PAID = 1;
-    const UNSENT = 2;
-    const SEND_OUT = 3;
-    const RETURN_BACK = 4;
+    const SEND_OUT = 2;
+    const RETURN_BACK = 3;
 
 
     /**

@@ -12,7 +12,12 @@ easy_admin:
             - {entity: 'Menu', label: '网站菜单'}
             - {entity: 'Product', label: '服装管理'}
             - {entity: 'Category', label: '分类管理'}
-            - {entity: 'Goods', label: '订单管理'}
+            - label: '订单管理'
+              children:
+                - {entity: 'Goods', label: '已付款订单'}
+                - {entity: 'UnPayTrade', label: '未付款订单'}
+                - {entity: 'SendOutTrade', label: '已发货订单'}
+                - {entity: 'RetrunBackTrade', label: '退款订单'}
             - {entity: 'Coupon', label: '礼券管理'}
             - {entity: 'Company', label: '品牌信息'}
             - {entity: 'Contact', label: '联系信息'}

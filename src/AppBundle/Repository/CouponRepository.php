@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+
 /**
  * CouponRepository
  *
@@ -10,4 +11,26 @@ namespace AppBundle\Repository;
  */
 class CouponRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findCanUse($id){
+        $query = $this->createQueryBuilder('c')
+            ->where('c.owner = :id' )
+            ->andWhere('c.status = :unuse')
+            ->andWhere('c.expiredAt >= :time')
+            ->setParameters(['id' => $id, 'unuse'=> 1, 'time'=> new \DateTime()])
+            ->getQuery()
+        ;
+        return $query->getResult();
+    }
+
+    public function findChoices($id){
+        $coupons = $this->findCanUse($id);
+        $chioces = [];
+        if(!empty($coupons)) {
+            foreach ($coupons as $coupon) {
+                $chioces[$coupon->getCouponNo()] = $coupon->getId();
+            }
+        }
+        return $chioces;
+    }
+
 }

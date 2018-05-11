@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<ul>
+    {% for trade in trades %}
+        <li class=""><a href="{{ path('view_trade',{'id': trade.id}) }}" >{{ trade.tradeNo }}</a></li>
+        <li class="">{{ trade.createdAt |date('Y年m月d日') }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

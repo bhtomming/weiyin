@@ -84,6 +84,11 @@ fos_user:
         sender_name: "%mailer_user%"
     service:
         mailer: fos_user.mailer.twig_swift
+    registration:
+        form:
+            type: AppBundle\Form\Type\RegistrationFormType
+            name: app_user_registration
+            validation_groups:  [Registration]
 
 vich_uploader:
     db_driver: orm
@@ -94,5 +99,6 @@ vich_uploader:
         swipper_images:
             uri_prefix:         '%app.path.swipper_images%'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/swipper'
+
 
 

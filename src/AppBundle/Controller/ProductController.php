@@ -142,15 +142,8 @@ class ProductController extends Controller
                 ),
             ))->getForm();
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $coupons = $em->getRepository(Coupon::class)->findBy([
-                'owner'=>$this->getUser()->getId(),
-                'status' => Coupon::UNUSE,
-            ]);
-            $chioces = [];
-            if(!empty($coupons)){
-                foreach ($coupons as $coupon ){
-                    $chioces[$coupon->getCouponNo()] = $coupon->getId();
-                }
+            $chioces = $em->getRepository(Coupon::class)->findChoices($this->getUser()->getId());
+            if(!empty($chioces)){
                 $form->add('use_coupons',CheckboxType::class,array(
                     'label'=>'使用优惠券',
                     'required' => false,

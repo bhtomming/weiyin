@@ -33,4 +33,9 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-
+    app.registration.form.type:
+        class: 'AppBundle\Form\Type\RegistrationFormType'
+        public: true
+        tags:
+            - { name: 'form.type', alias: 'app_user_registration'}
+        arguments: ['%fos_user.model.user.class%']
