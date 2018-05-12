@@ -18,9 +18,20 @@ class RegistrationFormType extends BaseType
         parent::buildForm($builder, $options);
         $builder->add('phone',null,array(
             'label'=> '电话',
-        ));
+        ))
+            ->remove('email')
+        ;
     }
 
+    public function getParent()
+    {
+        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'app_user_registration';
+    }
 
 
 

@@ -3,13 +3,30 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\AttributeOverrides;
+use Doctrine\ORM\Mapping\AttributeOverride;
+use Doctrine\ORM\Mapping\Column;
 use FOS\UserBundle\Model\User as FOSUser;
 
 /**
- * User
- *
+ *  User
+ * @AttributeOverrides({
+ *      @AttributeOverride(name="email",
+ *          column=@Column(
+ *              name     = "email",
+ *              nullable = true,
+ *          )
+ *      ),
+ *     @AttributeOverride(name="emailCanonical",
+ *         column=@Column(
+ *              name = "emailCanonical",
+ *              nullable = true,
+ *          )
+ *     )
+ * })
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ *
  */
 class User extends FOSUser
 {
@@ -42,6 +59,7 @@ class User extends FOSUser
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
+
 
 
     /**
@@ -130,6 +148,8 @@ class User extends FOSUser
 
         return implode(',',$roles);
     }
+
+
 
 }
 

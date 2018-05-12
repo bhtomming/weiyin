@@ -87,8 +87,7 @@ fos_user:
     registration:
         form:
             type: AppBundle\Form\Type\RegistrationFormType
-            name: app_user_registration
-            validation_groups:  [Registration]
+            validation_groups:  [Registrations]
 
 vich_uploader:
     db_driver: orm
