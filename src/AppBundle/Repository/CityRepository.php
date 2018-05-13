@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class CityRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getProvince(){
+        $query = $this->createQueryBuilder('c')
+            ->where('c.code like :code')
+            ->setParameters(['code'=>'%0000'])
+        ;
+        return $query;
+    }
 }

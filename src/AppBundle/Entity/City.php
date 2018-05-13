@@ -93,5 +93,13 @@ class City
     {
         return $this->code;
     }
+
+
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 }
 

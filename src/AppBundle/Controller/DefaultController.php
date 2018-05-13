@@ -9,6 +9,7 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Region;
 use AppBundle\Entity\Settings;
 use AppBundle\Entity\Swipper;
+use AppBundle\Form\Type\AddressType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,19 +27,16 @@ class DefaultController extends Controller
         $region = $this->getRegion($em);
         $swipers = $this->getSwiper($em);
         $products = $this->getProduct($em);
-        $finder = new Finder();
-        $finder->files()->in(__DIR__.'/../Resources/data/city');
-        $citys = array();
-        foreach ($finder as $file){
-            $citys_str = $file->getContents();
-            $citys = json_decode($citys_str,true);
-        }
+
+        $form = $this->createForm(AddressType::class,[],array());
+
+
 
         return $this->render('default/index.html.twig', [
             'region' => $region,
             'swipers' => $swipers,
             'products' => $products,
-            'finder' => $citys,
+            'form' => $form->createView(),
         ]);
     }
 

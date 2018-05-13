@@ -11,9 +11,9 @@
     <div id="main" class="container">
         {{ products ? include('default/front_product.html.twig',{'products': products}) : '' }}
         {{ region ? region | raw : '' }}
-
-        {{ dump(finder) }}
-
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}
 
