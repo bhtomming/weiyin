@@ -12,6 +12,7 @@ use AppBundle\Entity\Swipper;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -25,10 +26,19 @@ class DefaultController extends Controller
         $region = $this->getRegion($em);
         $swipers = $this->getSwiper($em);
         $products = $this->getProduct($em);
+        $finder = new Finder();
+        $finder->files()->in(__DIR__.'/../Resources/data/city');
+        $citys = array();
+        foreach ($finder as $file){
+            $citys_str = $file->getContents();
+            $citys = json_decode($citys_str,true);
+        }
+
         return $this->render('default/index.html.twig', [
             'region' => $region,
             'swipers' => $swipers,
             'products' => $products,
+            'finder' => $citys,
         ]);
     }
 

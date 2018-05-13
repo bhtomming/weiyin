@@ -9,8 +9,11 @@
         {{ include('default/swiper.html.twig',{'swipers':swipers}) }}
     {% endif %}
     <div id="main" class="container">
-        {{ include('default/front_product.html.twig',{'products': products}) }}
-        {{ region | raw }}
+        {{ products ? include('default/front_product.html.twig',{'products': products}) : '' }}
+        {{ region ? region | raw : '' }}
+
+        {{ dump(finder) }}
+
     </div>
 {% endblock %}
 
