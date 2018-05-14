@@ -15,5 +15,62 @@
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>
+    <script>
+        var $province = $('#address_province');
+        var $city = $('#address_city');
+        var area = $('#address_area');
+        $city.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$city.attr('name')] = $city.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    console.log(html);
+                    // Replace current position field ...
+                    $('#address_area').replaceWith(
+
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('#address_area')
+                    );
+                    //$('#address_area').removeAttr('hidden');
+                    // Position field now displays the appropriate positions.
+                }
+            });
+
+        });
+
+
+        // When sport gets selected ...
+        $province.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$province.attr('name')] = $province.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                success: function(html) {
+                    // Replace current position field ...
+                    city = $('#address_city');
+                    city.html(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find('#address_city').html()
+                    );
+                    city.removeAttr('hidden');
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+    </script>
+
 {% endblock %}
 

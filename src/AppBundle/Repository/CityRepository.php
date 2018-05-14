@@ -17,4 +17,16 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
         ;
         return $query;
     }
+
+    public function getCity($code){
+        return $this->createQueryBuilder('c')
+            ->where('c.code like :code')
+            ->setParameters(['code'=>"$code%00"]);
+    }
+
+    public function getArea($code){
+        return $this->createQueryBuilder('c')
+            ->where('c.code like :code')
+            ->setParameters(['code'=>"$code%"]);
+    }
 }

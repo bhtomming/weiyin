@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Address;
 use AppBundle\Entity\Company;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\Menu;
@@ -28,8 +29,13 @@ class DefaultController extends Controller
         $swipers = $this->getSwiper($em);
         $products = $this->getProduct($em);
 
-        $form = $this->createForm(AddressType::class,[],array());
-
+        $address = new Address();
+        $form = $this->createForm(AddressType::class,$address);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // ... save the meetup, redirect etc.
+            return $this->redirectToRoute('brand');
+        }
 
 
         return $this->render('default/index.html.twig', [

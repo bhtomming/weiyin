@@ -101,5 +101,12 @@ class City
         return $this->name;
     }
 
+    public function isGovernment(){
+        if('110000' == $this->id || '310000' == $this->id || '500000' == $this->id || '120000' == $this->id){
+            return true;
+        }
+        return false;
+    }
+
 }
 

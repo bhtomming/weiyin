@@ -55,9 +55,9 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="street", type="string", length=255)
+     * @ORM\Column(name="address_street", type="string", length=255)
      */
-    private $street;
+    private $addressStreet;
 
 
     /**
@@ -101,9 +101,9 @@ class Address
      *
      * @return Address
      */
-    public function setStreet($addressStreet)
+    public function setAddressStreet($addressStreet)
     {
-        $this->street = $addressStreet;
+        $this->addressStreet = $addressStreet;
 
         return $this;
     }
@@ -113,9 +113,9 @@ class Address
      *
      * @return string
      */
-    public function getStreet()
+    public function getAddressStreet()
     {
-        return $this->street;
+        return $this->addressStreet;
     }
 
     public function getProvince(){
@@ -126,52 +126,5 @@ class Address
         $this->province = $province;
         return $this;
     }
-
-    /**
-     * Set city
-     *
-     * @param \AppBundle\Entity\City $city
-     *
-     * @return Address
-     */
-    public function setCity(\AppBundle\Entity\City $city = null)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return \AppBundle\Entity\City
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set area
-     *
-     * @param \AppBundle\Entity\City $area
-     *
-     * @return Address
-     */
-    public function setArea(\AppBundle\Entity\City $area = null)
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
-    /**
-     * Get area
-     *
-     * @return \AppBundle\Entity\City
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
 }
+
