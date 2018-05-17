@@ -127,25 +127,15 @@ class Address
         return $this;
     }
 
-    /**
-     * Set city
-     *
-     * @param \AppBundle\Entity\City $city
-     *
-     * @return Address
-     */
-    public function setCity(\AppBundle\Entity\City $city = null)
+
+    public function setCity( $city = null)
     {
         $this->city = $city;
 
         return $this;
     }
 
-    /**
-     * Get city
-     *
-     * @return \AppBundle\Entity\City
-     */
+
     public function getCity()
     {
         return $this->city;

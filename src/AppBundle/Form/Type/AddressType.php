@@ -69,7 +69,7 @@ class AddressType extends AbstractType
             $form->add('area',EntityType::class,array(
                 'class' => 'AppBundle:City',
                 'query_builder' => function(EntityRepository $er) use($code){
-                    return $er->getArea('4505');
+                    return $er->getArea($code);
                 },
                 'choice_value' => function(City $entity = null){
                     return $entity ? $entity->getCode() : '';
@@ -93,9 +93,16 @@ class AddressType extends AbstractType
             $province = $event->getForm()->getData();
             $cityModifier($event->getForm()->getParent(),$province);
         });
-        $builder->get('city')->addEventListener(FormEvents::POST_SUBMIT,function(FormEvent $event) use($areaModifier){
-            $city= $event->getForm()->getData();
-            $areaModifier($event->getForm()->getParent(),$city);
+        $builder->addEventListener(FormEvents::SUBMIT,function(FormEvent $event) use($areaModifier,$cityModifier){
+            $data = $event->getData();
+            $form = $event->getForm();
+            $city = $data->getCity();
+
+            if(!$city){
+                return;
+            }
+            $areaModifier($form,$city);
+
         });
 
     }
