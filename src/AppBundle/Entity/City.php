@@ -102,7 +102,7 @@ class City
     }
 
     public function isGovernment(){
-        if('110000' == $this->id || '310000' == $this->id || '500000' == $this->id || '120000' == $this->id){
+        if('110000' == $this->code || '310000' == $this->code || '500000' == $this->code || '120000' == $this->code){
             return true;
         }
         return false;

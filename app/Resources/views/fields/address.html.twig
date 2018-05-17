@@ -1,0 +1,44 @@
+{% block _address_widget %}
+    使用模板
+    {{ form_start(form) }}
+    {{ form_widget(form.province) }}
+    <div id="div_city">{{ form_widget(form.city) }}</div>
+    <div id="div_area">{{ form_widget(form.area) }}</div>
+    {{ form_end(form) }}
+    <script>
+        var $form = $("form[name=address]");
+        var action = $form.attr('action');
+        var method = $form.attr('method');
+        $('#address_city').change(function() {
+            var data = {};
+            data[$(this).attr('name')] = $(this).val();
+            // Submit data via AJAX to the form's action path.
+            send(data,function(html) {
+                console.log($(html).find('#address_area'));
+                $('#address_area').replaceWith(
+                    $(html).find('#address_area')
+                );
+            });
+        });
+
+        $('#address_province').change(function() {
+            var data = {};
+            data[$(this).attr('name')] = $(this).val();
+            send(data,function(html) {
+                city = $('#address_city');
+                city.html(
+                    $(html).find('#address_city').html()
+                );
+            });
+        });
+
+        function send(data,success_call){
+            $.ajax({
+                url : action,
+                type: method,
+                data : data,
+                success: success_call
+            });
+        }
+    </script>
+{% endblock %}

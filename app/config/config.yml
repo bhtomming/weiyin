@@ -43,6 +43,8 @@ twig:
     globals:
         product_image: '%app.path.product_images%'
         swiper_image: '%app.path.swipper_images%'
+    form_themes:
+        - 'fields/address.html.twig'
 
 # Doctrine Configuration
 doctrine:
