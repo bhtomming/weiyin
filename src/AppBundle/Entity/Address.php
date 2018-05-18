@@ -22,9 +22,9 @@ class Address
     private $id;
 
     /**
-     * @var int
+     * @var User
      *
-     * @ORM\Column(name="owner", type="integer")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
      */
     private $owner;
 
@@ -71,9 +71,7 @@ class Address
     }
 
     /**
-     * Set owner
-     *
-     * @param integer $owner
+     * @param User $owner
      *
      * @return Address
      */
@@ -87,7 +85,7 @@ class Address
     /**
      * Get owner
      *
-     * @return int
+     * @return User
      */
     public function getOwner()
     {
@@ -122,13 +120,20 @@ class Address
         return $this->province;
     }
 
-    public function setProvince($province){
+    /**
+     * @param City $province
+     * @return $this
+     */
+    public function setProvince($province = null){
         $this->province = $province;
         return $this;
     }
 
-
-    public function setCity( $city = null)
+    /**
+     * @param City $city
+     * @return $this
+     */
+    public function setCity($city = null)
     {
         $this->city = $city;
 
@@ -141,27 +146,27 @@ class Address
         return $this->city;
     }
 
+
     /**
-     * Set area
-     *
-     * @param \AppBundle\Entity\City $area
-     *
-     * @return Address
+     * @param City $area
+     * @return $this
      */
-    public function setArea(\AppBundle\Entity\City $area = null)
+    public function setArea($area = null)
     {
         $this->area = $area;
 
         return $this;
     }
 
-    /**
-     * Get area
-     *
-     * @return \AppBundle\Entity\City
-     */
+
     public function getArea()
     {
         return $this->area;
+    }
+
+    public function __toString()
+    {
+        $addr = null === $this->province ? ' ': $this->province->getName().$this->city->getName().$this->area->getName().$this->street;
+        return $addr;
     }
 }

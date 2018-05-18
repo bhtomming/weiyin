@@ -19,14 +19,53 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function getCity($code){
-        return $this->createQueryBuilder('c')
-            ->where('c.code like :code')
-            ->setParameters(['code'=>"$code%00"]);
+        if(null == $code){
+            return null;
+        }
+        $query = $this->createQueryBuilder('c');
+        if($this->isGovernment($code)){
+            $query->where('c.code = :code')
+                ->setParameters([
+                    'code'=>$code."0000",
+                ]);
+        }else{
+            $query->where('c.code like :code')
+                ->andWhere('c.code != :code2')
+                ->setParameters([
+                    'code'=>"$code%00",
+                    'code2'=>$code."0000",
+                ]);
+        }
+
+        return $query;
     }
 
     public function getArea($code){
-        return $this->createQueryBuilder('c')
-            ->where('c.code like :code')
-            ->setParameters(['code'=>"$code%"]);
+        if(null == $code){
+            return null;
+        }
+        $query = $this->createQueryBuilder('c');
+        $gmCode = substr($code,0,2);
+        if($this->isGovernment($gmCode)){
+            $query->where('c.code like :code')
+                ->setParameters([
+                    'code'=>"$gmCode%",
+                ]);
+        }else{
+            $query->where('c.code like :code')
+                ->andWhere('c.code != :code2')
+                ->setParameters([
+                    'code'=>"$code%",
+                    'code2'=>$code.'00',
+                ]);
+        }
+        return $query;
+    }
+
+    public function isGovernment($code){
+        if('11' == $code || '31' == $code || '50' == $code || '12' == $code){
+            return true;
+        }
+        return false;
     }
 }

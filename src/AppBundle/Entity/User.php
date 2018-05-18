@@ -54,9 +54,11 @@ class User extends FOSUser
     private $phone;
 
     /**
-     * @var string
+     * @var Address
      *
-     * @ORM\Column(name="address", type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
+     * @ORM\JoinTable(name="user_address")
+     * @ORM\OrderBy({"id":"ASC"}))
      */
     private $address;
 
@@ -113,7 +115,7 @@ class User extends FOSUser
     /**
      * Set address
      *
-     * @param string $address
+     * @param Address $address
      *
      * @return User
      */
@@ -127,7 +129,7 @@ class User extends FOSUser
     /**
      * Get address
      *
-     * @return string
+     * @return Address
      */
     public function getAddress()
     {

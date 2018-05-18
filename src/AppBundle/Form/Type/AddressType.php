@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -29,7 +30,7 @@ class AddressType extends AbstractType
         $builder->add('province',EntityType::class,array(
             'class' => 'AppBundle:City',
             'label' => '省份',
-            'placeholder' => '',
+            'placeholder'=>'请选择省份',
             'query_builder' => function(EntityRepository $er){
                 return $er->getProvince();
             },
@@ -40,22 +41,29 @@ class AddressType extends AbstractType
             ->add('city',EntityType::class,array(
                 'class' => 'AppBundle:City',
                 'label' => ' ',
+                'placeholder' => '请选择城市',
                 'choices' => array(),
 
             ))
             ->add('area',EntityType::class,array(
                 'class'  => 'AppBundle:City',
                 'label' => ' ',
+                'placeholder'=>'请选择区域',
                 'choices' => array(),
+
             ))
             ->add('street',TextType::class,array(
                 'label'=>'街道',
             ))
+            ->add('submit',SubmitType::class,array(
+                'label'=>'确定'
+            ))
         ;
-        $cityModifier = function (FormInterface $form, City $province = null) {
-            $code = null == $province ? '' : substr($province->getCode(),0,2);
+        $cityModifier = function (FormInterface $form,  $province = null) {
+            $code = null == $province ? '' : substr($province,0,2);
             $form->add('city',EntityType::class,array(
                 'class' => 'AppBundle:City',
+                'placeholder' => '请选择城市',
                 'query_builder' => function(EntityRepository $er) use($code){
                     return $er->getCity($code);
                 },
@@ -64,10 +72,11 @@ class AddressType extends AbstractType
                 }
             ));
         };
-        $areaModifier = function (FormInterface $form, City $city = null) {
-            $code = null == $city ? '' : substr($city->getCode(),0,4);
+        $areaModifier = function (FormInterface $form,  $city = null) {
+            $code = null == $city ? '' : substr($city,0,4);
             $form->add('area',EntityType::class,array(
                 'class' => 'AppBundle:City',
+                'placeholder'=>'请选择区域',
                 'query_builder' => function(EntityRepository $er) use($code){
                     return $er->getArea($code);
                 },
@@ -76,34 +85,22 @@ class AddressType extends AbstractType
                 },
             ));
         };
-        $builder->addEventListener(FormEvents::PRE_SET_DATA,function(FormEvent $event) use($cityModifier,$areaModifier){
+
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT,function(FormEvent $event) use($areaModifier,$cityModifier){
             $data = $event->getData();
             $form = $event->getForm();
-            $province = $data->getProvince();
-            if(!$province || null == $province){
-                return $form;
+            $province = isset($data['province']) ? $data['province'] : null;
+            $city = isset($data['city']) ? $data['city'] : null;
+            if(null != $province){
+                $cityModifier($form,$province);
             }
-            if($province->isGovernment()){
-                return $form->remove('city');
+            if(null != $city){
+                $areaModifier($form,$city);
             }
 
-            return $cityModifier($form,$province);
         });
-        $builder->get('province')->addEventListener(FormEvents::POST_SUBMIT,function(FormEvent $event) use($cityModifier){
-            $province = $event->getForm()->getData();
-            $cityModifier($event->getForm()->getParent(),$province);
-        });
-        $builder->addEventListener(FormEvents::SUBMIT,function(FormEvent $event) use($areaModifier,$cityModifier){
-            $data = $event->getData();
-            $form = $event->getForm();
-            $city = $data->getCity();
 
-            if(!$city){
-                return;
-            }
-            $areaModifier($form,$city);
-
-        });
 
     }
 

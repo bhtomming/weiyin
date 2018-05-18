@@ -33,8 +33,11 @@ class DefaultController extends Controller
         $form = $this->createForm(AddressType::class,$address);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // ... save the meetup, redirect etc.
-            return $this->redirectToRoute('brand');
+            $addr = $form->getData();
+            $addr->setOwner(2);
+            $em->persist($addr);
+            $em->flush();
+            //return $this->redirectToRoute('brand');
         }
 
 
