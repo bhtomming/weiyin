@@ -94,6 +94,150 @@ class Product
      */
     private $category;
 
+    /**
+     * @var string
+     * @ORM\Column(name="article_number", type="string", length=50, nullable=true)
+     */
+    private $articleNumber;
+
+    /**
+     * @var string
+     * @ORM\Column(name="market_time", type="datetime")
+     */
+    private $marketTime;
+
+    /**
+     * @var string
+     * @ORM\Column(name="style", type="string", length=100, nullable=true)
+     */
+    private $style;
+
+    /**
+     * @var string
+     *@ORM\Column(name="styles", type="string", length=100, nullable=true)
+     */
+    private $styles;
+
+    /**
+     * @var string
+     * @ORM\Column(name="material", type="string", length=255, nullable=true)
+     */
+    private $material;
+
+    /**
+     * @var string
+     * @ORM\Column(name="color", type="string", length=100, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pattern", type="string", length=100, nullable=true)
+     */
+    private $pattern;
+
+    /**
+     * @var string
+     * @ORM\Column(name="thick", type="string", length=50, nullable=true)
+     */
+    private $thick;
+
+    /**
+     * @var string
+     * @ORM\Column(name="craft", type="string", length=255, nullable=true)
+     */
+    private $craft;
+
+    /**
+     * @var string
+     * @ORM\Column(name="coat_length", type="string", length=50, nullable=true)
+     */
+    private $coatLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="sleeve_length", type="string", length=50, nullable=true)
+     */
+    private $sleeveLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="sleeve_style", type="string", length=100, nullable=true)
+     */
+    private $sleeveStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="collar_style", type="string", length=100, nullable=true)
+     */
+    private $collarStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="flap", type="string", length=100, nullable=true)
+     */
+    private $flap;
+
+    /**
+     * @var string
+     * @ORM\Column(name="forking", type="string", length=100, nullable=true)
+     */
+    private $forking;
+
+    /**
+     * @var string
+     * @ORM\Column(name="flap_style", type="string", length=100, nullable=true)
+     */
+    private $flapStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pants_length", type="string", length=100, nullable=true)
+     */
+    private $pantsLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="skirt_length", type="string", length=100, nullable=true)
+     */
+    private $skirtLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="skirt_style", type="string", length=100, nullable=true)
+     */
+    private $skirtStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="product_no", type="string", length=100, nullable=true)
+     */
+    private $productNo;
+
+    /**
+     * @var string
+     * @ORM\Column(name="product_type", type="string", length=100, nullable=true)
+     */
+    private $productType;
+
+    /**
+     * @var string
+     * @ORM\Column(name="cycle", type="string", length=100, nullable=true)
+     */
+    private $cycle;
+
+    /**
+     * @var float
+     * @ORM\Column(name="supply_price", type="float", nullable=true)
+     */
+    private $supplyPrice;
+
+    /**
+     * @var string
+     * @ORM\Column(name="size", type="string", length=50, nullable=true)
+     */
+    private $size;
+
 
     /**
      * Get id
@@ -367,5 +511,581 @@ class Product
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * Set articleNumber
+     *
+     * @param string $articleNumber
+     *
+     * @return Product
+     */
+    public function setArticleNumber($articleNumber)
+    {
+        $this->articleNumber = $articleNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get articleNumber
+     *
+     * @return string
+     */
+    public function getArticleNumber()
+    {
+        return $this->articleNumber;
+    }
+
+    /**
+     * Set marketTime
+     *
+     * @param \DateTime $marketTime
+     *
+     * @return Product
+     */
+    public function setMarketTime($marketTime)
+    {
+        $this->marketTime = $marketTime;
+
+        return $this;
+    }
+
+    /**
+     * Get marketTime
+     *
+     * @return \DateTime
+     */
+    public function getMarketTime()
+    {
+        return $this->marketTime;
+    }
+
+    /**
+     * Set style
+     *
+     * @param string $style
+     *
+     * @return Product
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
+    /**
+     * Get style
+     *
+     * @return string
+     */
+    public function getStyle()
+    {
+        return $this->style;
+    }
+
+    /**
+     * Set styles
+     *
+     * @param string $styles
+     *
+     * @return Product
+     */
+    public function setStyles($styles)
+    {
+        $this->styles = $styles;
+
+        return $this;
+    }
+
+    /**
+     * Get styles
+     *
+     * @return string
+     */
+    public function getStyles()
+    {
+        return $this->styles;
+    }
+
+    /**
+     * Set material
+     *
+     * @param string $material
+     *
+     * @return Product
+     */
+    public function setMaterial($material)
+    {
+        $this->material = $material;
+
+        return $this;
+    }
+
+    /**
+     * Get material
+     *
+     * @return string
+     */
+    public function getMaterial()
+    {
+        return $this->material;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Product
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set pattern
+     *
+     * @param string $pattern
+     *
+     * @return Product
+     */
+    public function setPattern($pattern)
+    {
+        $this->pattern = $pattern;
+
+        return $this;
+    }
+
+    /**
+     * Get pattern
+     *
+     * @return string
+     */
+    public function getPattern()
+    {
+        return $this->pattern;
+    }
+
+    /**
+     * Set thick
+     *
+     * @param string $thick
+     *
+     * @return Product
+     */
+    public function setThick($thick)
+    {
+        $this->thick = $thick;
+
+        return $this;
+    }
+
+    /**
+     * Get thick
+     *
+     * @return string
+     */
+    public function getThick()
+    {
+        return $this->thick;
+    }
+
+    /**
+     * Set craft
+     *
+     * @param string $craft
+     *
+     * @return Product
+     */
+    public function setCraft($craft)
+    {
+        $this->craft = $craft;
+
+        return $this;
+    }
+
+    /**
+     * Get craft
+     *
+     * @return string
+     */
+    public function getCraft()
+    {
+        return $this->craft;
+    }
+
+    /**
+     * Set coatLength
+     *
+     * @param string $coatLength
+     *
+     * @return Product
+     */
+    public function setCoatLength($coatLength)
+    {
+        $this->coatLength = $coatLength;
+
+        return $this;
+    }
+
+    /**
+     * Get coatLength
+     *
+     * @return string
+     */
+    public function getCoatLength()
+    {
+        return $this->coatLength;
+    }
+
+    /**
+     * Set sleeveLength
+     *
+     * @param string $sleeveLength
+     *
+     * @return Product
+     */
+    public function setSleeveLength($sleeveLength)
+    {
+        $this->sleeveLength = $sleeveLength;
+
+        return $this;
+    }
+
+    /**
+     * Get sleeveLength
+     *
+     * @return string
+     */
+    public function getSleeveLength()
+    {
+        return $this->sleeveLength;
+    }
+
+    /**
+     * Set sleeveStyle
+     *
+     * @param string $sleeveStyle
+     *
+     * @return Product
+     */
+    public function setSleeveStyle($sleeveStyle)
+    {
+        $this->sleeveStyle = $sleeveStyle;
+
+        return $this;
+    }
+
+    /**
+     * Get sleeveStyle
+     *
+     * @return string
+     */
+    public function getSleeveStyle()
+    {
+        return $this->sleeveStyle;
+    }
+
+    /**
+     * Set collarStyle
+     *
+     * @param string $collarStyle
+     *
+     * @return Product
+     */
+    public function setCollarStyle($collarStyle)
+    {
+        $this->collarStyle = $collarStyle;
+
+        return $this;
+    }
+
+    /**
+     * Get collarStyle
+     *
+     * @return string
+     */
+    public function getCollarStyle()
+    {
+        return $this->collarStyle;
+    }
+
+    /**
+     * Set flap
+     *
+     * @param string $flap
+     *
+     * @return Product
+     */
+    public function setFlap($flap)
+    {
+        $this->flap = $flap;
+
+        return $this;
+    }
+
+    /**
+     * Get flap
+     *
+     * @return string
+     */
+    public function getFlap()
+    {
+        return $this->flap;
+    }
+
+    /**
+     * Set forking
+     *
+     * @param string $forking
+     *
+     * @return Product
+     */
+    public function setForking($forking)
+    {
+        $this->forking = $forking;
+
+        return $this;
+    }
+
+    /**
+     * Get forking
+     *
+     * @return string
+     */
+    public function getForking()
+    {
+        return $this->forking;
+    }
+
+    /**
+     * Set flapStyle
+     *
+     * @param string $flapStyle
+     *
+     * @return Product
+     */
+    public function setFlapStyle($flapStyle)
+    {
+        $this->flapStyle = $flapStyle;
+
+        return $this;
+    }
+
+    /**
+     * Get flapStyle
+     *
+     * @return string
+     */
+    public function getFlapStyle()
+    {
+        return $this->flapStyle;
+    }
+
+    /**
+     * Set pantsLength
+     *
+     * @param string $pantsLength
+     *
+     * @return Product
+     */
+    public function setPantsLength($pantsLength)
+    {
+        $this->pantsLength = $pantsLength;
+
+        return $this;
+    }
+
+    /**
+     * Get pantsLength
+     *
+     * @return string
+     */
+    public function getPantsLength()
+    {
+        return $this->pantsLength;
+    }
+
+    /**
+     * Set skirtLength
+     *
+     * @param string $skirtLength
+     *
+     * @return Product
+     */
+    public function setSkirtLength($skirtLength)
+    {
+        $this->skirtLength = $skirtLength;
+
+        return $this;
+    }
+
+    /**
+     * Get skirtLength
+     *
+     * @return string
+     */
+    public function getSkirtLength()
+    {
+        return $this->skirtLength;
+    }
+
+    /**
+     * Set skirtStyle
+     *
+     * @param string $skirtStyle
+     *
+     * @return Product
+     */
+    public function setSkirtStyle($skirtStyle)
+    {
+        $this->skirtStyle = $skirtStyle;
+
+        return $this;
+    }
+
+    /**
+     * Get skirtStyle
+     *
+     * @return string
+     */
+    public function getSkirtStyle()
+    {
+        return $this->skirtStyle;
+    }
+
+    /**
+     * Set productNo
+     *
+     * @param string $productNo
+     *
+     * @return Product
+     */
+    public function setProductNo($productNo)
+    {
+        $this->productNo = $productNo;
+
+        return $this;
+    }
+
+    /**
+     * Get productNo
+     *
+     * @return string
+     */
+    public function getProductNo()
+    {
+        return $this->productNo;
+    }
+
+    /**
+     * Set productType
+     *
+     * @param string $productType
+     *
+     * @return Product
+     */
+    public function setProductType($productType)
+    {
+        $this->productType = $productType;
+
+        return $this;
+    }
+
+    /**
+     * Get productType
+     *
+     * @return string
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * Set cycle
+     *
+     * @param string $cycle
+     *
+     * @return Product
+     */
+    public function setCycle($cycle)
+    {
+        $this->cycle = $cycle;
+
+        return $this;
+    }
+
+    /**
+     * Get cycle
+     *
+     * @return string
+     */
+    public function getCycle()
+    {
+        return $this->cycle;
+    }
+
+    /**
+     * Set supplyPrice
+     *
+     * @param float $supplyPrice
+     *
+     * @return Product
+     */
+    public function setSupplyPrice($supplyPrice)
+    {
+        $this->supplyPrice = $supplyPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get supplyPrice
+     *
+     * @return float
+     */
+    public function getSupplyPrice()
+    {
+        return $this->supplyPrice;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     *
+     * @return Product
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

@@ -29,23 +29,13 @@ class DefaultController extends Controller
         $swipers = $this->getSwiper($em);
         $products = $this->getProduct($em);
 
-        $address = new Address();
-        $form = $this->createForm(AddressType::class,$address);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $addr = $form->getData();
-            $addr->setOwner(2);
-            $em->persist($addr);
-            $em->flush();
-            //return $this->redirectToRoute('brand');
-        }
+
 
 
         return $this->render('default/index.html.twig', [
             'region' => $region,
             'swipers' => $swipers,
             'products' => $products,
-            'form' => $form->createView(),
         ]);
     }
 

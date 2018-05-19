@@ -87,10 +87,156 @@ class Product
     private $isFront;
 
     /**
+     * @var Category
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      * @ORM\JoinColumn()
+     * @ORM\OrderBy({"title":"ASC"})
      */
     private $category;
+
+    /**
+     * @var string
+     * @ORM\Column(name="article_number", type="string", length=50, nullable=true)
+     */
+    private $articleNumber;
+
+    /**
+     * @var string
+     * @ORM\Column(name="market_time", type="datetime")
+     */
+    private $marketTime;
+
+    /**
+     * @var string
+     * @ORM\Column(name="style", type="string", length=100, nullable=true)
+     */
+    private $style;
+
+    /**
+     * @var string
+     *@ORM\Column(name="styles", type="string", length=100, nullable=true)
+     */
+    private $styles;
+
+    /**
+     * @var string
+     * @ORM\Column(name="material", type="string", length=255, nullable=true)
+     */
+    private $material;
+
+    /**
+     * @var string
+     * @ORM\Column(name="color", type="string", length=100, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pattern", type="string", length=100, nullable=true)
+     */
+    private $pattern;
+
+    /**
+     * @var string
+     * @ORM\Column(name="thick", type="string", length=50, nullable=true)
+     */
+    private $thick;
+
+    /**
+     * @var string
+     * @ORM\Column(name="craft", type="string", length=255, nullable=true)
+     */
+    private $craft;
+
+    /**
+     * @var string
+     * @ORM\Column(name="coat_length", type="string", length=50, nullable=true)
+     */
+    private $coatLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="sleeve_length", type="string", length=50, nullable=true)
+     */
+    private $sleeveLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="sleeve_style", type="string", length=100, nullable=true)
+     */
+    private $sleeveStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="collar_style", type="string", length=100, nullable=true)
+     */
+    private $collarStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="flap", type="string", length=100, nullable=true)
+     */
+    private $flap;
+
+    /**
+     * @var string
+     * @ORM\Column(name="forking", type="string", length=100, nullable=true)
+     */
+    private $forking;
+
+    /**
+     * @var string
+     * @ORM\Column(name="flap_style", type="string", length=100, nullable=true)
+     */
+    private $flapStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pants_length", type="string", length=100, nullable=true)
+     */
+    private $pantsLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="skirt_length", type="string", length=100, nullable=true)
+     */
+    private $skirtLength;
+
+    /**
+     * @var string
+     * @ORM\Column(name="skirt_style", type="string", length=100, nullable=true)
+     */
+    private $skirtStyle;
+
+    /**
+     * @var string
+     * @ORM\Column(name="product_no", type="string", length=100, nullable=true)
+     */
+    private $productNo;
+
+    /**
+     * @var string
+     * @ORM\Column(name="product_type", type="string", length=100, nullable=true)
+     */
+    private $productType;
+
+    /**
+     * @var string
+     * @ORM\Column(name="cycle", type="string", length=100, nullable=true)
+     */
+    private $cycle;
+
+    /**
+     * @var float
+     * @ORM\Column(name="supply_price", type="float", nullable=true)
+     */
+    private $supplyPrice;
+
+    /**
+     * @var string
+     * @ORM\Column(name="size", type="string", length=50, nullable=true)
+     */
+    private $size;
 
 
     /**
@@ -336,5 +482,34 @@ class Product
     public function getIsFront()
     {
         return $this->isFront;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
