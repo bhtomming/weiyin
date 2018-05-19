@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\AttributeOverrides;
 use Doctrine\ORM\Mapping\AttributeOverride;
@@ -56,9 +57,7 @@ class User extends FOSUser
     /**
      * @var Address
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
-     * @ORM\JoinTable(name="user_address")
-     * @ORM\OrderBy({"id":"ASC"}))
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
      */
     private $address;
 
@@ -136,6 +135,7 @@ class User extends FOSUser
         return $this->address;
     }
 
+
     public function setRole($roles)
     {
         if(!is_array($roles)){
@@ -151,7 +151,48 @@ class User extends FOSUser
         return implode(',',$roles);
     }
 
+    public function getProvince(){
+        if(!$this->address){
+            return null;
+        }
+        return $this->address->getProvince();
+    }
 
+    public function setProvince($province){
+        $this->address->setProvince($province);
+    }
+
+    public function getCity(){
+        if(!$this->address){
+            return null;
+        }
+        return $this->address->getCity();
+    }
+
+    public function setCity($city){
+        $this->address->setCity($city);
+    }
+
+    public function getArea(){
+        if(!$this->address){
+            return null;
+        }
+        return $this->address->getArea();
+    }
+
+    public function setArea($area){
+        $this->address->setArea($area);
+    }
+    public function getStreet(){
+        if(!$this->address){
+            return null;
+        }
+        return $this->address->getStreet();
+    }
+
+    public function setStreet($street){
+        $this->address->setStreet($street);
+    }
 
 }
 

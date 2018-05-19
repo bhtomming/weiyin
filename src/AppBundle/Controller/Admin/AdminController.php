@@ -13,7 +13,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminContr
 class AdminController extends BaseAdminController
 {
     public function createNewUserEntity(){
-
         return $this->container->get('fos_user.user_manager')->createUser();
     }
 

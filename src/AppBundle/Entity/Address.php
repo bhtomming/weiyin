@@ -22,13 +22,6 @@ class Address
     private $id;
 
     /**
-     * @var User
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User")
-     */
-    private $owner;
-
-    /**
      *@var City
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
@@ -68,28 +61,6 @@ class Address
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param User $owner
-     *
-     * @return Address
-     */
-    public function setOwner($owner)
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
-    /**
-     * Get owner
-     *
-     * @return User
-     */
-    public function getOwner()
-    {
-        return $this->owner;
     }
 
     /**
@@ -166,7 +137,10 @@ class Address
 
     public function __toString()
     {
-        $addr = null === $this->province ? ' ': $this->province->getName().$this->city->getName().$this->area->getName().$this->street;
+        $addr = ' ';
+        if(null != $this->province && null != $this->city && null != $this->area){
+            $addr = $this->province->getName().$this->city->getName().$this->area->getName().$this->street;
+        }
         return $addr;
     }
 }

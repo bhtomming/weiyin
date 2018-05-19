@@ -10,6 +10,8 @@ namespace AppBundle\Form\Type;
 
 
 use AppBundle\Entity\City;
+use AppBundle\Form\DataTransFormer\CityToAddressTransFormer;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -25,11 +27,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddressType extends AbstractType
 {
+    protected $manager;
+    public function __construct(ObjectManager $manager){
+        $this->manager = $manager;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('province',EntityType::class,array(
             'class' => 'AppBundle:City',
-            'label' => '省份',
+            'label' => ' ',
             'placeholder'=>'请选择省份',
             'query_builder' => function(EntityRepository $er){
                 return $er->getProvince();
@@ -42,22 +49,24 @@ class AddressType extends AbstractType
                 'class' => 'AppBundle:City',
                 'label' => ' ',
                 'placeholder' => '请选择城市',
-                'choices' => array(),
-
+                'choice_value' => function(City $entity = null){
+                    return $entity ? $entity->getCode() : '';
+                }
             ))
             ->add('area',EntityType::class,array(
                 'class'  => 'AppBundle:City',
                 'label' => ' ',
                 'placeholder'=>'请选择区域',
-                'choices' => array(),
-
+                'choice_value' => function(City $entity = null){
+                    return $entity ? $entity->getCode() : '';
+                }
             ))
             ->add('street',TextType::class,array(
                 'label'=>'街道',
             ))
-            ->add('submit',SubmitType::class,array(
+            /*->add('submit',SubmitType::class,array(
                 'label'=>'确定'
-            ))
+            ))*/
         ;
         $cityModifier = function (FormInterface $form,  $province = null) {
             $code = null == $province ? '' : substr($province,0,2);
@@ -100,7 +109,7 @@ class AddressType extends AbstractType
             }
 
         });
-
+        $builder->addModelTransformer(new CityToAddressTransFormer($this->manager), true);
 
     }
 
