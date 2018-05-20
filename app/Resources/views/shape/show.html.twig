@@ -1,0 +1,264 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Shape</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ shape.id }}</td>
+            </tr>
+            <tr>
+                <th>Neckaround</th>
+                <td>{{ shape.neckAround }}</td>
+            </tr>
+            <tr>
+                <th>Neckroot</th>
+                <td>{{ shape.neckRoot }}</td>
+            </tr>
+            <tr>
+                <th>Shoulderlength</th>
+                <td>{{ shape.shoulderLength }}</td>
+            </tr>
+            <tr>
+                <th>Preshoulderwidth</th>
+                <td>{{ shape.preShoulderWidth }}</td>
+            </tr>
+            <tr>
+                <th>Backschoulderwidth</th>
+                <td>{{ shape.backSchoulderWidth }}</td>
+            </tr>
+            <tr>
+                <th>Shoulderwidth</th>
+                <td>{{ shape.shoulderWidth }}</td>
+            </tr>
+            <tr>
+                <th>Chestmiddle</th>
+                <td>{{ shape.chestMiddle }}</td>
+            </tr>
+            <tr>
+                <th>Chestlower</th>
+                <td>{{ shape.chestLower }}</td>
+            </tr>
+            <tr>
+                <th>Breaswidth</th>
+                <td>{{ shape.breasWidth }}</td>
+            </tr>
+            <tr>
+                <th>Chestwidth</th>
+                <td>{{ shape.chestWidth }}</td>
+            </tr>
+            <tr>
+                <th>Armroot</th>
+                <td>{{ shape.armRoot }}</td>
+            </tr>
+            <tr>
+                <th>Armup</th>
+                <td>{{ shape.armUp }}</td>
+            </tr>
+            <tr>
+                <th>Armmiddle</th>
+                <td>{{ shape.armMiddle }}</td>
+            </tr>
+            <tr>
+                <th>Armlower</th>
+                <td>{{ shape.armLower }}</td>
+            </tr>
+            <tr>
+                <th>Trunk</th>
+                <td>{{ shape.trunk }}</td>
+            </tr>
+            <tr>
+                <th>Armpit</th>
+                <td>{{ shape.armpit }}</td>
+            </tr>
+            <tr>
+                <th>Waistlength</th>
+                <td>{{ shape.waistLength }}</td>
+            </tr>
+            <tr>
+                <th>Necktobreast</th>
+                <td>{{ shape.neckToBreast }}</td>
+            </tr>
+            <tr>
+                <th>Necktowaist</th>
+                <td>{{ shape.neckToWaist }}</td>
+            </tr>
+            <tr>
+                <th>Shouldertobreast</th>
+                <td>{{ shape.shoulderToBreast }}</td>
+            </tr>
+            <tr>
+                <th>Waistprelength</th>
+                <td>{{ shape.waistPreLength }}</td>
+            </tr>
+            <tr>
+                <th>Chestheight</th>
+                <td>{{ shape.chestHeight }}</td>
+            </tr>
+            <tr>
+                <th>Armlength</th>
+                <td>{{ shape.armLength }}</td>
+            </tr>
+            <tr>
+                <th>Armuplength</th>
+                <td>{{ shape.armUpLength }}</td>
+            </tr>
+            <tr>
+                <th>Armlowerlength</th>
+                <td>{{ shape.armLowerLength }}</td>
+            </tr>
+            <tr>
+                <th>Necktowrist</th>
+                <td>{{ shape.neckToWrist }}</td>
+            </tr>
+            <tr>
+                <th>Prewaistjoint</th>
+                <td>{{ shape.preWaistJoint }}</td>
+            </tr>
+            <tr>
+                <th>Backwaistjoint</th>
+                <td>{{ shape.backWaistJoint }}</td>
+            </tr>
+            <tr>
+                <th>Sittoneck</th>
+                <td>{{ shape.sitToNeck }}</td>
+            </tr>
+            <tr>
+                <th>Humpback</th>
+                <td>{% if shape.humpback %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Shoulderslash</th>
+                <td>{% if shape.shoulderSlash %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Waist</th>
+                <td>{{ shape.waist }}</td>
+            </tr>
+            <tr>
+                <th>Abdomen</th>
+                <td>{{ shape.abdomen }}</td>
+            </tr>
+            <tr>
+                <th>Hipline</th>
+                <td>{{ shape.hipline }}</td>
+            </tr>
+            <tr>
+                <th>Necktolap</th>
+                <td>{{ shape.neckToLap }}</td>
+            </tr>
+            <tr>
+                <th>Necktoknee</th>
+                <td>{{ shape.neckToKnee }}</td>
+            </tr>
+            <tr>
+                <th>Neckheight</th>
+                <td>{{ shape.neckHeight }}</td>
+            </tr>
+            <tr>
+                <th>Waistheight</th>
+                <td>{{ shape.waistHeight }}</td>
+            </tr>
+            <tr>
+                <th>Crotch</th>
+                <td>{{ shape.crotch }}</td>
+            </tr>
+            <tr>
+                <th>Waisttohipline</th>
+                <td>{{ shape.waistToHipline }}</td>
+            </tr>
+            <tr>
+                <th>Belly</th>
+                <td>{% if shape.belly %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Legroot</th>
+                <td>{{ shape.legRoot }}</td>
+            </tr>
+            <tr>
+                <th>Legmiddle</th>
+                <td>{{ shape.legMiddle }}</td>
+            </tr>
+            <tr>
+                <th>Knee</th>
+                <td>{{ shape.knee }}</td>
+            </tr>
+            <tr>
+                <th>Kneelower</th>
+                <td>{{ shape.kneeLower }}</td>
+            </tr>
+            <tr>
+                <th>Legbelly</th>
+                <td>{{ shape.legBelly }}</td>
+            </tr>
+            <tr>
+                <th>Ankleup</th>
+                <td>{{ shape.ankleUp }}</td>
+            </tr>
+            <tr>
+                <th>Ankle</th>
+                <td>{{ shape.ankle }}</td>
+            </tr>
+            <tr>
+                <th>Legoutlength</th>
+                <td>{{ shape.legOutLength }}</td>
+            </tr>
+            <tr>
+                <th>Leginlength</th>
+                <td>{{ shape.legInLength }}</td>
+            </tr>
+            <tr>
+                <th>Thigh</th>
+                <td>{{ shape.thigh }}</td>
+            </tr>
+            <tr>
+                <th>Waisttoankle</th>
+                <td>{{ shape.waistToAnkle }}</td>
+            </tr>
+            <tr>
+                <th>Hipheight</th>
+                <td>{{ shape.hipHeight }}</td>
+            </tr>
+            <tr>
+                <th>Ankleout</th>
+                <td>{{ shape.ankleOut }}</td>
+            </tr>
+            <tr>
+                <th>Perineum</th>
+                <td>{{ shape.perineum }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ shape.height }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ shape.weight }}</td>
+            </tr>
+            <tr>
+                <th>Remarks</th>
+                <td>{{ shape.remarks }}</td>
+            </tr>
+            <tr>
+                <th>Keep</th>
+                <td>{% if shape.keep %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shape_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('shape_edit', { 'id': shape.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

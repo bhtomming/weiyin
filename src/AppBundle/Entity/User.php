@@ -8,13 +8,14 @@ use Doctrine\ORM\Mapping\AttributeOverrides;
 use Doctrine\ORM\Mapping\AttributeOverride;
 use Doctrine\ORM\Mapping\Column;
 use FOS\UserBundle\Model\User as FOSUser;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  *  User
  * @AttributeOverrides({
  *      @AttributeOverride(name="email",
  *          column=@Column(
- *              name     = "email",
+ *              name = "email",
  *              nullable = true,
  *          )
  *      ),
@@ -60,6 +61,26 @@ class User extends FOSUser
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
      */
     private $address;
+
+    /**
+     * @var Date
+     * @ORM\Column(name="birthday", type="date")
+     */
+    private $birthday;
+
+    /**
+     * @var User[] | ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User",inversedBy="users",cascade={"persist"})
+     * @ORM\JoinTable(name="user_friends")
+     */
+    private $friends;
+
+    /**
+     * @var Shape[] | ArrayCollection
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Shape", cascade={"persist"})
+     * @ORM\JoinTable(name="user_shape")
+     */
+    private $shape;
 
 
 
@@ -151,47 +172,61 @@ class User extends FOSUser
         return implode(',',$roles);
     }
 
-    public function getProvince(){
-        if(!$this->address){
-            return null;
+
+
+
+    public function setBirthday(\DateTime $birthday){
+        $this->birthday = $birthday;
+        return $this;
+    }
+
+    public function getBirthday(){
+        return $this->birthday;
+    }
+
+    public function __construct(){
+        $this->friends = new ArrayCollection();
+        $this->shape = new ArrayCollection();
+        parent::__construct();
+    }
+
+    public function addFriends(User $friend){
+        if($this->shape->contains($friend)){
+            return $this;
         }
-        return $this->address->getProvince();
+        $this->friends[] = $friend;
+        return $this;
     }
 
-    public function setProvince($province){
-        $this->address->setProvince($province);
+    public function removeFriends(User $friend){
+        $this->friends->remove($friend);
+        return $this;
     }
 
-    public function getCity(){
-        if(!$this->address){
-            return null;
+    public function setFriends(User $friend){
+        $this->addFriends($friend);
+        return $this;
+    }
+
+    public function getFriends(){
+        return $this->friends;
+    }
+
+    public function addShape(Shape $shape){
+        if($this->shape->contains($shape)){
+            return $this;
         }
-        return $this->address->getCity();
+        $this->shape[] = $shape;
+        return $this;
     }
 
-    public function setCity($city){
-        $this->address->setCity($city);
+    public function setShape(Shape $shape){
+        $this->addShape($shape);
+        return $this;
     }
 
-    public function getArea(){
-        if(!$this->address){
-            return null;
-        }
-        return $this->address->getArea();
-    }
-
-    public function setArea($area){
-        $this->address->setArea($area);
-    }
-    public function getStreet(){
-        if(!$this->address){
-            return null;
-        }
-        return $this->address->getStreet();
-    }
-
-    public function setStreet($street){
-        $this->address->setStreet($street);
+    public function getShape(){
+        return $this->shape;
     }
 
 }

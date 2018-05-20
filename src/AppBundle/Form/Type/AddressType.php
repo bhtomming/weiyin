@@ -43,7 +43,7 @@ class AddressType extends AbstractType
             },
             'choice_value' => function(City $entity = null){
                 return $entity ? $entity->getCode() : '';
-            }
+            },
         ))
             ->add('city',EntityType::class,array(
                 'class' => 'AppBundle:City',
@@ -51,7 +51,7 @@ class AddressType extends AbstractType
                 'placeholder' => '请选择城市',
                 'choice_value' => function(City $entity = null){
                     return $entity ? $entity->getCode() : '';
-                }
+                },
             ))
             ->add('area',EntityType::class,array(
                 'class'  => 'AppBundle:City',
@@ -59,10 +59,13 @@ class AddressType extends AbstractType
                 'placeholder'=>'请选择区域',
                 'choice_value' => function(City $entity = null){
                     return $entity ? $entity->getCode() : '';
-                }
+                },
             ))
             ->add('street',TextType::class,array(
                 'label'=>'街道',
+                'attr'=>array(
+                    'class'=>'col-sm-3'
+                )
             ))
             /*->add('submit',SubmitType::class,array(
                 'label'=>'确定'

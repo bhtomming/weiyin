@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Shapes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Neckaround</th>
+                <th>Neckroot</th>
+                <th>Shoulderlength</th>
+                <th>Preshoulderwidth</th>
+                <th>Backschoulderwidth</th>
+                <th>Shoulderwidth</th>
+                <th>Chestmiddle</th>
+                <th>Chestlower</th>
+                <th>Breaswidth</th>
+                <th>Chestwidth</th>
+                <th>Armroot</th>
+                <th>Armup</th>
+                <th>Armmiddle</th>
+                <th>Armlower</th>
+                <th>Trunk</th>
+                <th>Armpit</th>
+                <th>Waistlength</th>
+                <th>Necktobreast</th>
+                <th>Necktowaist</th>
+                <th>Shouldertobreast</th>
+                <th>Waistprelength</th>
+                <th>Chestheight</th>
+                <th>Armlength</th>
+                <th>Armuplength</th>
+                <th>Armlowerlength</th>
+                <th>Necktowrist</th>
+                <th>Prewaistjoint</th>
+                <th>Backwaistjoint</th>
+                <th>Sittoneck</th>
+                <th>Humpback</th>
+                <th>Shoulderslash</th>
+                <th>Waist</th>
+                <th>Abdomen</th>
+                <th>Hipline</th>
+                <th>Necktolap</th>
+                <th>Necktoknee</th>
+                <th>Neckheight</th>
+                <th>Waistheight</th>
+                <th>Crotch</th>
+                <th>Waisttohipline</th>
+                <th>Belly</th>
+                <th>Legroot</th>
+                <th>Legmiddle</th>
+                <th>Knee</th>
+                <th>Kneelower</th>
+                <th>Legbelly</th>
+                <th>Ankleup</th>
+                <th>Ankle</th>
+                <th>Legoutlength</th>
+                <th>Leginlength</th>
+                <th>Thigh</th>
+                <th>Waisttoankle</th>
+                <th>Hipheight</th>
+                <th>Ankleout</th>
+                <th>Perineum</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Remarks</th>
+                <th>Keep</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shape in shapes %}
+            <tr>
+                <td><a href="{{ path('shape_show', { 'id': shape.id }) }}">{{ shape.id }}</a></td>
+                <td>{{ shape.neckAround }}</td>
+                <td>{{ shape.neckRoot }}</td>
+                <td>{{ shape.shoulderLength }}</td>
+                <td>{{ shape.preShoulderWidth }}</td>
+                <td>{{ shape.backSchoulderWidth }}</td>
+                <td>{{ shape.shoulderWidth }}</td>
+                <td>{{ shape.chestMiddle }}</td>
+                <td>{{ shape.chestLower }}</td>
+                <td>{{ shape.breasWidth }}</td>
+                <td>{{ shape.chestWidth }}</td>
+                <td>{{ shape.armRoot }}</td>
+                <td>{{ shape.armUp }}</td>
+                <td>{{ shape.armMiddle }}</td>
+                <td>{{ shape.armLower }}</td>
+                <td>{{ shape.trunk }}</td>
+                <td>{{ shape.armpit }}</td>
+                <td>{{ shape.waistLength }}</td>
+                <td>{{ shape.neckToBreast }}</td>
+                <td>{{ shape.neckToWaist }}</td>
+                <td>{{ shape.shoulderToBreast }}</td>
+                <td>{{ shape.waistPreLength }}</td>
+                <td>{{ shape.chestHeight }}</td>
+                <td>{{ shape.armLength }}</td>
+                <td>{{ shape.armUpLength }}</td>
+                <td>{{ shape.armLowerLength }}</td>
+                <td>{{ shape.neckToWrist }}</td>
+                <td>{{ shape.preWaistJoint }}</td>
+                <td>{{ shape.backWaistJoint }}</td>
+                <td>{{ shape.sitToNeck }}</td>
+                <td>{% if shape.humpback %}Yes{% else %}No{% endif %}</td>
+                <td>{% if shape.shoulderSlash %}Yes{% else %}No{% endif %}</td>
+                <td>{{ shape.waist }}</td>
+                <td>{{ shape.abdomen }}</td>
+                <td>{{ shape.hipline }}</td>
+                <td>{{ shape.neckToLap }}</td>
+                <td>{{ shape.neckToKnee }}</td>
+                <td>{{ shape.neckHeight }}</td>
+                <td>{{ shape.waistHeight }}</td>
+                <td>{{ shape.crotch }}</td>
+                <td>{{ shape.waistToHipline }}</td>
+                <td>{% if shape.belly %}Yes{% else %}No{% endif %}</td>
+                <td>{{ shape.legRoot }}</td>
+                <td>{{ shape.legMiddle }}</td>
+                <td>{{ shape.knee }}</td>
+                <td>{{ shape.kneeLower }}</td>
+                <td>{{ shape.legBelly }}</td>
+                <td>{{ shape.ankleUp }}</td>
+                <td>{{ shape.ankle }}</td>
+                <td>{{ shape.legOutLength }}</td>
+                <td>{{ shape.legInLength }}</td>
+                <td>{{ shape.thigh }}</td>
+                <td>{{ shape.waistToAnkle }}</td>
+                <td>{{ shape.hipHeight }}</td>
+                <td>{{ shape.ankleOut }}</td>
+                <td>{{ shape.perineum }}</td>
+                <td>{{ shape.height }}</td>
+                <td>{{ shape.weight }}</td>
+                <td>{{ shape.remarks }}</td>
+                <td>{% if shape.keep %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('shape_show', { 'id': shape.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('shape_edit', { 'id': shape.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shape_new') }}">Create a new shape</a>
+        </li>
+    </ul>
+{% endblock %}

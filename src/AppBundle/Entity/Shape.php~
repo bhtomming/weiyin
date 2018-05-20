@@ -436,8 +436,7 @@ class Shape
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="shape")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="shop")
      */
     private $user;
 
@@ -1867,28 +1866,5 @@ class Shape
     {
         return $this->keep;
     }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Shape
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }
+
