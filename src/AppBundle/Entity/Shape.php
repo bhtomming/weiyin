@@ -1891,4 +1891,9 @@ class Shape
     {
         return $this->user;
     }
+
+    public function __toString()
+    {
+        return '体型数据'.$this->id;
+    }
 }

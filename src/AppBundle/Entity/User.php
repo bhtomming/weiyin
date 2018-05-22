@@ -51,7 +51,7 @@ class User extends FOSUser
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=11, unique=true)
+     * @ORM\Column(name="phone", type="string", length=11, nullable=true, unique=true)
      */
     private $phone;
 
@@ -64,7 +64,7 @@ class User extends FOSUser
 
     /**
      * @var Date
-     * @ORM\Column(name="birthday", type="date")
+     * @ORM\Column(name="birthday", nullable=true, type="date")
      */
     private $birthday;
 

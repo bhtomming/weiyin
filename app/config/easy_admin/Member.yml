@@ -27,7 +27,7 @@ easy_admin:
                     - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'} ,invalid_message: '密码是必须要填写的' } }
 
                     - { type: 'tab', label: '体型数据'}
-                    - { property: 'shape', label: '添加体型数据', type: 'AppBundle\Form\Type\ShapeType'}
+                    #- { property: 'shape', label: '添加体型数据', template: 'easy_admin/fields/shape.html.twig'}
                 form_options: { validation_groups: ['Profile'] }
             new:
                 title: '添加%%entity_label%%'
@@ -36,6 +36,9 @@ easy_admin:
                 form_options: { validation_groups: ['Registration'] }
             edit:
                 title: '编辑%%entity_label%%'
+                actions:
+                    - { name: 'addShape', label: '添加体型数据'}
+                    - { name: 'showssShape', label: '查看体型数据'}
                 fields:
                     - { property: 'plainPassword', required: false }
 
