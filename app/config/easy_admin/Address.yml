@@ -1,0 +1,11 @@
+easy_admin:
+    entities:
+        Address:
+            class: 'AppBundle\Entity\Address'
+            label: '地址'
+            form:
+                fields:
+                    - { property: 'province', label: '省份',type: 'AppBundle\Form\Type\ProvinceType'}
+                    - { property: 'city', label: '市', type: 'AppBundle\Form\Type\CityType'}
+                    - { property: 'area', label: '区域', type: 'AppBundle\Form\Type\AreaType'}
+                    - { property: 'street', label: '街道', css_class: 'col-sm-3'}

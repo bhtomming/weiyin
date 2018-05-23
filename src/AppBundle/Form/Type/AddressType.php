@@ -34,20 +34,17 @@ class AddressType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('province',EntityType::class,array(
-            'class' => 'AppBundle:City',
+        /*$builder->add('province',EntityType::class,array(
+            'class' => 'AppBundle:Province',
             'label' => ' ',
             'placeholder'=>'请选择省份',
-            'query_builder' => function(EntityRepository $er){
-                return $er->getProvince();
-            },
             'choice_value' => function(City $entity = null){
                 return $entity ? $entity->getCode() : '';
             },
         ))
             ->add('city',EntityType::class,array(
                 'class' => 'AppBundle:City',
-                'label' => ' ',
+                'label' => '市',
                 'placeholder' => '请选择城市',
                 'choice_value' => function(City $entity = null){
                     return $entity ? $entity->getCode() : '';
@@ -66,12 +63,12 @@ class AddressType extends AbstractType
                 'attr'=>array(
                     'class'=>'col-sm-3'
                 )
-            ))
+            ))*/
             /*->add('submit',SubmitType::class,array(
                 'label'=>'确定'
-            ))*/
-        ;
-        $cityModifier = function (FormInterface $form,  $province = null) {
+            ))
+        ;*/
+        /*$cityModifier = function (FormInterface $form,  $province = null) {
             $code = null == $province ? '' : substr($province,0,2);
             $form->add('city',EntityType::class,array(
                 'class' => 'AppBundle:City',
@@ -111,14 +108,16 @@ class AddressType extends AbstractType
                 $areaModifier($form,$city);
             }
 
-        });
-        $builder->addModelTransformer(new CityToAddressTransFormer($this->manager), true);
+        });*/
+        //$builder->addModelTransformer(new CityToAddressTransFormer($this->manager), true);
 
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Address'
+        ));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

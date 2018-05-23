@@ -9,7 +9,9 @@
 namespace AppBundle\DataFixture;
 
 
+use AppBundle\Entity\Area;
 use AppBundle\Entity\City;
+use AppBundle\Entity\Province;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
@@ -32,10 +34,23 @@ class CityFixture extends Fixture
             $citys = json_decode($file->getContents(),true);
         }
         foreach ($citys as $code => $name){
-            $city = new City();
-            $city->setCode($code);
-            $city->setName($name);
-            $manager->persist($city);
+            if(preg_match('/^[\d]{2}0000$/',$code)){
+                $province = new Province();
+                $province->setCode($code);
+                $province->setName($name);
+                $manager->persist($province);
+            } else if(preg_match('/^[1-9]{4}00$/',$code)) {
+                $city = new City();
+                $city->setCode($code);
+                $city->setName($name);
+                $manager->persist($city);
+            }else{
+                $area = new Area();
+                $area->setCode($code);
+                $area->setName($name);
+                $manager->persist($area);
+            }
+
         }
         $manager->flush();
     }

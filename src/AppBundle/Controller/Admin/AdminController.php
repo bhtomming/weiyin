@@ -9,6 +9,7 @@
 namespace AppBundle\Controller\Admin;
 
 
+use AppBundle\Entity\Shape;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
@@ -55,8 +56,8 @@ class AdminController extends BaseAdminController
         $userId = $this->request->query->get('id');
         return $this->redirectToRoute('easyadmin',array(
             'entity'=>'Shape',
-            'action'=>'new',
             'userId' => $userId,
+            'action'=>'new',
         ));
     }
 
@@ -65,18 +66,14 @@ class AdminController extends BaseAdminController
         $user =  $this->getDoctrine()->getRepository(User::class)->find($userId);
         $shapes = $user->getShape();
         $shape = $shapes->last();
-        if(!$shape){
-            return $this->redirectToRoute('easyadmin',array(
-                'entity' => 'Shape',
-                'action' => 'new',
-                'userId' => $userId,
-            ));
+        if( !($shape instanceof Shape) ){
+            return $this->addShapeAction();
         }
         return $this->redirectToRoute('easyadmin',array(
             'entity' => 'Shape',
             'action' => 'show',
-            'id' => $shape->getId(),
             'userId' => $userId,
+            'id' => $shape->getId(),
         ));
     }
 
@@ -93,18 +90,26 @@ class AdminController extends BaseAdminController
         $user->setShape($shape);
     }
 
-    public function updateShapeEntity($shape){
-        parent::updateEntity($shape);
-        $this->backtoUserAction();
-    }
 
-    public function listShapeEntity(){
-        return $this->backtoUserAction();
-    }
-
-    public function editShapeEntity(){
-        parent::editAction();
-        $this->backtoUserAction();
+    public function editShapeAction(){
+        //parent::editAction();
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $entity = $easyadmin['item'];
+        $fields = $this->entity['edit']['fields'];
+        $form = $this->createEditForm($entity,$fields);
+        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
+        $form->handleRequest($this->request);
+        if($form->isValid() && $form->isSubmitted()){
+            $this->UpdateEntity($entity);
+            return $this->backtoUserAction();
+        }
+        return $this->render($this->entity['templates']['edit'],array(
+            'form' => $form->createView(),
+            'entity_fields' => $fields,
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     public function shapeGetUser(){
@@ -114,8 +119,10 @@ class AdminController extends BaseAdminController
 
 
     public function backtoUserAction(){
-        $id = $userId = $this->request->query->get('id');
-        if(null == $id){
+        $id =  $this->request->query->get('id');
+        if( null == $id){
+            //$referer = $this->request->query->get('referer');
+            //return $this->redirect(urldecode($referer));
             return $this->redirectToRoute('easyadmin',array(
                 'entity' => 'Member',
                 'action' => 'list',
@@ -126,6 +133,15 @@ class AdminController extends BaseAdminController
             'entity' => 'Member',
             'action' => 'edit',
             'id' => $shape->getUser()->getId(),
+        ));
+    }
+
+    public function addAddressAction(){
+        $userId = $this->request->query->get('id');
+        return $this->redirectToRoute('easyadmin',array(
+            'entity'=>'Address',
+            'userId' => $userId,
+            'action'=>'new',
         ));
     }
 

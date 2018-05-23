@@ -56,9 +56,10 @@ class User extends FOSUser
     private $phone;
 
     /**
-     * @var Address
+     * @var Address[] | ArrayCollection
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
+     * @ORM\JoinTable(name="user_address")
      */
     private $address;
 
@@ -141,7 +142,7 @@ class User extends FOSUser
      */
     public function setAddress($address)
     {
-        $this->address = $address;
+        $this->addAddress($address);
 
         return $this;
     }
@@ -149,11 +150,24 @@ class User extends FOSUser
     /**
      * Get address
      *
-     * @return Address
+     * @return Address[] | ArrayCollection
      */
     public function getAddress()
     {
         return $this->address;
+    }
+
+    public function addAddress(Address $address){
+        if($this->address->contains($address)){
+            return $this;
+        }
+        $this->address[] = $address;
+        return $this;
+    }
+
+    public function removeAddress($address){
+        $this->address->remove($address);
+        return $this;
     }
 
 
@@ -187,6 +201,7 @@ class User extends FOSUser
     public function __construct(){
         $this->friends = new ArrayCollection();
         $this->shape = new ArrayCollection();
+        $this->address = new ArrayCollection();
         parent::__construct();
     }
 

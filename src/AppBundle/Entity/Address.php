@@ -24,8 +24,8 @@ class Address
     /**
      *@var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
-     *@ORM\JoinColumn()
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Province")
+     * @ORM\JoinColumn()
      */
     private $province;
 
@@ -40,7 +40,7 @@ class Address
     /**
      *@var City
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
      * @ORM\JoinColumn()
      */
     private $area;

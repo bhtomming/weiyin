@@ -1,39 +1,54 @@
 {% block _address_widget %}
-    选择地址
+    <div class="container">
     {{ form_start(form) }}
-    {{ form_widget(form.province) }}
-    {{ form_widget(form.city) }}
-    {{ form_widget(form.area) }}
-    {{ form_label(form.street) }}
-    {{ form_widget(form.street) }}
+    <div class="row">
+        <div class="col-xs-2">
+            {{ form_widget(form.province) }}
+        </div>
+        <div class="col-xs-2">
+            {{ form_widget(form.city) }}
+        </div>
+        <div class="col-xs-2">
+            {{ form_widget(form.area) }}
+        </div>
+        <div class="col-xs-5">
+            {{ form_widget(form.street) }}
+        </div>
+    </div>
     {{ form_end(form) }}
+    </div>
     <script>
         var $form = $("form[name=address]");
         var action = $form.attr('action');
         var method = $form.attr('method');
-        $('#address_city').change(function() {
+        var citycodes;
+        var city_data = $('#address_city_city').each(function(){
+            citycodes = $('#address_city_city').val();
+        });
+        console.log(citycodes);
+        $('#address_city_city').change(function() {
             var data = {};
             data[$(this).attr('name')] = $(this).val();
             // Submit data via AJAX to the form's action path.
             send(data,function(html) {
-                $('#address_area').html(
-                    $(html).find('#address_area').html()
+                $('#address_area_area').html(
+                    $(html).find('#address_area_area').html()
                 );
             });
         });
 
-        $('#address_province').change(function() {
+        $('#address_province_province').change(function() {
             var data = {};
             data[$(this).attr('name')] = $(this).val();
             send(data,function(html) {
-                city = $('#address_city');
+                city = $('#address_city_city');
                 city.html(
-                    $(html).find('#address_city').html()
+                    $(html).find('#address_city_city').html()
                 );
             });
         });
 
-        $('#address_area').change(function() {
+        $('#address_area_area').change(function() {
             var data = {};
             data[$(this).attr('name')] = $(this).val();
             // Submit data via AJAX to the form's action path.
@@ -51,4 +66,7 @@
             });
         }
     </script>
+{% endblock %}
+{% block _city_widget %}
+    城市控件
 {% endblock %}

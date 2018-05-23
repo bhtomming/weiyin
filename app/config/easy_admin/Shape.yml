@@ -77,5 +77,6 @@ easy_admin:
                     - '-delete'
             new:
                 actions:
+                    - { name: 'backtoUser', label: '返回'}
                     - '-list'
                     - '-delete'
