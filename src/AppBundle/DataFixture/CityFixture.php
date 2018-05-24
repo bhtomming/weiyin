@@ -39,7 +39,7 @@ class CityFixture extends Fixture
                 $province->setCode($code);
                 $province->setName($name);
                 $manager->persist($province);
-            } else if(preg_match('/^[1-9]{4}00$/',$code)) {
+            } else if(preg_match('/^[\d]{4}00$/',$code)) {
                 $city = new City();
                 $city->setCode($code);
                 $city->setName($name);

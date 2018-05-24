@@ -5,7 +5,7 @@ easy_admin:
             label: '地址'
             form:
                 fields:
-                    - { property: 'province', label: '省份',type: 'AppBundle\Form\Type\ProvinceType'}
-                    - { property: 'city', label: '市', type: 'AppBundle\Form\Type\CityType'}
-                    - { property: 'area', label: '区域', type: 'AppBundle\Form\Type\AreaType'}
+                    - { property: 'province', label: '省份',type: 'entity', type_options:{choice_value : code, placeholder: '请选择省份'}}
+                    - { property: 'city', label: '市', type: 'entity', type_options:{choice_value : code, placeholder: '请选择城市'}}
+                    - { property: 'area', label: '区域', type: 'entity', type_options:{choice_value : code, placeholder: '请选择区域'}}
                     - { property: 'street', label: '街道', css_class: 'col-sm-3'}

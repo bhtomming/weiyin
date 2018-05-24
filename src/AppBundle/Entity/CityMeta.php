@@ -95,8 +95,6 @@ Abstract  class CityMeta
         return $this->code;
     }
 
-
-
     public function __toString()
     {
         return $this->name;

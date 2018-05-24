@@ -22,6 +22,14 @@ class Address
     private $id;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     *
+     */
+    private $user;
+
+    /**
      *@var City
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Province")
@@ -51,6 +59,12 @@ class Address
      * @ORM\Column(name="street", type="string", length=255)
      */
     private $street;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="is_default",type="boolean", nullable=true)
+     */
+    private $isDefault;
 
 
     /**
@@ -142,5 +156,26 @@ class Address
             $addr = $this->province->getName().$this->city->getName().$this->area->getName().$this->street;
         }
         return $addr;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user){
+        $this->user = $user;
+        return;
+    }
+
+    public function getUser(){
+        return $this->user;
+    }
+
+    public function setIsDefault($isDefault){
+        $this->isDefault = $isDefault;
+        return $this;
+    }
+
+    public function getIsDefault(){
+        return $this->isDefault;
     }
 }

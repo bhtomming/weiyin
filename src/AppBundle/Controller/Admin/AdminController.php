@@ -9,6 +9,9 @@
 namespace AppBundle\Controller\Admin;
 
 
+use AppBundle\Entity\Address;
+use AppBundle\Entity\Coupon;
+use AppBundle\Entity\Goods;
 use AppBundle\Entity\Shape;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -34,6 +37,9 @@ class AdminController extends BaseAdminController
 
     public function persistCouponEntity($coupon){
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN',NULL, '你无权访问');
+        if (!($coupon instanceof Coupon)){
+            return;
+        }
         if($coupon->getCreator() == null){
             $coupon->setCreator($this->getUser());
         }
@@ -41,6 +47,9 @@ class AdminController extends BaseAdminController
     }
 
     public function persistGoodsEntity($goods){
+        if(!($goods instanceof Goods)){
+            return;
+        }
         if($goods->getUser() == null){
             $goods->setUser($this->getUser());
         }
@@ -86,13 +95,12 @@ class AdminController extends BaseAdminController
 
     public function persistShapeEntity($shape){
         $user = $this->shapeGetUser();
-        parent::persistEntity($shape);
         $user->setShape($shape);
+        parent::persistEntity($shape);
     }
 
 
     public function editShapeAction(){
-        //parent::editAction();
         $id = $this->request->query->get('id');
         $easyadmin = $this->request->attributes->get('easyadmin');
         $entity = $easyadmin['item'];
@@ -112,6 +120,7 @@ class AdminController extends BaseAdminController
         ));
     }
 
+
     public function shapeGetUser(){
         $userId = $this->request->query->get('userId');
         return $this->getDoctrine()->getRepository(User::class)->find($userId);
@@ -121,8 +130,6 @@ class AdminController extends BaseAdminController
     public function backtoUserAction(){
         $id =  $this->request->query->get('id');
         if( null == $id){
-            //$referer = $this->request->query->get('referer');
-            //return $this->redirect(urldecode($referer));
             return $this->redirectToRoute('easyadmin',array(
                 'entity' => 'Member',
                 'action' => 'list',
@@ -145,5 +152,37 @@ class AdminController extends BaseAdminController
         ));
     }
 
+    public function createNewAddressEntity(){
+        $user = $this->shapeGetUser();
+        $address = new Address();
+        $address->setUser($user);
+        return $address;
+    }
+
+    public function persistAddressEntity($address){
+        $user = $this->shapeGetUser();
+        $user->setAddress($address);
+        parent::persistEntity($address);
+    }
+
+    public function editAddressAction(){
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $entity = $easyadmin['item'];
+        $fields = $this->entity['edit']['fields'];
+        $form = $this->createEditForm($entity,$fields);
+        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
+        $form->handleRequest($this->request);
+        if($form->isValid() && $form->isSubmitted()){
+            $this->UpdateEntity($entity);
+            return $this->backtoUserAction();
+        }
+        return $this->render($this->entity['templates']['edit'],array(
+            'form' => $form->createView(),
+            'entity_fields' => $fields,
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
 
 }

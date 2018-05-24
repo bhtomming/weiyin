@@ -1,6 +1,6 @@
 {% block _address_widget %}
     <div class="container">
-    {{ form_start(form) }}
+   {# {{ form_start(form) }}#}
     <div class="row">
         <div class="col-xs-2">
             {{ form_widget(form.province) }}
@@ -15,56 +15,77 @@
             {{ form_widget(form.street) }}
         </div>
     </div>
-    {{ form_end(form) }}
+    {#{{ form_end(form) }}#}
     </div>
     <script>
-        var $form = $("form[name=address]");
-        var action = $form.attr('action');
-        var method = $form.attr('method');
-        var citycodes;
-        var city_data = $('#address_city_city').each(function(){
-            citycodes = $('#address_city_city').val();
+        var citydata =[];
+         citydata['code'] = [];
+         citydata['name'] = [];
+         var city_option = $('#address_city option');
+        var city_select = $('#address_city');
+        var area_select = $('#address_area');
+        //var city_data = new Array();
+        city_option.each(function(){
+            citydata['code'].push($(this).val());
+            citydata['name'].push($(this).text());
         });
-        console.log(citycodes);
-        $('#address_city_city').change(function() {
-            var data = {};
-            data[$(this).attr('name')] = $(this).val();
-            // Submit data via AJAX to the form's action path.
-            send(data,function(html) {
-                $('#address_area_area').html(
-                    $(html).find('#address_area_area').html()
-                );
-            });
+        var area_option = $('#address_area option');
+        var areadata = [];
+        areadata['code'] = [];
+        areadata['name'] = [];
+        area_option.each(function(){
+            areadata['code'].push($(this).val());
+            areadata['name'].push($(this).text());
+        });
+        city_select.change(function() {
+            var code = $(this).val();
+            var cparea = [];
+            cparea['code'] = [];
+            cparea['name'] = [];
+
+            for(var i=0; i<areadata['code'].length; i++){
+                var areazz = new RegExp(code.substring(0,4)+'[0-9]{2}');
+                if(areazz.test(areadata['code'][i])){
+                    cparea['code'].push(areadata['code'][i]);
+                    cparea['name'].push(areadata['name'][i]);
+                }
+            }
+            changeAreaData(cparea);
         });
 
-        $('#address_province_province').change(function() {
-            var data = {};
-            data[$(this).attr('name')] = $(this).val();
-            send(data,function(html) {
-                city = $('#address_city_city');
-                city.html(
-                    $(html).find('#address_city_city').html()
-                );
-            });
+        $('#address_province').change(function() {
+            var code = $(this).val();
+            var cpcity = [];
+            cpcity['code'] = [];
+            cpcity['name'] = [];
+
+            for(var i=0; i<citydata['code'].length; i++){
+                var cityzz = new RegExp(code.substring(0,2)+'[0-9]{4}');
+                if(cityzz.test(citydata['code'][i])){
+                    cpcity['code'].push(citydata['code'][i]);
+                    cpcity['name'].push(citydata['name'][i]);
+                }
+            }
+            changeCityData(cpcity);
+
         });
 
-        $('#address_area_area').change(function() {
-            var data = {};
-            data[$(this).attr('name')] = $(this).val();
-            // Submit data via AJAX to the form's action path.
-            send(data,function(html) {
-                console.log('发送成功');
-            });
-        });
-
-        function send(data,success_call){
-            $.ajax({
-                url : action,
-                type: method,
-                data : data,
-                success: success_call
-            });
+        function changeCityData(city_data){
+            city_select.html('');
+            city_select.append("<option value>请选择城市</option>");
+            for(var i = 0; i<city_data['code'].length; i++){
+                city_select.append("<option value="+city_data['code'][i]+">"+city_data['name'][i]+"</option>");
+            }
         }
+        function changeAreaData(area_data){
+            area_select.html('');
+            area_select.append("<option value>请选择区域</option>");
+            for(var i = 0; i<area_data['code'].length; i++){
+                area_select.append("<option value="+area_data['code'][i]+">"+area_data['name'][i]+"</option>");
+            }
+        }
+
+
     </script>
 {% endblock %}
 {% block _city_widget %}

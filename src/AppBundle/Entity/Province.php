@@ -31,5 +31,7 @@ class Province extends CityMeta
     {
         return $this->id;
     }
+
+
 }
 
