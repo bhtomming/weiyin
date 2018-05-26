@@ -1,0 +1,37 @@
+easy_admin:
+    entities:
+        Provider_Goods:
+            class: 'AppBundle\Entity\Goods'
+            label: '已付款订单'
+            form:
+                fields:
+                    - { property: 'tradeNo', label: '编号' }
+                    - { property: 'subject', label: '订单名称' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'couponId', label: '优惠券', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Coupon' } }
+                    - { property: 'description', label: '订单描述' }
+                    - { property: 'goodsDetail', label: '商品详情', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Product' } }
+            list:
+                title: '%%entity_label%%列表'
+                dql_filter: 'entity.status = 1'
+                actions:
+                    - { name: 'show', label: '查看', icon: 'eye' }
+                    - '-new'
+                    - '-edit'
+                    - '-delete'
+                fields:
+                    - { property: 'tradeNo', label: '编号' }
+                    - { property: 'subject', label: '订单名称' }
+                    - { property: 'createdAt', label: '购买时间' }
+            show:
+                title: '查看%%entity_label%%'
+                actions: ['-edit','-delete']
+                fields:
+                    - { property: 'tradeNo', label: '编号' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'subject', label: '订单名称' }
+                    - { property: 'totalAmount', label: '总金额' }
+                    - { property: 'goodsDetail', label: '商品详情', template: 'easy_admin/fields/good_details.html.twig' }
+                    - { property: 'user.newShape', label: '服装参数', template: 'easy_admin/fields/show_provider_shape.html.twig' }
+                    - { property: 'createdAt', label: '购买时间' }
+                    - { property: 'description', label: '备注' }

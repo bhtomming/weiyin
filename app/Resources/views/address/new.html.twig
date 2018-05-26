@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="row">
+            <div class="offset-10">
+                <input type="submit" value="添加" class="btn btn-success"/>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

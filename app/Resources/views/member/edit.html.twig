@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(edit_form) }}
+    姓名{{ form_widget(edit_form.userName) }}
+    邮箱{{ form_widget(edit_form.email) }}
+    电话{{ form_widget(edit_form.phone) }}
+    <input type="submit" value="确认修改" class="btn btn-success" />
+    {{ form_end(edit_form) }}
+{% endblock %}

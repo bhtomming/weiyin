@@ -29,9 +29,6 @@ class DefaultController extends Controller
         $swipers = $this->getSwiper($em);
         $products = $this->getProduct($em);
 
-
-
-
         return $this->render('default/index.html.twig', [
             'region' => $region,
             'swipers' => $swipers,
@@ -62,7 +59,7 @@ class DefaultController extends Controller
      */
     public function menuAction(){
         $em = $this->getDoctrine()->getManager();
-        $menu = $this->getMenu($em);
+        $menu =  $this->getMenu($em);
         return $this->render('default/menu.html.twig',['menus' => $menu]);
     }
 
@@ -77,10 +74,14 @@ class DefaultController extends Controller
     }
 
     public function getMenu(ObjectManager $em){
-        $menus = $em->getRepository(Menu::class)->findBy(array(
+        /*$menus = $em->getRepository(Menu::class)->findBy(array(
             'parentMenu' => 2,
-        ));
+        ));*/
+        $menus = $em->getRepository(Menu::class)->findAll();
         $parentMenus = [];
+        if($menus == null){
+            return null;
+        }
         foreach ($menus as $menu){
             if(null == $menu->getParentMenu()){
                 $id = $menu->getId();
@@ -108,6 +109,8 @@ class DefaultController extends Controller
 
         return $products;
     }
+
+
 
 
 }

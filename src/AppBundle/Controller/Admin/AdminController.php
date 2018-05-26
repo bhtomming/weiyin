@@ -14,12 +14,19 @@ use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\Shape;
 use AppBundle\Entity\User;
+
+use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends BaseAdminController
 {
+    public function listAction(){
+        $this->dispatch(EasyAdminEvents::PRE_LIST);
+        return parent::listAction();
+    }
+
     public function createNewUserEntity(){
         return $this->container->get('fos_user.user_manager')->createUser();
     }
@@ -58,7 +65,12 @@ class AdminController extends BaseAdminController
 
     public function createNewEntity()
     {
-        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN',NULL, '你无权访问');
+        $allowEntities = ['Product'];
+        $entity = $this->request->get('entity');
+        if(!in_array($entity,$allowEntities)){
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN',NULL, '你无权访问');
+        }
+
         return parent::createNewEntity();
     }
     public function addShapeAction(){
@@ -142,6 +154,7 @@ class AdminController extends BaseAdminController
             'id' => $shape->getUser()->getId(),
         ));
     }
+
 
     public function addAddressAction(){
         $userId = $this->request->query->get('id');

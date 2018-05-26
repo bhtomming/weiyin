@@ -6,6 +6,8 @@ easy_admin:
             list:
                 title: '%%entity_label%%列表'
                 dql_filter: "entity.roles = 'a:0:{}'"
+                actions:
+                    - 'show'
                 fields:
                     - {property: 'username', label: '姓名'}
                     - {property: 'email', label: '邮箱'}
@@ -21,8 +23,9 @@ easy_admin:
                     - { property: 'email', label: '邮箱', css_class: 'col-sm-4', css_class: 'col-sm-4'   }
                     - { property: 'role', label: '角色', css_class: 'col-sm-4' , type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_USER'  }}
                     - { property: 'phone', label: '电话', css_class: 'col-sm-4' }
+                    - { property: 'birthday', label: '生日', css_class: 'col-sm-4',type: 'birthday' }
                     - { property: 'sex', label: '性别', css_class: 'col-sm-4' , type: 'choice', type_options: { choices: {'男': '男', '女': '女'}, placeholder: '请选择性别' } }
-                    #- { property: 'address',  label: '请填写地址信息' }
+                    - { property: 'address',  label: '地址' }
 
                     - { type: 'tab', label: '修改密码'}
                     - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'} ,invalid_message: '密码是必须要填写的' } }
@@ -44,4 +47,16 @@ easy_admin:
                     - { name: 'addAddress', label: '添加地址' }
                 fields:
                     - { property: 'plainPassword', required: false }
+
+            show:
+                title: '显示%%entity_label%%'
+                fields:
+                    - { property: 'userName',label: '姓名'}
+                    - { property: 'email',label: '邮箱'}
+                    - { property: 'phone',label: '电话'}
+                    - { property: 'sex',label: '性别'}
+                    - { property: 'birthday',label: '生日'}
+                    - { property: 'address',label: '地址'}
+                    - { property: 'shape',label: '体型数据'}
+                    - { property: 'lastLogin',label: '最后活跃时间'}
 

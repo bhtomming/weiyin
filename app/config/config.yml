@@ -35,6 +35,11 @@ framework:
     assets: ~
     php_errors:
         log: true
+#    templating:
+#        form:
+#            resources:
+#                - 'form'
+#        engines: twig
 
 # Twig Configuration
 twig:

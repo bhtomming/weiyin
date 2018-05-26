@@ -8,10 +8,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Address;
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\User;
+use AppBundle\Form\AddressType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class MemberController
@@ -55,6 +59,26 @@ class MemberController extends Controller
      */
     public function registerAction(){
         $user = $this->get('fos_user.user_manager')->createUser();
+    }
+
+    /**
+     * @Route("/edit/{id}", name="member_edit")
+     */
+    public function memberEditAction(Request $request,User $member){
+        $editform = $this->createForm('AppBundle\Form\Type\MemberType',$member);
+        $editform->handleRequest($request);
+
+        if($editform->isValid() && $editform->isSubmitted()){
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('member');
+        }
+
+
+        return $this->render('member/edit.html.twig',array(
+            'member' => $member,
+            'edit_form' => $editform->createView(),
+        ));
     }
 
 }

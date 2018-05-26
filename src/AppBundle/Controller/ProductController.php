@@ -190,18 +190,7 @@ class ProductController extends Controller
         return new JsonResponse($data);
     }
 
-    /**
-     * @Route("/trade/{id}",name="view_trade",defaults={"id":0})
-     */
-    public function createTradeAction(Goods $trade){
-        if(!$trade){
-            throw new EntityNotFoundException('没有此订单');
-        }
 
-        return $this->render('default/trade_create.html.twig',[
-            'trade' => $trade,
-        ]);
-    }
 
     /**
      * @Route("/friend/quire/{phone}",name="friend_quire",defaults={"phone":null})
@@ -244,7 +233,8 @@ class ProductController extends Controller
             $good['product'] = $product = $productEm->find($good['id']);
             $good['amount'] = $product->getPrice() * $good['num'];
             $amount += $good['amount'];
-            $product->setSales($product->getSales() + 1);
+            $product->setSales($product->getSales() + $good['num']);
+            $product->setStock($product->getStock() - $good['num']);
             $singleStrade->setProduct($product);
             $singleStrade->setNumber($good['num']);
             $singleStrade->setAmount($good['amount']);
@@ -261,16 +251,20 @@ class ProductController extends Controller
             $em->persist($coupon);
             $em->flush();
         }
+        $user = $this->getUser();
+        $trade->setStatus(Goods::UNPAID);
+        $trade->setUser($user);
+        $trade->setAddress($user->getDefaultAddress());
+        $trade->setTotalAmount($amount);
         if(null != $data['friend'] && preg_match("/^1[34578]{1}\d{9}$/",$data['friend'])){
             $friendEm = $em->getRepository(User::class);
             $friend = $friendEm->findOneBy(array('phone'=>$data['friend']));
             if (!empty($friend)){
                 $trade->setGiveTo($friend);
+                $trade->setAddress($friend->getDefaultAddress());
+                $user->setFriend($friend);
             }
         }
-        $trade->setStatus(Goods::UNPAID);
-        $trade->setUser($this->getUser());
-        $trade->setTotalAmount($amount);
         $em->persist($trade);
         $em->flush();
 

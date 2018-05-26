@@ -1,6 +1,6 @@
 easy_admin:
     entities:
-        Product:
+        Provider_Product:
             class: 'AppBundle\Entity\Product'
             label: '服装'
             form:
@@ -11,8 +11,7 @@ easy_admin:
                     - { property: 'productType', label: '类型',css_class: 'col-sm-6' }
                     - { property: 'model', label: '版型',css_class: 'col-sm-6' }
                     - { property: 'stock', label: '数量',css_class: 'col-sm-6' }
-                    - { property: 'supplyPrice', label: '供应价格',css_class: 'col-sm-6', type_options:{disabled: true} }
-                    - { property: 'price', label: '价格',css_class: 'col-sm-6' }
+                    - { property: 'supplyPrice', label: '供应价',css_class: 'col-sm-6' }
                     - { property: 'size', label: '尺码', css_class: 'col-sm-6' }
                     - { property: 'category', label: '分类', type: 'AppBundle\Form\Type\CategoryType',css_class: 'col-sm-6'  }
                     - { property: 'cycle', label: '制作周期', type: 'date'}
@@ -38,15 +37,15 @@ easy_admin:
                     - {property: 'pantsLength', label: '裤长', css_class: 'col-sm-6'}
                     - {property: 'skirtLength', label: '裙长', css_class: 'col-sm-6'}
                     - {property: 'skirtStyle', label: '裙型', css_class: 'col-sm-6'}
-                    - {property: 'marketTime', label: '上市时间', type: 'date', type_options: {disabled: true}}
+                    - {property: 'marketTime', label: '上市时间',type: 'date'}
             list:
                 title: '%%entity_label%%列表'
                 fields:
+                    - { property: 'productNo', label: '编号' }
                     - { property: 'model', label: '型号' }
-                    - { property: 'title', label: '标题' }
+                    - { property: 'title', label: '名称' }
                     - { property: 'image', label: '图片',type: 'image', base_path: '%app.path.product_images%' }
                     - { property: 'stock', label: '库存' }
-                    - { property: 'sales', label: '销量' }
             new:
                 title: '添加%%entity_label%%'
             edit:

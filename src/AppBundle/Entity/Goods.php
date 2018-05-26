@@ -109,6 +109,25 @@ class Goods
      */
     private $couponId;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="admin_read", type="boolean")
+     */
+    private $adminRead;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="provider_read",type="boolean")
+     */
+    private $providerRead;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    private $address;
+
 
     /**
      * Get id
@@ -357,6 +376,8 @@ class Goods
         $this->setCreatedAt(new \DateTime('now'));
         $this->goodsDetail = new ArrayCollection();
         $this->setStatus($this::UNPAID);
+        $this->setAdminRead();
+        $this->setProviderRead();
     }
 
     /**
@@ -410,10 +431,41 @@ class Goods
         return $this->giveTo;
     }
 
-    public function getAddress(){
+    /*public function getAddress(){
         if($this->getGiveTo()){
-            return $this->getGiveTo()->getAddress();
+            return $this->getGiveTo()->getDefaultAddress();
         }
-        return $this->getUser()->getAddress();
+        return $this->getUser()->getDefaultAddress();
+    }*/
+
+    public function setAdminRead($read = false){
+        $this->adminRead = $read;
+        return $this;
     }
+
+    public function getAdminRead(){
+        return $this->adminRead;
+    }
+
+    public function setProviderRead($read = false){
+        $this->providerRead = $read;
+        return $this;
+    }
+
+    public function getProviderRead(){
+        return $this->providerRead;
+    }
+
+
+    public function setAddress($address){
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddress(){
+        return $this->address;
+
+    }
+
 }

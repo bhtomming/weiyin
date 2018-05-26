@@ -41,7 +41,7 @@ class Address
      *@var City
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true)
      */
     private $city;
 
@@ -49,7 +49,7 @@ class Address
      *@var City
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Area")
-     * @ORM\JoinColumn()
+     * @ORM\JoinColumn(nullable=true)
      */
     private $area;
 
@@ -151,10 +151,8 @@ class Address
 
     public function __toString()
     {
-        $addr = ' ';
-        if(null != $this->province && null != $this->city && null != $this->area){
-            $addr = $this->province->getName().$this->city->getName().$this->area->getName().$this->street;
-        }
+        $addr = $this->getProvince() .$this->getCity() .$this->getArea() .$this->street;
+
         return $addr;
     }
 

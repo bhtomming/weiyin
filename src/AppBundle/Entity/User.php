@@ -83,6 +83,11 @@ class User extends FOSUser
      */
     private $shape;
 
+    /**
+     * @var string
+     * @ORM\Column(name="company_name",type="string",length=255,nullable=true)
+     */
+    private $companyName;
 
 
     /**
@@ -166,6 +171,9 @@ class User extends FOSUser
     }
 
     public function removeAddress($address){
+        if(!$this->address->contains($address)){
+            return $this;
+        }
         $this->address->remove($address);
         return $this;
     }
@@ -243,6 +251,38 @@ class User extends FOSUser
     public function getShape(){
         return $this->shape;
     }
+
+    public function setDefaultAddress(Address $address){
+        foreach ($this->address as $addr){
+            if($addr != $address){
+                $addr->setIsDefault(false);
+            }
+        }
+    }
+
+    public function getDefaultAddress(){
+        foreach ($this->address as $addr){
+            if($addr->getIsDefault()){
+                return $addr;
+            }
+        }
+        return $this->address->last();
+    }
+
+    public function getNewShape(){
+        return $this->shape->last();
+    }
+
+    public function setCompanyName($companyName){
+        $this->companyName = $companyName;
+        return $this;
+    }
+
+    public function getCompanyName(){
+        return $this->companyName;
+    }
+
+
 
 }
 

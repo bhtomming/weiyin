@@ -3,6 +3,7 @@ easy_admin:
         Settings:
             class: 'AppBundle\Entity\Settings'
             label: '网站基本信息'
+            role: ROLE_ADMIN
             form:
                 fields:
                     - { property: 'siteName', label: '网站名称' }

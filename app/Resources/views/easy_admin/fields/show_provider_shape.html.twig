@@ -1,0 +1,363 @@
+{% set shape = value %}
+<table>
+    <tbody>
+    {% if shape.neckAround %}
+    <tr>
+        <th>颈围</th>
+        <td>{{ shape.neckAround }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckRoot %}
+    <tr>
+        <th>颈根围</th>
+        <td>{{ shape.neckRoot }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.shoulderLength %}
+    <tr>
+        <th>肩长</th>
+        <td>{{ shape.shoulderLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.preShoulderWidth %}
+    <tr>
+        <th>前总肩宽</th>
+        <td>{{ shape.preShoulderWidth }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.backSchoulderWidth %}
+    <tr>
+        <th>后总肩宽</th>
+        <td>{{ shape.backSchoulderWidth }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.shoulderWidth %}
+    <tr>
+        <th>背宽</th>
+        <td>{{ shape.shoulderWidth }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.chestMiddle %}
+    <tr>
+        <th>胸围中</th>
+        <td>{{ shape.chestMiddle }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.chestLower %}
+    <tr>
+        <th>胸围下</th>
+        <td>{{ shape.chestLower }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.breasWidth %}
+    <tr>
+        <th>乳点间距</th>
+        <td>{{ shape.breasWidth }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.chestWidth %}
+    <tr>
+        <th>胸宽</th>
+        <td>{{ shape.chestWidth }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armRoot %}
+    <tr>
+        <th>臂根围</th>
+        <td>{{ shape.armRoot }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armUp %}
+    <tr>
+        <th>上臂围</th>
+        <td>{{ shape.armUp }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armMiddle %}
+    <tr>
+        <th>中臂围</th>
+        <td>{{ shape.armMiddle }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armLower %}
+    <tr>
+        <th>下臂围</th>
+        <td>{{ shape.armLower }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.trunk %}
+    <tr>
+        <th>躯干长</th>
+        <td>{{ shape.trunk }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armpit %}
+    <tr>
+        <th>腋窝深</th>
+        <td>{{ shape.armpit }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.waistLength %}
+    <tr>
+        <th>背腰长</th>
+        <td>{{ shape.waistLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckToBreast %}
+    <tr>
+        <th>颈椎点至乳点长</th>
+        <td>{{ shape.neckToBreast }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckToWaist %}
+    <tr>
+        <th>颈椎点至腰长（前身）</th>
+        <td>{{ shape.neckToWaist }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.shoulderToBreast %}
+    <tr>
+        <th>肩颈点至乳点长</th>
+        <td>{{ shape.shoulderToBreast }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.waistPreLength %}
+    <tr>
+        <th>前腰长</th>
+        <td>{{ shape.waistPreLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.chestHeight %}
+    <tr>
+        <th>胸高</th>
+        <td>{{ shape.chestHeight }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armLength %}
+    <tr>
+        <th>臂长</th>
+        <td>{{ shape.armLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armUpLength %}
+    <tr>
+        <th>上臂长</th>
+        <td>{{ shape.armUpLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.armLowerLength %}
+    <tr>
+        <th>下臂长</th>
+        <td>{{ shape.armLowerLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckToWrist %}
+    <tr>
+        <th>颈椎点至腕长</th>
+        <td>{{ shape.neckToWrist }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.preWaistJoint %}
+    <tr>
+        <th>前腰节</th>
+        <td>{{ shape.preWaistJoint }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.backWaistJoint %}
+    <tr>
+        <th>后腰节</th>
+        <td>{{ shape.backWaistJoint }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.sitToNeck %}
+    <tr>
+        <th>坐姿颈椎点高</th>
+        <td>{{ shape.sitToNeck }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.humpback %}
+    <tr>
+        <th>驼背</th>
+        <td>{% if shape.humpback %}是{% else %}否{% endif %}</td>
+    </tr>
+    {% endif %}
+    {% if shape.shoulderSlash %}
+    <tr>
+        <th>溜肩</th>
+        <td>{% if shape.shoulderSlash %}是{% else %}否{% endif %}</td>
+    </tr>
+    {% endif %}
+    {% if shape.waist %}
+    <tr>
+        <th>腰围</th>
+        <td>{{ shape.waist }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.abdomen %}
+    <tr>
+        <th>腹围</th>
+        <td>{{ shape.abdomen }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.hipline %}
+    <tr>
+        <th>臀围</th>
+        <td>{{ shape.hipline }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckToLap %}
+    <tr>
+        <th>颈椎点至膝弯长</th>
+        <td>{{ shape.neckToLap }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckToKnee %}
+    <tr>
+        <th>颈椎点至膝长</th>
+        <td>{{ shape.neckToKnee }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.neckHeight %}
+    <tr>
+        <th>颈椎点高</th>
+        <td>{{ shape.neckHeight }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.waistHeight %}
+    <tr>
+        <th>腰围高</th>
+        <td>{{ shape.waistHeight }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.crotch %}
+    <tr>
+        <th>直档</th>
+        <td>{{ shape.crotch }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.waistToHipline %}
+    <tr>
+        <th>腰至臀长</th>
+        <td>{{ shape.waistToHipline }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.belly %}
+    <tr>
+        <th>凸肚</th>
+        <td>{% if shape.belly %}是{% else %}否{% endif %}</td>
+    </tr>
+    {% endif %}
+    {% if shape.legRoot %}
+    <tr>
+        <th>腿跟</th>
+        <td>{{ shape.legRoot }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.legMiddle %}
+    <tr>
+        <th>腿中</th>
+        <td>{{ shape.legMiddle }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.knee %}
+    <tr>
+        <th>膝围</th>
+        <td>{{ shape.knee }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.kneeLower %}
+    <tr>
+        <th>下膝</th>
+        <td>{{ shape.kneeLower }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.legBelly %}
+    <tr>
+        <th>腿肚</th>
+        <td>{{ shape.legBelly }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.ankleUp %}
+    <tr>
+        <th>踝上</th>
+        <td>{{ shape.ankleUp }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.ankle %}
+    <tr>
+        <th>踝</th>
+        <td>{{ shape.ankle }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.legOutLength %}
+    <tr>
+        <th>腿外侧长</th>
+        <td>{{ shape.legOutLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.legInLength %}
+    <tr>
+        <th>腿内侧长</th>
+        <td>{{ shape.legInLength }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.thigh %}
+    <tr>
+        <th>大腿长</th>
+        <td>{{ shape.thigh }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.waistToAnkle %}
+    <tr>
+        <th>腰至脚踝长</th>
+        <td>{{ shape.waistToAnkle }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.hipHeight %}
+    <tr>
+        <th>臀高</th>
+        <td>{{ shape.hipHeight }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.ankleOut %}
+    <tr>
+        <th>外踝高</th>
+        <td>{{ shape.ankleOut }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.perineum %}
+    <tr>
+        <th>会阴上部前后长</th>
+        <td>{{ shape.perineum }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.height %}
+    <tr>
+        <th>身高</th>
+        <td>{{ shape.height }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.weight %}
+    <tr>
+        <th>体重</th>
+        <td>{{ shape.weight }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.remarks %}
+    <tr>
+        <th>备注</th>
+        <td>{{ shape.remarks }}</td>
+    </tr>
+    {% endif %}
+    {% if shape.keep %}
+    <tr>
+        <th>顾客留底</th>
+        <td>{% if shape.keep %}是{% else %}否{% endif %}</td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
+{#
+{% for address in value.address %}
+    {{ address }}
+{% endfor %}#}

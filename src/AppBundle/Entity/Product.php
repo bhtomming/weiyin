@@ -410,6 +410,7 @@ class Product
     {
         $this->setSales();
         $this->setIsFront();
+        $this->updatedAt = new \DateTime('now');
     }
 
     /**
