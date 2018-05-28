@@ -11,6 +11,7 @@ namespace AppBundle\Form\DataTransFormer;
 use AppBundle\Entity\Address;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 class AddressToArrayTransFormer implements DataTransformerInterface
 {
@@ -20,35 +21,35 @@ class AddressToArrayTransFormer implements DataTransformerInterface
         $this->manager = $manager;
     }*/
 
+   //取数据的时候调用
     public function transform($collection){
         //把数组集转换成对象
-        $address = null;
-        $data = null;
-        if(!$collection instanceof ArrayCollection){
-            return null;
+
+        if($collection instanceof Address){
+
+            return $collection;
         }
 
+        //var_dump(get_class($collection));die();
+        if($collection instanceof ArrayCollection && $collection->isEmpty() || $collection instanceof PersistentCollection ){
+            return null;
+        }
         foreach ($collection as $object){
+            if($object instanceof Address){
+                if($object->getIsDefault()){
+                    return $object;
+                }
+            }
+        }
 
-        if($object == null || is_array($object) || !($object instanceof Address)){
-            return null;
-        }
-        if($object->getIsDefault()){
-            $address = $object;
-        }
-
-        }
-        $address = $collection->last();
-        return $address ;
+        return $collection->last() ;
 
     }
 
+    //存数据的时候调用
     public function reverseTransform($object)
     {
-        //把对象
-        if(empty($object)){
-            return null;
-        }
+        //这里存数据不需要处理
 
         return $object;
     }

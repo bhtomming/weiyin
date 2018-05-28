@@ -71,6 +71,66 @@ easy_admin:
                     - {name: 'backtoUser', label: '返回'}
                     - '-list'
                     - '-delete'
+                fields:
+                    - { property: 'waist', label: '腰围'}
+                    - { property: 'abdomen', label: '腹围'}
+                    - { property: 'hipline', label: '臀围'}
+                    - { property: 'neckToLap', label: '颈椎点至膝弯长'}
+                    - { property: 'neckToKnee', label: '颈椎点至膝长'}
+                    - { property: 'neckHeight', label: '颈椎点高'}
+                    - { property: 'waistHeight', label: '腰围高'}
+                    - { property: 'crotch', label: '直档'}
+                    - { property: 'waistToHipline', label: '腰至臀长'}
+                    - { property: 'belly', label: '凸肚'}
+                    - { property: 'neckAround', label: '颈围' }
+                    - { property: 'neckRoot', label: '颈根围' }
+                    - { property: 'shoulderLength', label: '肩长' }
+                    - { property: 'preShoulderWidth', label: '前总肩宽' }
+                    - { property: 'backSchoulderWidth', label: '后总肩宽' }
+                    - { property: 'shoulderWidth', label: '背宽'}
+                    - { property: 'chestMiddle', label: '胸围中'}
+                    - { property: 'chestLower', label: '胸围下'}
+                    - { property: 'breasWidth', label: '乳点间距'}
+                    - { property: 'chestWidth', label: '胸宽'}
+                    - { property: 'armRoot', label: '臂根围'}
+                    - { property: 'armUp', label: '上臂围'}
+                    - { property: 'armMiddle', label: '中臂围'}
+                    - { property: 'armLower', label: '下臂围'}
+                    - { property: 'trunk', label: '躯干长'}
+                    - { property: 'armpit', label: '腋窝深'}
+                    - { property: 'waistLength', label: '背腰长'}
+                    - { property: 'neckToBreast', label: '颈椎点至乳点长'}
+                    - { property: 'neckToWaist', label: '颈椎点至腰长（前身）'}
+                    - { property: 'shoulderToBreast', label: '肩颈点至乳点长'}
+                    - { property: 'waistPreLength', label: '前腰长'}
+                    - { property: 'chestHeight', label: '胸高'}
+                    - { property: 'armLength', label: '臂长'}
+                    - { property: 'armUpLength', label: '上臂长'}
+                    - { property: 'armLowerLength', label: '下臂长'}
+                    - { property: 'neckToWrist', label: '颈椎点至腕长'}
+                    - { property: 'preWaistJoint', label: '前腰节'}
+                    - { property: 'backWaistJoint', label: '后腰节'}
+                    - { property: 'sitToNeck', label: '坐姿颈椎点高'}
+                    - { property: 'humpback', label: '驼背'}
+                    - { property: 'shoulderSlash', label: '溜肩'}
+                    - { property: 'legRoot', label: '腿跟'}
+                    - { property: 'legMiddle', label: '腿中'}
+                    - { property: 'knee', label: '膝围'}
+                    - { property: 'kneeLower', label: '下膝'}
+                    - { property: 'legBelly', label: '腿肚'}
+                    - { property: 'ankleUp', label: '踝上'}
+                    - { property: 'ankle', label: '踝'}
+                    - { property: 'legOutLength', label: '腿外侧长'}
+                    - { property: 'legInLength', label: '腿内侧长'}
+                    - { property: 'thigh', label: '大腿长'}
+                    - { property: 'waistToAnkle', label: '腰至脚踝长'}
+                    - { property: 'hipHeight', label: '臀高'}
+                    - { property: 'ankleOut', label: '外踝高'}
+                    - { property: 'perineum', label: '会阴上部前后长'}
+                    - { property: 'height', label: '身高'}
+                    - { property: 'weight', label: '体重'}
+                    - { property: 'remarks', label: '备注'}
+                    - { property: 'keep', label: '顾客留底'}
             edit:
                 actions:
                     - '-list'

@@ -1,10 +1,13 @@
 body{
     font-family: "微软雅黑";
 }
+
+.navbar-toggler-icon{
+    width: 100%;
+}
 .navbar-brand{
     color:#000;
     font-weight: bold;
-    font-size:26px;
 }
 .nav-item{
     position: relative;

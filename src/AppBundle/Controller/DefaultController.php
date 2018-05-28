@@ -96,7 +96,7 @@ class DefaultController extends Controller
     }
 
     public function getRegion(ObjectManager $em){
-        return  $em->getRepository(Region::class)->find(1)->getContent();
+        return $em->getRepository(Region::class)->findOneBy(['id'=>1]);
     }
 
     public function getSwiper(ObjectManager $em){

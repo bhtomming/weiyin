@@ -12,6 +12,8 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Address;
 use AppBundle\Entity\Coupon;
 use AppBundle\Entity\Goods;
+use AppBundle\Entity\Menu;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\Shape;
 use AppBundle\Entity\User;
 
@@ -63,9 +65,18 @@ class AdminController extends BaseAdminController
         parent::persistEntity($goods);
     }
 
+    public function persistMenuEntity($menu){
+        if(!($menu instanceof Menu)){
+            return;
+        }
+        $parentMenu = $this->getDoctrine()->getManager()->getRepository(Menu::class)->find(2);
+        $menu->setParentMenu($parentMenu);
+        parent::persistEntity($menu);
+    }
+
     public function createNewEntity()
     {
-        $allowEntities = ['Product'];
+        $allowEntities = ['Product','Provider_Product'];
         $entity = $this->request->get('entity');
         if(!in_array($entity,$allowEntities)){
             $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN',NULL, '你无权访问');
@@ -178,24 +189,16 @@ class AdminController extends BaseAdminController
         parent::persistEntity($address);
     }
 
-    public function editAddressAction(){
+    public function sendAction(){
         $id = $this->request->query->get('id');
-        $easyadmin = $this->request->attributes->get('easyadmin');
-        $entity = $easyadmin['item'];
-        $fields = $this->entity['edit']['fields'];
-        $form = $this->createEditForm($entity,$fields);
-        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
-        $form->handleRequest($this->request);
-        if($form->isValid() && $form->isSubmitted()){
-            $this->UpdateEntity($entity);
-            return $this->backtoUserAction();
+        $goods = $this->getDoctrine()->getManager()->getRepository(Goods::class)->find($id);
+        if($goods==null || !($goods instanceof Goods)){
+            return $this->redirectToReferrer();
         }
-        return $this->render($this->entity['templates']['edit'],array(
-            'form' => $form->createView(),
-            'entity_fields' => $fields,
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $goods->setStatus(Goods::SEND_OUT);
+        parent::prePersistEntity($goods);
+        return $this->redirectToReferrer();
     }
+
 
 }

@@ -11,12 +11,16 @@ namespace AppBundle\DataFixture;
 
 use AppBundle\Entity\Area;
 use AppBundle\Entity\City;
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\Menu;
 use AppBundle\Entity\Province;
+use AppBundle\Entity\Region;
+use AppBundle\Entity\Settings;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Finder\Finder;
 
-class CityFixture extends Fixture
+class SiteInitFixture extends Fixture
 {
 
     /**
@@ -26,6 +30,14 @@ class CityFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {
+        $this->initCityData($manager);
+        $this->initMenu($manager);
+        $this->initSittings($manager);
+        $this->initRegion($manager);
+        $this->initContact($manager);
+    }
+
+    public function initCityData(ObjectManager $manager){
         $finder = new Finder();
         $finder->files()->in(__DIR__.'/../Resources/data/city');
         $citys = array();
@@ -52,6 +64,37 @@ class CityFixture extends Fixture
             }
 
         }
+        $manager->flush();
+    }
+
+    public function initMenu(ObjectManager $manager){
+        $menus = ['主页','产品展示','品牌展示','联系我们','会员登录'];
+        foreach ($menus as $name){
+            $menu = new Menu();
+            $menu->setName($name);
+            $manager->persist($menu);
+        }
+        $manager->flush();
+    }
+
+    public function initSittings(ObjectManager $manager){
+        $setting = new Settings();
+        $setting->setSiteName('北海未因服饰有限公司');
+        $manager->persist($setting);
+        $manager->flush();
+    }
+
+    public function initRegion(ObjectManager $manager){
+        $region = new Region();
+        $region->setContent('新店刚开张...');
+        $manager->persist($region);
+        $manager->flush();
+    }
+
+    public function initContact(ObjectManager $manager){
+        $contact = new Contact();
+        $contact->setContent('敬请期待...');
+        $manager->persist($contact);
         $manager->flush();
     }
 }

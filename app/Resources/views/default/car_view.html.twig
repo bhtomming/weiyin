@@ -1,41 +1,51 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {{ msg ? msg }}
-    {% if clothes %}
-        <ul>
-        {% for clothe in clothes %}
-            <li>
-                <h2>{{ clothe.product.title }}</h2>
-                <p>型号:{{ clothe.product.model }}</p>
-                价格:<em id="item-{{ clothe.product.id }}-price">{{ clothe.product.price }}</em> <br/>
-                {{ include('default/goods_number.html.twig',{'form': clothe.form}) }}
-                金额:<em class="item-{{ clothe.product.id }}-sum amount" >{{ clothe.amount }}</em><br/>
-                <i class="btn icon icon-trash" data-id="{{ clothe.product.id }}">删除</i>
-            </li>
-        {% endfor %}
-        </ul>
-        总金额:<em id="total_amount">{{ total_amount }}</em> <br/>
-        {{ form_start(form) }}
-        {% if form.use_coupons is defined %}
-            {{ form_label(form.use_coupons) }}
-            {{ form_widget(form.use_coupons) }}
-            {{ form_label(form.coupons) }}
-            {{ form_widget(form.coupons) }}
-        {% endif %}
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            帮朋友购买
-        </button>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <div class="alert" id="friend-alert"></div>
-                {{ form_row(form.friend) }}
-                {{ form_row(form.check_phone) }}
-            </div>
-        </div>
-        {{ form_row(form.submit) }}
-        {{ form_end(form) }}
-    {% endif %}
+    <div class="container">
+        {{ msg ? msg }}
+        {% if clothes %}
+                {% for clothe in clothes %}
+                    <div class="row">
+                        <img class="img-thumbnail mr-3" src="{{ product_image }}/{{ clothe.product.image }}" alt="Generic placeholder image">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ clothe.product.title }}</h5>
+                            <span class="float-md-right">{{ include('default/goods_number.html.twig',{'form': clothe.form}) }} 金额:<em class="item-{{ clothe.product.id }}-sum amount" >{{ clothe.amount }}</em></span>
+                            <p>型号:{{ clothe.product.model }}</p>
+                            价格:<em id="item-{{ clothe.product.id }}-price">{{ clothe.product.price }}</em> <br/>
+                            <i class="btn icon icon-trash float-md-right" data-id="{{ clothe.product.id }}">删除</i>
+                        </div>
+                    </div>
+                {% endfor %}
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-xs-6 col-md-2 justify-content-end">
+                    总金额:<em id="total_amount">{{ total_amount }}</em> <br/>
+                    {{ form_start(form) }}
+                    {% if form.use_coupons is defined %}
+                        {{ form_label(form.use_coupons) }}
+                        {{ form_widget(form.use_coupons) }}
+                        {{ form_label(form.coupons) }}
+                        {{ form_widget(form.coupons) }}
+                    {% endif %}
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        帮朋友购买
+                    </button>
+                </div>
 
+            </div>
+
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div class="alert" id="friend-alert"></div>
+                    {{ form_row(form.friend) }}
+                    {{ form_row(form.check_phone) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-md-2">{{ form_row(form.submit) }}</div>
+            </div>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

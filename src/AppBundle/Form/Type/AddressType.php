@@ -34,6 +34,7 @@ class AddressType extends AbstractType
                 'attr' =>array(
                     'class' => 'form-control'
                 ),
+                'placeholder' => '请选择省份'
             ))->add('city',EntityType::class,array(
                 'class' =>'AppBundle:City',
                 'choice_value' => function(City $entity = null){
@@ -42,6 +43,7 @@ class AddressType extends AbstractType
                 'attr' =>array(
                     'class' => 'form-control'
                 ),
+                'placeholder' => '请选择城市'
             ))->add('area',EntityType::class,array(
                 'class'=>'AppBundle:Area',
                 'choice_value' => function(Area $entity = null){
@@ -50,6 +52,7 @@ class AddressType extends AbstractType
                 'attr' =>array(
                     'class' => 'form-control'
                 ),
+                'placeholder' => '请选择区域'
             ));
         $builder->addModelTransformer(new AddressToArrayTransFormer());
     }/**

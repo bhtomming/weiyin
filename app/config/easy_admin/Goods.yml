@@ -27,7 +27,11 @@ easy_admin:
                     - { property: 'createdAt', label: '购买时间' }
             show:
                 title: '查看%%entity_label%%'
-                actions: ['-edit','-delete']
+                actions:
+                    - { name: 'send', label: '发货' }
+                    - '-edit'
+                    - '-delete'
+
                 fields:
                     - { property: 'tradeNo', label: '编号' }
                     - { property: 'totalAmount', label: '总金额' }

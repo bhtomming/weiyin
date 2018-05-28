@@ -108,7 +108,6 @@ $(function(){
                     cpcity['name'].push(citydata['name'][i]);
                 }
             }
-
             changeCityData(cpcity);
         }
 
@@ -116,7 +115,7 @@ $(function(){
     });
 
     function changeCityData(city_data){
-        console.log(city_select.html());
+        city_select.html('');
         city_select.append("<option value>请选择城市</option>");
         for(var i = 0; i<city_data['code'].length; i++){
             city_select.append("<option value="+city_data['code'][i]+">"+city_data['name'][i]+"</option>");

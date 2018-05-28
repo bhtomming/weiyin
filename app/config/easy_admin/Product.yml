@@ -15,7 +15,7 @@ easy_admin:
                     - { property: 'price', label: '价格',css_class: 'col-sm-6' }
                     - { property: 'size', label: '尺码', css_class: 'col-sm-6' }
                     - { property: 'category', label: '分类', type: 'AppBundle\Form\Type\CategoryType',css_class: 'col-sm-6'  }
-                    - { property: 'cycle', label: '制作周期', type: 'date'}
+                    - { property: 'cycle', label: '制作周期'}
                     - { property: 'isFront', label: '推荐到首页' }
                     - { property: 'imageFile', label: '图片', type: 'vich_image' }
                     - { property: 'description', label: '详细信息', type: 'ckeditor' }
@@ -45,6 +45,7 @@ easy_admin:
                     - { property: 'model', label: '型号' }
                     - { property: 'title', label: '标题' }
                     - { property: 'image', label: '图片',type: 'image', base_path: '%app.path.product_images%' }
+                    - { property: 'category', label: '分类'  }
                     - { property: 'stock', label: '库存' }
                     - { property: 'sales', label: '销量' }
             new:

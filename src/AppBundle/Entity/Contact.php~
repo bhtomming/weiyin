@@ -23,51 +23,17 @@ class Contact
 
     /**
      * @var string
-     * @ORM\Column(name="tel", type="string", length=15, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    private $tel;
+    private $title;
 
     /**
      * @var string
-     * @ORM\Column(name="phone", type="string", length=15, nullable=true)
+     * @ORM\Column(name="content", type="text")
      */
-    private $phone;
+    private $content;
 
-    /**
-     * @var string
-     * @ORM\Column(name="company_name", type="string", length=255)
-     */
-    private $companyName;
 
-    /**
-     * @var string
-     * @ORM\Column(name="address", type="string", length=255)
-     */
-    private $address;
-
-    /**
-     * @var string
-     * @ORM\Column(name="qq", type="string", length=15, nullable=true)
-     */
-    private $qq;
-
-    /**
-     * @var string
-     * @ORM\Column(name="email", type="string", length=100, nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var string
-     * @ORM\Column(name="weibo", type="string", length=200, nullable=true)
-     */
-    private $weibo;
-
-    /**
-     * @var string
-     * @ORM\Column(name="wechat", type="string", length=50, nullable=true)
-     */
-    private $wechat;
 
 
     /**
@@ -80,5 +46,5 @@ class Contact
         return $this->id;
     }
 
-}
 
+}

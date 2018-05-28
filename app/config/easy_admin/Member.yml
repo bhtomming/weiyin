@@ -19,13 +19,14 @@ easy_admin:
             form:
                 fields:
                     - { type: 'tab', label: '基本信息'}
-                    - { property: 'username', label: '用户名', css_class: 'col-sm-4' }
-                    - { property: 'email', label: '邮箱', css_class: 'col-sm-4', css_class: 'col-sm-4'   }
-                    - { property: 'role', label: '角色', css_class: 'col-sm-4' , type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_USER'  }}
-                    - { property: 'phone', label: '电话', css_class: 'col-sm-4' }
-                    - { property: 'birthday', label: '生日', css_class: 'col-sm-4',type: 'birthday' }
-                    - { property: 'sex', label: '性别', css_class: 'col-sm-4' , type: 'choice', type_options: { choices: {'男': '男', '女': '女'}, placeholder: '请选择性别' } }
-                    - { property: 'address',  label: '地址' }
+                    - { property: 'username', label: '用户名' }
+                    - { property: 'email', label: '邮箱'  }
+                    - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_USER'  }}
+                    - { property: 'phone', label: '电话' }
+                    - { property: 'birthday', label: '生日',type: 'birthday' }
+                    - { property: 'sex', label: '性别', type: 'choice', type_options: { choices: {'男': '男', '女': '女'}, placeholder: '请选择性别' } }
+
+                    - { property: 'address',  label: '地址', type: 'AppBundle\Form\Type\AddressType', type_options:{required: true}}
 
                     - { type: 'tab', label: '修改密码'}
                     - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'} ,invalid_message: '密码是必须要填写的' } }
@@ -34,7 +35,6 @@ easy_admin:
                 actions:
                     - { name: 'addShape', label: '添加体型数据'}
                     - { name: 'showssShape', label: '查看体型数据'}
-                    - { name: 'addAddress', label: '添加地址' }
                 title: '添加%%entity_label%%'
                 fields:
                     - { property: 'plainPassword', type_options: { 'label_attr': {'class': required} } }
@@ -44,7 +44,6 @@ easy_admin:
                 actions:
                     - { name: 'addShape', label: '添加体型数据'}
                     - { name: 'showssShape', label: '查看体型数据'}
-                    - { name: 'addAddress', label: '添加地址' }
                 fields:
                     - { property: 'plainPassword', required: false }
 

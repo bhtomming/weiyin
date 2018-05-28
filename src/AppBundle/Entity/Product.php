@@ -40,7 +40,7 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
@@ -102,7 +102,7 @@ class Product
 
     /**
      * @var string
-     * @ORM\Column(name="market_time", type="datetime")
+     * @ORM\Column(name="market_time", type="string",length=50,nullable=true)
      */
     private $marketTime;
 
@@ -555,7 +555,7 @@ class Product
     /**
      * Get marketTime
      *
-     * @return \DateTime
+     * @return string
      */
     public function getMarketTime()
     {
