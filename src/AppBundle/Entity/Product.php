@@ -1089,4 +1089,18 @@ class Product
     {
         return $this->size;
     }
+
+    public function generateTradeNo($num){
+        $tradeNo = [];
+        if($num > 1){
+            for($i = 1; $i<= $num; $i++){
+                $no = $this->sales + $i;
+                $tradeNo[] = $this->productNo.$no;
+            }
+        }else{
+            $no = $this->sales + $num;
+            $tradeNo[] = $this->productNo.$no;
+        }
+        return $tradeNo;
+    }
 }

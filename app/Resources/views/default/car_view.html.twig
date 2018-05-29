@@ -40,11 +40,18 @@
                     {{ form_row(form.check_phone) }}
                 </div>
             </div>
-            <div class="row">
+
+            <div class="row my-3">
+                <div class="col">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="address">地址:{{  app.user.defaultAddress ? app.user.defaultAddress : "请先设置地址" }}</div>
+                    {% endif %}
+                </div>
                 <div class="col-xs-6 col-md-2">{{ form_row(form.submit) }}</div>
             </div>
             {{ form_end(form) }}
         {% endif %}
+
     </div>
 {% endblock %}
 {% block javascripts %}

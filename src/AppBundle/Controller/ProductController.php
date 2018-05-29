@@ -233,11 +233,13 @@ class ProductController extends Controller
             $good['product'] = $product = $productEm->find($good['id']);
             $good['amount'] = $product->getPrice() * $good['num'];
             $amount += $good['amount'];
+            $tradeNo = $product->generateTradeNo($good['num']);
             $product->setSales($product->getSales() + $good['num']);
             $product->setStock($product->getStock() - $good['num']);
             $singleStrade->setProduct($product);
             $singleStrade->setNumber($good['num']);
             $singleStrade->setAmount($good['amount']);
+            $singleStrade->setTradeNo($tradeNo);
             $goods[$index] = $good;
             $trade->setGoodsDetail($singleStrade);
         }

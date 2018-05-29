@@ -1,17 +1,31 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container">
-        会员个人中心
-        <a href="{{ path('member_edit',{id: member.id}) }}">修改资料</a>
-        <div class="row">会员姓名: {{ member.username }}</div>
-        <div class="row">邮箱: {{ member.email }}</div>
-        <div class="row">手机号: {{ member.phone }}</div>
-        <div class="row">我的地址: <a href="{{ path('address_new') }}">添加地址</a></div>
-        <ul>
-            {% for address in member.address %}
-                <li>{% if address.isDefault %}默认地址: {% endif %}{{ address }}<a href="{{ path('edit_address',{id: address.id}) }}">修改</a><a href="{{ path('address_delete',{id: address.id}) }}">删除</a></li>
+        <div class="card">
+            <div class="card-header text-center">
+                <h2 class="card-title">会员中心</h2>
+            </div>
+        </div>
+        <div class="card-body">
+            <a href="{{ path('member_edit',{id: member.id}) }}" class="float-right">修改资料</a>
+            <p class="card-text">会员姓名:{{ member.username }}</p>
+            <p class="card-text">邮箱: {{ member.email }}</p>
+            <p class="card-text">手机号: {{ member.phone }}</p>
+            <p class="card-text">我的地址: <a href="{{ path('address_new') }}">添加地址</a></p>
+            <ul class="list-group">
+                {% for address in member.address %}
+                    <li class="list-group-item">
+                        {% if address.isDefault %}默认地址: {% endif %}{{ address }}
+                        <div class="float-right">
+                            <a href="{{ path('edit_address',{id: address.id}) }}" class="btn btn-info">修改</a>
+                            <a href="{{ path('address_delete',{id: address.id}) }} " class="btn btn-danger">删除</a>
+                        </div>
+
+                    </li>
                 {% endfor %}
-        </ul>
+            </ul>
+        </div>
+
 
     </div>
 {% endblock %}

@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<ul>
-    {% for trade in trades %}
-        <li class=""><a href="{{ path('view_trade',{'id': trade.id}) }}" >{{ trade.tradeNo }}</a></li>
-        <li class="">{{ trade.createdAt |date('Y年m月d日') }}</li>
-    {% endfor %}
-</ul>
+    <div class="container">
+        <div class="row">
+            <h2 class="list-group-flush text-center w-100">我的订单</h2>
+            <ul class="list-group list-group-flush w-100">
+                {% for trade in trades %}
+                    <li class="list-group-item  col-12">
+                        <a href="{{ path('view_trade',{'id': trade.id}) }}" >{{ trade.tradeNo }}</a>
+                        <span class="float-right">{{ trade.createdAt |date('Y年m月d日') }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 {% endblock %}

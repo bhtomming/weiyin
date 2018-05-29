@@ -10,6 +10,8 @@ namespace AppBundle\Form\Type;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,6 +22,11 @@ class MemberType extends AbstractType
         $builder->add('userName')
             ->add('email')
             ->add('phone')
+            ->add('plainPassword',RepeatedType::class,array(
+                'type'=> PasswordType::class,
+                'invalid_message' => '你输入的密码不正确，请重新输入',
+                'required' => false,
+            ))
         ;
     }
 

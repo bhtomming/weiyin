@@ -23,8 +23,8 @@ class SingleStrade
     private $id;
 
     /**
-     * @var array
-     * @ORM\Column(type="array",name="trade_no")
+     * @var string[] | ArrayCollection
+     * @ORM\Column(type="string",name="trade_no")
      */
     private $tradeNo;
 
@@ -141,34 +141,4 @@ class SingleStrade
 
 
 
-
-    /**
-     * Set tradeNo
-     *
-     * @param string[]
-     *
-     * @return SingleStrade
-     */
-    public function setTradeNo($tradeNos)
-    {
-        $this->tradeNo = array();
-        foreach ($tradeNos as $tradeNo){
-            if(!in_array($tradeNo,$this->tradeNo,true)){
-                $this->tradeNo[] = $tradeNo;
-            }
-        }
-        //var_dump($this->tradeNo);die();
-        return $this;
-    }
-
-
-    /**
-     * Get tradeNo
-     *
-     * @return string
-     */
-    public function getTradeNo()
-    {
-        return $this->tradeNo;
-    }
 }
