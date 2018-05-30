@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="list-group list-group-flush w-100">
+                <h2 class="list-group-item">订单号:{{ trade.tradeNo }}</h2>
+                {% for single_strade in trade.goodsDetail %}
+                    {%  set product = single_strade.product %}
+                    <h2 class="list-group-item">{{ product.title }}</h2>
+                    <p class="list-group-item">型号:{{ product.model }}</p>
+                    <p class="list-group-item">价格:{{ product.price }}</p>
+                    <p class="list-group-item">数量: {{ single_strade.number }}</p>
+                    <p class="list-group-item">金额:{{ single_strade.amount }}</p>
+                {% endfor %}
+            </div>
+            {% if trade.status == 0 %}
+                <a class="btn btn-warning" href="{{ path('pay',{'id':trade.id}) }}">现在付款</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

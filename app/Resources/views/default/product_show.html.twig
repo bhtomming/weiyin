@@ -3,16 +3,52 @@
     <div class="container">
         {% if product %}
         <div class="card">
-            <h2 class="card-title">{{ product.title }}</h2>
             <img class="card-img img-responsive" src="{{ product_image }}/{{ product.image }}" />
             <div class="card-body">
-                衣服型号:{{ product.model }}<br/>
-                价格:{{ product.price }}<br/>
-                {{ include('default/goods_number.html.twig') }}
-                <div id="add-car" class="btn btn-danger" data-id="{{ product.id }}">添加到购物车</div>
-                <a class="btn btn-success" href="{{ path('view_car') }}">查看购物车</a>
-                <br/>
-                具体信息:{{ product.description | raw }}
+                <h2 class="card-title">{{ product.title }}</h2>
+                <ul class="row list-unstyled">
+                        <li class="col-6 col-md-3">版型:{{ product.model }}</li>
+                        <li class="col-6 col-md-3">编号:{{ product.productNo }}</li>
+                        <li class="col-6 col-md-3">名称:{{ product.title }}</li>
+                        <li class="col-6 col-md-3">类型:{{ product.productType }}</li>
+
+                        <li class="col-6 col-md-3">尺码:{{ product.size }}</li>
+                        <li class="col-6 col-md-3">制作周期:{{ product.cycle }}</li>
+                        <li class="col-6 col-md-3">货号:{{ product.articleNumber }}</li>
+                        <li class="col-6 col-md-3">款式:{{ product.style }}</li>
+                        <li class="col-6 col-md-3">风格:{{ product.styles }}</li>
+                        <li class="col-6 col-md-3">材质:{{ product.material }}</li>
+                        <li class="col-6 col-md-3">颜色:{{ product.color }}</li>
+                        <li class="col-6 col-md-3">图案:{{ product.pattern }}</li>
+                        <li class="col-6 col-md-3">薄厚:{{ product.thick }}</li>
+                        <li class="col-6 col-md-3">工艺:{{ product.craft }}</li>
+                        <li class="col-6 col-md-3">衣长:{{ product.coatLength }}</li>
+                        <li class="col-6 col-md-3">袖长:{{ product.sleeveLength }}</li>
+                        <li class="col-6 col-md-3">袖型:{{ product.sleeveStyle }}</li>
+                        <li class="col-6 col-md-3">领型:{{ product.collarStyle }}</li>
+                        <li class="col-6 col-md-3">衣门襟:{{ product.flap }}</li>
+                        <li class="col-6 col-md-3">开叉:{{ product.forking }}</li>
+                        <li class="col-6 col-md-3">襟型:{{ product.flapStyle }}</li>
+                        <li class="col-6 col-md-3">裤长:{{ product.pantsLength }}</li>
+                        <li class="col-6 col-md-3">裙长:{{ product.skirtLength }}</li>
+                        <li class="col-6 col-md-3">裙型:{{ product.skirtStyle }}</li>
+                        <li class="col-6 col-md-3">标签:{{ product.productLabel }}</li>
+                        <li class="col-6 col-md-3">上市时间:{{ product.marketTime }}</li>
+                        <li></li>
+
+                </ul>
+                <div id="alert"></div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-md-3 col-md-offset-9">
+                        <div class="text-danger text-bold">价格:{{ product.price }}元</div>
+                        {{ include('default/goods_number.html.twig') }}
+                        <div id="add-car" class="btn btn-danger my-3" data-id="{{ product.id }}">添加到购物车</div>
+                        {# <a class="btn btn-success" href="{{ path('view_car') }}">查看购物车</a>#}
+                    </div>
+                </div>
+                <div class="card-text">
+                商品详情:{{ product.description | raw }}</div>
             </div>
         </div>
             {% endif %}

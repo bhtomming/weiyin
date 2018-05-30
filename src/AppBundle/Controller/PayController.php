@@ -64,6 +64,7 @@ class PayController extends Controller
         $em = $this->getDoctrine()->getManager();
         $trade = $em->getRepository(Goods::class)->findOneBy(array('tradeNo'=>$stradeNo));
         $trade->setStatus(Goods::PAID);
+        $trade->setPayNo($data->trade_no);
         $em->persist($trade);
         $em->flush();
 

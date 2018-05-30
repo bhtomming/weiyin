@@ -128,6 +128,18 @@ class Goods
      */
     private $address;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="invoice",type="boolean",nullable=true)
+     */
+    private $invoice;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pay_no",type="string",length=255,nullable=true)
+     */
+    private $payNo;
+
 
     /**
      * Get id
@@ -468,4 +480,52 @@ class Goods
 
     }
 
+
+    /**
+     * Set invoice
+     *
+     * @param boolean $invoice
+     *
+     * @return Goods
+     */
+    public function setInvoice($invoice)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return boolean
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
+
+    /**
+     * Set payNo
+     *
+     * @param string $payNo
+     *
+     * @return Goods
+     */
+    public function setPayNo($payNo)
+    {
+        $this->payNo = $payNo;
+
+        return $this;
+    }
+
+    /**
+     * Get payNo
+     *
+     * @return string
+     */
+    public function getPayNo()
+    {
+        return $this->payNo;
+    }
 }

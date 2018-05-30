@@ -165,7 +165,7 @@ class SingleStrade
     /**
      * Get tradeNo
      *
-     * @return string
+     * @return string[]
      */
     public function getTradeNo()
     {

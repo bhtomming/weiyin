@@ -33,7 +33,7 @@ class ProductController extends Controller
     public function listAction($category){
         $em = $this->getDoctrine()->getManager();
         $category_id = $em->getRepository(Category::class)->findBy(['name'=>$category]);
-        $products = $em->getRepository(Product::class)->findBy(['category'=>$category_id]);
+        $products = $em->getRepository(Product::class)->findBy(['category'=>$category_id,'selling'=>true]);
 
         return $this->render('default/product_list.html.twig',['products'=>$products]);
     }
@@ -136,7 +136,7 @@ class ProductController extends Controller
                 ),
             ))
             ->add('submit',SubmitType::class,array(
-                'label'=>'结算',
+                'label'=>'生成订单',
                 'attr' => array(
                     'class' => 'btn btn-warning'
                 ),
@@ -223,7 +223,8 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
         $amount = 0;
         $trade = new Goods();
-        $trade->setSubject('在未因购买衣服');
+        $subject = [];
+
         $productEm = $em->getRepository(Product::class);
         $couponEm = $em->getRepository(Coupon::class);
 
@@ -236,6 +237,7 @@ class ProductController extends Controller
             $tradeNo = $product->generateTradeNo($good['num']);
             $product->setSales($product->getSales() + $good['num']);
             $product->setStock($product->getStock() - $good['num']);
+            $subject[] = $product->getTitle();
             $singleStrade->setProduct($product);
             $singleStrade->setNumber($good['num']);
             $singleStrade->setAmount($good['amount']);
@@ -243,6 +245,7 @@ class ProductController extends Controller
             $goods[$index] = $good;
             $trade->setGoodsDetail($singleStrade);
         }
+        $trade->setSubject('在未因购买'.implode(',',$subject));
         if(array_key_exists('use_coupons', $data) && null != $data['coupons']){
             $coupon = $couponEm->find($data['coupons']);
             $amount -= $coupon->getAmount();

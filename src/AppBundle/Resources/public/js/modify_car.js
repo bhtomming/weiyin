@@ -6,7 +6,7 @@ $(function(){
         del = confirm('你要删除该商品?');
         if(del === true){
             del_car(id);
-            $(this).parent().remove();
+            $(this).parent().parent().remove();
         }
     });
 

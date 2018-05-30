@@ -22,7 +22,7 @@ easy_admin:
               children:
                 - {entity: 'Goods', label: '已付款订单'}
                 - {entity: 'UnPayTrade', label: '未付款订单'}
-                #- {entity: 'SendOutTrade', label: '已发货订单'}
+                - {entity: 'SendOutTrade', label: '已发货订单'}
                 #- {entity: 'RetrunBackTrade', label: '退款订单'}
             - {entity: 'Coupon', label: '礼券管理',role: ROLE_ADMIN}
             - {entity: 'Company', label: '品牌信息',role: ROLE_ADMIN}

@@ -15,9 +15,8 @@ class Goods
 {
     const UNPAID = 0;
     const PAID = 1;
-    const UNSENT = 2;
-    const SEND_OUT = 3;
-    const RETURN_BACK = 4;
+    const SEND_OUT = 2;
+    const RETURN_BACK = 3;
 
 
     /**
@@ -109,6 +108,37 @@ class Goods
      * @ORM\Column(name="couponId", type="integer", nullable=true)
      */
     private $couponId;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="admin_read", type="boolean")
+     */
+    private $adminRead;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="provider_read",type="boolean")
+     */
+    private $providerRead;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="invoice",type="boolean",nullable=true)
+     */
+    private $invoice;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pay_no",type="string",length=255,nullable=true)
+     */
+    private $payNo;
 
 
     /**
@@ -358,6 +388,8 @@ class Goods
         $this->setCreatedAt(new \DateTime('now'));
         $this->goodsDetail = new ArrayCollection();
         $this->setStatus($this::UNPAID);
+        $this->setAdminRead();
+        $this->setProviderRead();
     }
 
     /**
@@ -386,4 +418,90 @@ class Goods
 
 
 
+
+    /**
+     * Set giveTo
+     *
+     * @param \AppBundle\Entity\User $giveTo
+     *
+     * @return Goods
+     */
+    public function setGiveTo(\AppBundle\Entity\User $giveTo = null)
+    {
+        $this->giveTo = $giveTo;
+
+        return $this;
+    }
+
+    /**
+     * Get giveTo
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getGiveTo()
+    {
+        return $this->giveTo;
+    }
+
+    /*public function getAddress(){
+        if($this->getGiveTo()){
+            return $this->getGiveTo()->getDefaultAddress();
+        }
+        return $this->getUser()->getDefaultAddress();
+    }*/
+
+    public function setAdminRead($read = false){
+        $this->adminRead = $read;
+        return $this;
+    }
+
+    public function getAdminRead(){
+        return $this->adminRead;
+    }
+
+    public function setProviderRead($read = false){
+        $this->providerRead = $read;
+        return $this;
+    }
+
+    public function getProviderRead(){
+        return $this->providerRead;
+    }
+
+
+    public function setAddress($address){
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddress(){
+        return $this->address;
+
+    }
+
+
+    /**
+     * Set invoice
+     *
+     * @param boolean $invoice
+     *
+     * @return Goods
+     */
+    public function setInvoice($invoice)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return boolean
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
 }

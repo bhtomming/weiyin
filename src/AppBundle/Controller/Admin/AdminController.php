@@ -191,14 +191,15 @@ class AdminController extends BaseAdminController
 
     public function sendAction(){
         $id = $this->request->query->get('id');
-        $goods = $this->getDoctrine()->getManager()->getRepository(Goods::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $goods = $em->getRepository(Goods::class)->find($id);
         if($goods==null || !($goods instanceof Goods)){
             return $this->redirectToReferrer();
         }
         $goods->setStatus(Goods::SEND_OUT);
-        parent::prePersistEntity($goods);
+        $em->persist($goods);
+        $em->flush();
         return $this->redirectToReferrer();
     }
-
 
 }

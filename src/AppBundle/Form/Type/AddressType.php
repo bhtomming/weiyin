@@ -43,7 +43,8 @@ class AddressType extends AbstractType
                 'attr' =>array(
                     'class' => 'form-control'
                 ),
-                'placeholder' => '请选择城市'
+                'placeholder' => '请选择城市',
+                'required' => false,
             ))->add('area',EntityType::class,array(
                 'class'=>'AppBundle:Area',
                 'choice_value' => function(Area $entity = null){

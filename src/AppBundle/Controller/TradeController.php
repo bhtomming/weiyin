@@ -15,17 +15,22 @@ use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class AddressController
+ * @package AppBundle\Controller
+ * @Route("/trade")
+ */
 class TradeController extends Controller
 {
     /**
-     * @Route("/trade/{id}",name="view_trade",defaults={"id":0})
+     * @Route("/{id}",name="view_trade",defaults={"id":0})
      */
     public function createTradeAction(Goods $trade){
         if(!$trade){
             throw new EntityNotFoundException('没有此订单');
         }
 
-        return $this->render('default/trade_create.html.twig',[
+        return $this->render('trade/show.html.twig',[
             'trade' => $trade,
         ]);
     }

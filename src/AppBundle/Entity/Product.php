@@ -238,6 +238,18 @@ class Product
      */
     private $size;
 
+    /**
+     * @var string
+     * @ORM\Column(name="label",type="string",length=255,nullable=true)
+     */
+    private $productLabel;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="selling",type="boolean",nullable=true)
+     */
+    private $selling;
+
 
     /**
      * Get id
@@ -411,6 +423,7 @@ class Product
         $this->setSales();
         $this->setIsFront();
         $this->updatedAt = new \DateTime('now');
+        $this->selling = false;
     }
 
     /**
@@ -1102,5 +1115,53 @@ class Product
             $tradeNo[] = $this->productNo.$no;
         }
         return $tradeNo;
+    }
+
+    /**
+     * Set productLabel
+     *
+     * @param string $productLabel
+     *
+     * @return Product
+     */
+    public function setProductLabel($productLabel)
+    {
+        $this->productLabel = $productLabel;
+
+        return $this;
+    }
+
+    /**
+     * Get productLabel
+     *
+     * @return string
+     */
+    public function getProductLabel()
+    {
+        return $this->productLabel;
+    }
+
+    /**
+     * Set selling
+     *
+     * @param boolean $selling
+     *
+     * @return Product
+     */
+    public function setSelling($selling = false)
+    {
+        $this->selling = $selling;
+
+        return $this;
+    }
+
+    /**
+     * Get selling
+     *
+     * @return boolean
+     */
+    public function getSelling()
+    {
+        return $this->selling;
     }
 }

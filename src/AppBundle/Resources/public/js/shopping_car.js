@@ -5,7 +5,13 @@ $(function(){
         var route = "/app_dev.php/shopping_car/add/"+id+"/"+num;
         $.ajax({
             url: route,
-            dataType: 'json'
+            type:'GET',
+            dataType: 'json',
+            success: function(data,status){
+                if("success" == status ){
+                    $("#alert").html("添加商品成功!<a href=\"/shopping_car/view/\">现在查看购物车</a>").addClass('alert alert-success');
+                }
+            }
         });
     });
 
