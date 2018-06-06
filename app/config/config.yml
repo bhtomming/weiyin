@@ -11,6 +11,7 @@ parameters:
     locale: zh_CN
     app.path.product_images: /uploads/images/products
     app.path.swipper_images: /uploads/images/swipper
+    app.path.article_images: /uploads/images/article
     admin_path: '/adminabc'
 
 framework:
@@ -48,6 +49,7 @@ twig:
     globals:
         product_image: '%app.path.product_images%'
         swiper_image: '%app.path.swipper_images%'
+        article_image: '%app.path.article_images%'
     form_themes:
         - 'fields/address.html.twig'
 
