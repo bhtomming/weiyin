@@ -34,10 +34,10 @@ class PayController extends Controller
     /**
      * @Route("/alipay/pay/{id}",name="pay")
      */
-    public function indexAction($id)
+    public function indexAction(Goods $trade)
     {
-        $em = $this->getDoctrine()->getManager();
-        $trade = $em->getRepository(Goods::class)->find($id);
+       /* $em = $this->getDoctrine()->getManager();
+        $trade = $em->getRepository(Goods::class)->find($id);*/
 
         $order = [
             'out_trade_no' => $trade->getTradeNo(),
@@ -127,6 +127,7 @@ class PayController extends Controller
         if($is_ipad){
             return  true;
         }
+        return false;
     }
 
 }

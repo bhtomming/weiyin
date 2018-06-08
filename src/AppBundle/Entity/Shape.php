@@ -24,203 +24,203 @@ class Shape
     /**
      * @var string
      *
-     * @ORM\Column(name="neckAround", type="string", length=50, nullable=true)
+     * @ORM\Column(name="neckAround", type="string", length=255, nullable=true)
      */
     private $neckAround;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckRoot", type="string", length=50, nullable=true)
+     * @ORM\Column(name="neckRoot", type="string", length=255, nullable=true)
      */
     private $neckRoot;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="shoulderLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="shoulderLength", type="string", length=255, nullable=true)
      */
     private $shoulderLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="preShoulderWidth", type="string", length=50, nullable=true)
+     * @ORM\Column(name="preShoulderWidth", type="string", length=255, nullable=true)
      */
     private $preShoulderWidth;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="backSchoulderWidth", type="string", length=50, nullable=true)
+     * @ORM\Column(name="backSchoulderWidth", type="string", length=255, nullable=true)
      */
     private $backSchoulderWidth;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="shoulderWidth", type="string", length=50, nullable=true)
+     * @ORM\Column(name="shoulderWidth", type="string", length=255, nullable=true)
      */
     private $shoulderWidth;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="chestMiddle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="chestMiddle", type="string", length=255, nullable=true)
      */
     private $chestMiddle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="chestLower", type="string", length=50, nullable=true)
+     * @ORM\Column(name="chestLower", type="string", length=255, nullable=true)
      */
     private $chestLower;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="breasWidth", type="string", length=50, nullable=true)
+     * @ORM\Column(name="breasWidth", type="string", length=255, nullable=true)
      */
     private $breasWidth;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="chestWidth", type="string", length=50, nullable=true)
+     * @ORM\Column(name="chestWidth", type="string", length=255, nullable=true)
      */
     private $chestWidth;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armRoot", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armRoot", type="string", length=255, nullable=true)
      */
     private $armRoot;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armUp", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armUp", type="string", length=255, nullable=true)
      */
     private $armUp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armMiddle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armMiddle", type="string", length=255, nullable=true)
      */
     private $armMiddle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armLower", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armLower", type="string", length=255, nullable=true)
      */
     private $armLower;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="trunk", type="string", length=50, nullable=true)
+     * @ORM\Column(name="trunk", type="string", length=255, nullable=true)
      */
     private $trunk;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armpit", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armpit", type="string", length=255, nullable=true)
      */
     private $armpit;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="waistLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="waistLength", type="string", length=255, nullable=true)
      */
     private $waistLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckToBreast", type="string", length=50, nullable=true)
+     * @ORM\Column(name="neckToBreast", type="string", length=255, nullable=true)
      */
     private $neckToBreast;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckToWaist", type="string", length=50, nullable=true)
+     * @ORM\Column(name="neckToWaist", type="string", length=255, nullable=true)
      */
     private $neckToWaist;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="shoulderToBreast", type="string", length=50, nullable=true)
+     * @ORM\Column(name="shoulderToBreast", type="string", length=255, nullable=true)
      */
     private $shoulderToBreast;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="waistPreLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="waistPreLength", type="string", length=255, nullable=true)
      */
     private $waistPreLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="chestHeight", type="string", length=50, nullable=true)
+     * @ORM\Column(name="chestHeight", type="string", length=255, nullable=true)
      */
     private $chestHeight;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armLength", type="string", length=255, nullable=true)
      */
     private $armLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armUpLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armUpLength", type="string", length=255, nullable=true)
      */
     private $armUpLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="armLowerLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="armLowerLength", type="string", length=255, nullable=true)
      */
     private $armLowerLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckToWrist", type="string", length=50, nullable=true)
+     * @ORM\Column(name="neckToWrist", type="string", length=255, nullable=true)
      */
     private $neckToWrist;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="preWaistJoint", type="string", length=50, nullable=true)
+     * @ORM\Column(name="preWaistJoint", type="string", length=255, nullable=true)
      */
     private $preWaistJoint;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="backWaistJoint", type="string", length=50, nullable=true)
+     * @ORM\Column(name="backWaistJoint", type="string", length=255, nullable=true)
      */
     private $backWaistJoint;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sitToNeck", type="string", length=50, nullable=true)
+     * @ORM\Column(name="sitToNeck", type="string", length=255, nullable=true)
      */
     private $sitToNeck;
 
@@ -241,63 +241,63 @@ class Shape
     /**
      * @var string
      *
-     * @ORM\Column(name="waist", type="string", length=50)
+     * @ORM\Column(name="waist", type="string", length=255)
      */
     private $waist;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abdomen", type="string", length=50)
+     * @ORM\Column(name="abdomen", type="string", length=255)
      */
     private $abdomen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="hipline", type="string", length=50)
+     * @ORM\Column(name="hipline", type="string", length=255)
      */
     private $hipline;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckToLap", type="string", length=50)
+     * @ORM\Column(name="neckToLap", type="string", length=255)
      */
     private $neckToLap;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckToKnee", type="string", length=50)
+     * @ORM\Column(name="neckToKnee", type="string", length=255)
      */
     private $neckToKnee;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="neckHeight", type="string", length=50)
+     * @ORM\Column(name="neckHeight", type="string", length=255)
      */
     private $neckHeight;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="waistHeight", type="string", length=50)
+     * @ORM\Column(name="waistHeight", type="string", length=255)
      */
     private $waistHeight;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="crotch", type="string", length=50)
+     * @ORM\Column(name="crotch", type="string", length=255)
      */
     private $crotch;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="waistToHipline", type="string", length=50)
+     * @ORM\Column(name="waistToHipline", type="string", length=255)
      */
     private $waistToHipline;
 
@@ -311,112 +311,112 @@ class Shape
     /**
      * @var string
      *
-     * @ORM\Column(name="legRoot", type="string", length=50, nullable=true)
+     * @ORM\Column(name="legRoot", type="string", length=255, nullable=true)
      */
     private $legRoot;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="legMiddle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="legMiddle", type="string", length=255, nullable=true)
      */
     private $legMiddle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="knee", type="string", length=50, nullable=true)
+     * @ORM\Column(name="knee", type="string", length=255, nullable=true)
      */
     private $knee;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="kneeLower", type="string", length=50, nullable=true)
+     * @ORM\Column(name="kneeLower", type="string", length=255, nullable=true)
      */
     private $kneeLower;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="legBelly", type="string", length=50, nullable=true)
+     * @ORM\Column(name="legBelly", type="string", length=255, nullable=true)
      */
     private $legBelly;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ankleUp", type="string", length=50, nullable=true)
+     * @ORM\Column(name="ankleUp", type="string", length=255, nullable=true)
      */
     private $ankleUp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ankle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="ankle", type="string", length=255, nullable=true)
      */
     private $ankle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="legOutLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="legOutLength", type="string", length=255, nullable=true)
      */
     private $legOutLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="legInLength", type="string", length=50, nullable=true)
+     * @ORM\Column(name="legInLength", type="string", length=255, nullable=true)
      */
     private $legInLength;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="thigh", type="string", length=50, nullable=true)
+     * @ORM\Column(name="thigh", type="string", length=255, nullable=true)
      */
     private $thigh;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="waistToAnkle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="waistToAnkle", type="string", length=255, nullable=true)
      */
     private $waistToAnkle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="hipHeight", type="string", length=50, nullable=true)
+     * @ORM\Column(name="hipHeight", type="string", length=255, nullable=true)
      */
     private $hipHeight;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ankleOut", type="string", length=50, nullable=true)
+     * @ORM\Column(name="ankleOut", type="string", length=255, nullable=true)
      */
     private $ankleOut;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="perineum", type="string", length=50, nullable=true)
+     * @ORM\Column(name="perineum", type="string", length=255, nullable=true)
      */
     private $perineum;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="height", type="string", length=50, nullable=true)
+     * @ORM\Column(name="height", type="string", length=255, nullable=true)
      */
     private $height;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="weight", type="string", length=50, nullable=true)
+     * @ORM\Column(name="weight", type="string", length=255, nullable=true)
      */
     private $weight;
 
@@ -461,7 +461,7 @@ class Shape
      */
     public function setNeckAround($neckAround)
     {
-        $this->neckAround = $neckAround;
+        $this->neckAround = $this->encrypt($neckAround,$this->id);
 
         return $this;
     }
@@ -473,7 +473,7 @@ class Shape
      */
     public function getNeckAround()
     {
-        return $this->neckAround;
+        return $this->decrypt($this->neckAround,$this->id);
     }
 
     /**
@@ -485,7 +485,7 @@ class Shape
      */
     public function setNeckRoot($neckRoot)
     {
-        $this->neckRoot = $neckRoot;
+        $this->neckRoot = $this->encrypt($neckRoot,$this->id);
 
         return $this;
     }
@@ -497,7 +497,7 @@ class Shape
      */
     public function getNeckRoot()
     {
-        return $this->neckRoot;
+        return $this->decrypt($this->neckRoot,$this->id);
     }
 
     /**
@@ -509,7 +509,7 @@ class Shape
      */
     public function setShoulderLength($shoulderLength)
     {
-        $this->shoulderLength = $shoulderLength;
+        $this->shoulderLength = $this->encrypt($shoulderLength,$this->id);
 
         return $this;
     }
@@ -521,7 +521,7 @@ class Shape
      */
     public function getShoulderLength()
     {
-        return $this->shoulderLength;
+        return $this->decrypt($this->shoulderLength,$this->id);
     }
 
     /**
@@ -533,7 +533,7 @@ class Shape
      */
     public function setPreShoulderWidth($preShoulderWidth)
     {
-        $this->preShoulderWidth = $preShoulderWidth;
+        $this->preShoulderWidth = $this->encrypt($preShoulderWidth,$this->id);
 
         return $this;
     }
@@ -545,7 +545,7 @@ class Shape
      */
     public function getPreShoulderWidth()
     {
-        return $this->preShoulderWidth;
+        return $this->decrypt($this->preShoulderWidth,$this->id);
     }
 
     /**
@@ -557,7 +557,7 @@ class Shape
      */
     public function setBackSchoulderWidth($backSchoulderWidth)
     {
-        $this->backSchoulderWidth = $backSchoulderWidth;
+        $this->backSchoulderWidth = $this->encrypt($backSchoulderWidth,$this->id);
 
         return $this;
     }
@@ -569,7 +569,7 @@ class Shape
      */
     public function getBackSchoulderWidth()
     {
-        return $this->backSchoulderWidth;
+        return $this->decrypt($this->backSchoulderWidth,$this->id);
     }
 
     /**
@@ -581,7 +581,7 @@ class Shape
      */
     public function setShoulderWidth($shoulderWidth)
     {
-        $this->shoulderWidth = $shoulderWidth;
+        $this->shoulderWidth = $this->encrypt($shoulderWidth,$this->id);
 
         return $this;
     }
@@ -593,7 +593,7 @@ class Shape
      */
     public function getShoulderWidth()
     {
-        return $this->shoulderWidth;
+        return $this->decrypt($this->shoulderWidth,$this->id);
     }
 
     /**
@@ -605,7 +605,7 @@ class Shape
      */
     public function setChestMiddle($chestMiddle)
     {
-        $this->chestMiddle = $chestMiddle;
+        $this->chestMiddle = $this->encrypt($chestMiddle,$this->id);
 
         return $this;
     }
@@ -617,7 +617,7 @@ class Shape
      */
     public function getChestMiddle()
     {
-        return $this->chestMiddle;
+        return $this->decrypt($this->chestMiddle,$this->id);
     }
 
     /**
@@ -629,7 +629,7 @@ class Shape
      */
     public function setChestLower($chestLower)
     {
-        $this->chestLower = $chestLower;
+        $this->chestLower = $this->encrypt($chestLower,$this->id);
 
         return $this;
     }
@@ -641,7 +641,7 @@ class Shape
      */
     public function getChestLower()
     {
-        return $this->chestLower;
+        return $this->decrypt($this->chestLower,$this->id);
     }
 
     /**
@@ -653,7 +653,7 @@ class Shape
      */
     public function setBreasWidth($breasWidth)
     {
-        $this->breasWidth = $breasWidth;
+        $this->breasWidth = $this->encrypt($breasWidth,$this->id);
 
         return $this;
     }
@@ -665,7 +665,7 @@ class Shape
      */
     public function getBreasWidth()
     {
-        return $this->breasWidth;
+        return $this->decrypt($this->breasWidth,$this->id);
     }
 
     /**
@@ -677,7 +677,7 @@ class Shape
      */
     public function setChestWidth($chestWidth)
     {
-        $this->chestWidth = $chestWidth;
+        $this->chestWidth = $this->encrypt($chestWidth,$this->id);
 
         return $this;
     }
@@ -689,7 +689,7 @@ class Shape
      */
     public function getChestWidth()
     {
-        return $this->chestWidth;
+        return $this->decrypt($this->chestWidth,$this->id);
     }
 
     /**
@@ -701,7 +701,7 @@ class Shape
      */
     public function setArmRoot($armRoot)
     {
-        $this->armRoot = $armRoot;
+        $this->armRoot = $this->encrypt($armRoot,$this->id);
 
         return $this;
     }
@@ -713,7 +713,7 @@ class Shape
      */
     public function getArmRoot()
     {
-        return $this->armRoot;
+        return $this->decrypt($this->armRoot,$this->id);
     }
 
     /**
@@ -725,7 +725,7 @@ class Shape
      */
     public function setArmUp($armUp)
     {
-        $this->armUp = $armUp;
+        $this->armUp = $this->encrypt($armUp,$this->id);
 
         return $this;
     }
@@ -737,7 +737,7 @@ class Shape
      */
     public function getArmUp()
     {
-        return $this->armUp;
+        return $this->decrypt($this->armUp,$this->id);
     }
 
     /**
@@ -749,7 +749,7 @@ class Shape
      */
     public function setArmMiddle($armMiddle)
     {
-        $this->armMiddle = $armMiddle;
+        $this->armMiddle = $this->encrypt($armMiddle,$this->id);
 
         return $this;
     }
@@ -761,7 +761,7 @@ class Shape
      */
     public function getArmMiddle()
     {
-        return $this->armMiddle;
+        return $this->decrypt($this->armMiddle,$this->id);
     }
 
     /**
@@ -773,7 +773,7 @@ class Shape
      */
     public function setArmLower($armLower)
     {
-        $this->armLower = $armLower;
+        $this->armLower = $this->encrypt($armLower,$this->id);
 
         return $this;
     }
@@ -785,7 +785,7 @@ class Shape
      */
     public function getArmLower()
     {
-        return $this->armLower;
+        return $this->decrypt($this->armLower,$this->id);
     }
 
     /**
@@ -797,7 +797,7 @@ class Shape
      */
     public function setTrunk($trunk)
     {
-        $this->trunk = $trunk;
+        $this->trunk = $this->encrypt($trunk,$this->id);
 
         return $this;
     }
@@ -809,7 +809,7 @@ class Shape
      */
     public function getTrunk()
     {
-        return $this->trunk;
+        return $this->decrypt($this->trunk,$this->id);
     }
 
     /**
@@ -821,7 +821,7 @@ class Shape
      */
     public function setArmpit($armpit)
     {
-        $this->armpit = $armpit;
+        $this->armpit = $this->encrypt($armpit,$this->id);
 
         return $this;
     }
@@ -833,7 +833,7 @@ class Shape
      */
     public function getArmpit()
     {
-        return $this->armpit;
+        return $this->decrypt($this->armpit,$this->id);
     }
 
     /**
@@ -845,7 +845,7 @@ class Shape
      */
     public function setWaistLength($waistLength)
     {
-        $this->waistLength = $waistLength;
+        $this->waistLength = $this->encrypt($waistLength,$this->id);
 
         return $this;
     }
@@ -857,7 +857,7 @@ class Shape
      */
     public function getWaistLength()
     {
-        return $this->waistLength;
+        return $this->decrypt($this->waistLength,$this->id);
     }
 
     /**
@@ -869,7 +869,7 @@ class Shape
      */
     public function setNeckToBreast($neckToBreast)
     {
-        $this->neckToBreast = $neckToBreast;
+        $this->neckToBreast = $this->encrypt($neckToBreast,$this->id);
 
         return $this;
     }
@@ -881,7 +881,7 @@ class Shape
      */
     public function getNeckToBreast()
     {
-        return $this->neckToBreast;
+        return $this->decrypt($this->neckToBreast,$this->id);
     }
 
     /**
@@ -893,7 +893,7 @@ class Shape
      */
     public function setNeckToWaist($neckToWaist)
     {
-        $this->neckToWaist = $neckToWaist;
+        $this->neckToWaist = $this->encrypt($neckToWaist,$this->id);
 
         return $this;
     }
@@ -905,7 +905,7 @@ class Shape
      */
     public function getNeckToWaist()
     {
-        return $this->neckToWaist;
+        return $this->decrypt($this->neckToWaist,$this->id);
     }
 
     /**
@@ -917,7 +917,7 @@ class Shape
      */
     public function setShoulderToBreast($shoulderToBreast)
     {
-        $this->shoulderToBreast = $shoulderToBreast;
+        $this->shoulderToBreast = $this->encrypt($shoulderToBreast,$this->id);
 
         return $this;
     }
@@ -929,7 +929,7 @@ class Shape
      */
     public function getShoulderToBreast()
     {
-        return $this->shoulderToBreast;
+        return $this->decrypt($this->shoulderToBreast,$this->id);
     }
 
     /**
@@ -941,7 +941,7 @@ class Shape
      */
     public function setWaistPreLength($waistPreLength)
     {
-        $this->waistPreLength = $waistPreLength;
+        $this->waistPreLength = $this->encrypt($waistPreLength,$this->id);
 
         return $this;
     }
@@ -953,7 +953,7 @@ class Shape
      */
     public function getWaistPreLength()
     {
-        return $this->waistPreLength;
+        return $this->decrypt($this->waistPreLength,$this->id);
     }
 
     /**
@@ -965,7 +965,7 @@ class Shape
      */
     public function setChestHeight($chestHeight)
     {
-        $this->chestHeight = $chestHeight;
+        $this->chestHeight = $this->encrypt($chestHeight,$this->id);
 
         return $this;
     }
@@ -977,7 +977,7 @@ class Shape
      */
     public function getChestHeight()
     {
-        return $this->chestHeight;
+        return $this->decrypt($this->chestHeight,$this->id);
     }
 
     /**
@@ -989,7 +989,7 @@ class Shape
      */
     public function setArmLength($armLength)
     {
-        $this->armLength = $armLength;
+        $this->armLength = $this->encrypt($armLength,$this->id);
 
         return $this;
     }
@@ -1001,7 +1001,7 @@ class Shape
      */
     public function getArmLength()
     {
-        return $this->armLength;
+        return $this->decrypt($this->armLength,$this->id);
     }
 
     /**
@@ -1013,7 +1013,7 @@ class Shape
      */
     public function setArmUpLength($armUpLength)
     {
-        $this->armUpLength = $armUpLength;
+        $this->armUpLength = $this->encrypt($armUpLength,$this->id);
 
         return $this;
     }
@@ -1025,7 +1025,7 @@ class Shape
      */
     public function getArmUpLength()
     {
-        return $this->armUpLength;
+        return $this->decrypt($this->armUpLength,$this->id);
     }
 
     /**
@@ -1037,7 +1037,7 @@ class Shape
      */
     public function setArmLowerLength($armLowerLength)
     {
-        $this->armLowerLength = $armLowerLength;
+        $this->armLowerLength = $this->encrypt($armLowerLength,$this->id);
 
         return $this;
     }
@@ -1049,7 +1049,7 @@ class Shape
      */
     public function getArmLowerLength()
     {
-        return $this->armLowerLength;
+        return $this->decrypt($this->armLowerLength,$this->id);
     }
 
     /**
@@ -1061,7 +1061,7 @@ class Shape
      */
     public function setNeckToWrist($neckToWrist)
     {
-        $this->neckToWrist = $neckToWrist;
+        $this->neckToWrist = $this->encrypt($neckToWrist,$this->id);
 
         return $this;
     }
@@ -1073,7 +1073,7 @@ class Shape
      */
     public function getNeckToWrist()
     {
-        return $this->neckToWrist;
+        return $this->decrypt($this->neckToWrist,$this->id);
     }
 
     /**
@@ -1085,7 +1085,7 @@ class Shape
      */
     public function setPreWaistJoint($preWaistJoint)
     {
-        $this->preWaistJoint = $preWaistJoint;
+        $this->preWaistJoint = $this->encrypt($preWaistJoint,$this->id);
 
         return $this;
     }
@@ -1097,7 +1097,7 @@ class Shape
      */
     public function getPreWaistJoint()
     {
-        return $this->preWaistJoint;
+        return $this->decrypt($this->preWaistJoint,$this->id);
     }
 
     /**
@@ -1109,7 +1109,7 @@ class Shape
      */
     public function setBackWaistJoint($backWaistJoint)
     {
-        $this->backWaistJoint = $backWaistJoint;
+        $this->backWaistJoint = $this->encrypt($backWaistJoint,$this->id);
 
         return $this;
     }
@@ -1121,7 +1121,7 @@ class Shape
      */
     public function getBackWaistJoint()
     {
-        return $this->backWaistJoint;
+        return $this->decrypt($this->backWaistJoint,$this->id);
     }
 
     /**
@@ -1133,7 +1133,7 @@ class Shape
      */
     public function setSitToNeck($sitToNeck)
     {
-        $this->sitToNeck = $sitToNeck;
+        $this->sitToNeck = $this->encrypt($sitToNeck,$this->id);
 
         return $this;
     }
@@ -1145,7 +1145,7 @@ class Shape
      */
     public function getSitToNeck()
     {
-        return $this->sitToNeck;
+        return $this->decrypt($this->sitToNeck,$this->id);
     }
 
     /**
@@ -1205,7 +1205,7 @@ class Shape
      */
     public function setWaist($waist)
     {
-        $this->waist = $waist;
+        $this->waist = $this->encrypt($waist,$this->id);
 
         return $this;
     }
@@ -1217,7 +1217,7 @@ class Shape
      */
     public function getWaist()
     {
-        return $this->waist;
+        return $this->decrypt($this->waist,$this->id);
     }
 
     /**
@@ -1229,7 +1229,7 @@ class Shape
      */
     public function setAbdomen($abdomen)
     {
-        $this->abdomen = $abdomen;
+        $this->abdomen = $this->encrypt($abdomen,$this->id);
 
         return $this;
     }
@@ -1241,7 +1241,7 @@ class Shape
      */
     public function getAbdomen()
     {
-        return $this->abdomen;
+        return $this->decrypt($this->abdomen,$this->id);
     }
 
     /**
@@ -1253,7 +1253,7 @@ class Shape
      */
     public function setHipline($hipline)
     {
-        $this->hipline = $hipline;
+        $this->hipline = $this->encrypt($hipline,$this->id);
 
         return $this;
     }
@@ -1265,7 +1265,7 @@ class Shape
      */
     public function getHipline()
     {
-        return $this->hipline;
+        return $this->decrypt($this->hipline,$this->id);
     }
 
     /**
@@ -1277,7 +1277,7 @@ class Shape
      */
     public function setNeckToLap($neckToLap)
     {
-        $this->neckToLap = $neckToLap;
+        $this->neckToLap = $this->encrypt($neckToLap,$this->id);
 
         return $this;
     }
@@ -1289,7 +1289,7 @@ class Shape
      */
     public function getNeckToLap()
     {
-        return $this->neckToLap;
+        return $this->decrypt($this->neckToLap,$this->id);
     }
 
     /**
@@ -1301,7 +1301,7 @@ class Shape
      */
     public function setNeckToKnee($neckToKnee)
     {
-        $this->neckToKnee = $neckToKnee;
+        $this->neckToKnee = $this->encrypt($neckToKnee,$this->id);
 
         return $this;
     }
@@ -1313,7 +1313,7 @@ class Shape
      */
     public function getNeckToKnee()
     {
-        return $this->neckToKnee;
+        return $this->decrypt($this->neckToKnee,$this->id);
     }
 
     /**
@@ -1325,7 +1325,7 @@ class Shape
      */
     public function setNeckHeight($neckHeight)
     {
-        $this->neckHeight = $neckHeight;
+        $this->neckHeight = $this->encrypt($neckHeight,$this->id);
 
         return $this;
     }
@@ -1337,7 +1337,7 @@ class Shape
      */
     public function getNeckHeight()
     {
-        return $this->neckHeight;
+        return $this->decrypt($this->neckHeight,$this->id);
     }
 
     /**
@@ -1349,7 +1349,7 @@ class Shape
      */
     public function setWaistHeight($waistHeight)
     {
-        $this->waistHeight = $waistHeight;
+        $this->waistHeight = $this->encrypt($waistHeight,$this->id);
 
         return $this;
     }
@@ -1361,7 +1361,7 @@ class Shape
      */
     public function getWaistHeight()
     {
-        return $this->waistHeight;
+        return $this->decrypt($this->waistHeight,$this->id);
     }
 
     /**
@@ -1373,7 +1373,7 @@ class Shape
      */
     public function setCrotch($crotch)
     {
-        $this->crotch = $crotch;
+        $this->crotch = $this->encrypt($crotch,$this->id);
 
         return $this;
     }
@@ -1385,7 +1385,7 @@ class Shape
      */
     public function getCrotch()
     {
-        return $this->crotch;
+        return $this->decrypt($this->crotch,$this->id);
     }
 
     /**
@@ -1397,7 +1397,7 @@ class Shape
      */
     public function setWaistToHipline($waistToHipline)
     {
-        $this->waistToHipline = $waistToHipline;
+        $this->waistToHipline = $this->encrypt($waistToHipline,$this->id);
 
         return $this;
     }
@@ -1409,7 +1409,7 @@ class Shape
      */
     public function getWaistToHipline()
     {
-        return $this->waistToHipline;
+        return $this->decrypt($this->waistToHipline,$this->id);
     }
 
     /**
@@ -1445,7 +1445,7 @@ class Shape
      */
     public function setLegRoot($legRoot)
     {
-        $this->legRoot = $legRoot;
+        $this->legRoot = $this->encrypt($legRoot,$this->id);
 
         return $this;
     }
@@ -1457,7 +1457,7 @@ class Shape
      */
     public function getLegRoot()
     {
-        return $this->legRoot;
+        return $this->decrypt($this->legRoot,$this->id);
     }
 
     /**
@@ -1469,7 +1469,7 @@ class Shape
      */
     public function setLegMiddle($legMiddle)
     {
-        $this->legMiddle = $legMiddle;
+        $this->legMiddle = $this->encrypt($legMiddle,$this->id);
 
         return $this;
     }
@@ -1481,7 +1481,7 @@ class Shape
      */
     public function getLegMiddle()
     {
-        return $this->legMiddle;
+        return $this->decrypt($this->legMiddle,$this->id);
     }
 
     /**
@@ -1493,7 +1493,7 @@ class Shape
      */
     public function setKnee($knee)
     {
-        $this->knee = $knee;
+        $this->knee = $this->encrypt($knee,$this->id);
 
         return $this;
     }
@@ -1505,7 +1505,7 @@ class Shape
      */
     public function getKnee()
     {
-        return $this->knee;
+        return $this->decrypt($this->knee,$this->id);
     }
 
     /**
@@ -1517,7 +1517,7 @@ class Shape
      */
     public function setKneeLower($kneeLower)
     {
-        $this->kneeLower = $kneeLower;
+        $this->kneeLower = $this->encrypt($kneeLower,$this->id);
 
         return $this;
     }
@@ -1529,7 +1529,7 @@ class Shape
      */
     public function getKneeLower()
     {
-        return $this->kneeLower;
+        return $this->decrypt($this->kneeLower,$this->id);
     }
 
     /**
@@ -1541,7 +1541,7 @@ class Shape
      */
     public function setLegBelly($legBelly)
     {
-        $this->legBelly = $legBelly;
+        $this->legBelly = $this->encrypt($legBelly,$this->id);
 
         return $this;
     }
@@ -1553,7 +1553,7 @@ class Shape
      */
     public function getLegBelly()
     {
-        return $this->legBelly;
+        return $this->decrypt($this->legBelly,$this->id);
     }
 
     /**
@@ -1565,7 +1565,7 @@ class Shape
      */
     public function setAnkleUp($ankleUp)
     {
-        $this->ankleUp = $ankleUp;
+        $this->ankleUp = $this->encrypt($ankleUp,$this->id);
 
         return $this;
     }
@@ -1577,7 +1577,7 @@ class Shape
      */
     public function getAnkleUp()
     {
-        return $this->ankleUp;
+        return $this->decrypt($this->ankleUp,$this->id);
     }
 
     /**
@@ -1589,7 +1589,7 @@ class Shape
      */
     public function setAnkle($ankle)
     {
-        $this->ankle = $ankle;
+        $this->ankle = $this->encrypt($ankle,$this->id);
 
         return $this;
     }
@@ -1601,7 +1601,7 @@ class Shape
      */
     public function getAnkle()
     {
-        return $this->ankle;
+        return $this->decrypt($this->ankle,$this->id);
     }
 
     /**
@@ -1613,7 +1613,7 @@ class Shape
      */
     public function setLegOutLength($legOutLength)
     {
-        $this->legOutLength = $legOutLength;
+        $this->legOutLength = $this->encrypt($legOutLength,$this->id);
 
         return $this;
     }
@@ -1625,7 +1625,7 @@ class Shape
      */
     public function getLegOutLength()
     {
-        return $this->legOutLength;
+        return $this->decrypt($this->legOutLength,$this->id);
     }
 
     /**
@@ -1637,7 +1637,7 @@ class Shape
      */
     public function setLegInLength($legInLength)
     {
-        $this->legInLength = $legInLength;
+        $this->legInLength = $this->encrypt($legInLength,$this->id);
 
         return $this;
     }
@@ -1649,7 +1649,7 @@ class Shape
      */
     public function getLegInLength()
     {
-        return $this->legInLength;
+        return $this->decrypt($this->legInLength,$this->id);
     }
 
     /**
@@ -1661,7 +1661,7 @@ class Shape
      */
     public function setThigh($thigh)
     {
-        $this->thigh = $thigh;
+        $this->thigh = $this->encrypt($thigh,$this->id);
 
         return $this;
     }
@@ -1673,7 +1673,7 @@ class Shape
      */
     public function getThigh()
     {
-        return $this->thigh;
+        return $this->decrypt($this->thigh,$this->id);
     }
 
     /**
@@ -1685,7 +1685,7 @@ class Shape
      */
     public function setWaistToAnkle($waistToAnkle)
     {
-        $this->waistToAnkle = $waistToAnkle;
+        $this->waistToAnkle = $this->encrypt($waistToAnkle,$this->id);
 
         return $this;
     }
@@ -1697,7 +1697,7 @@ class Shape
      */
     public function getWaistToAnkle()
     {
-        return $this->waistToAnkle;
+        return $this->decrypt($this->waistToAnkle,$this->id);
     }
 
     /**
@@ -1709,7 +1709,7 @@ class Shape
      */
     public function setHipHeight($hipHeight)
     {
-        $this->hipHeight = $hipHeight;
+        $this->hipHeight = $this->encrypt($hipHeight,$this->id);
 
         return $this;
     }
@@ -1721,7 +1721,7 @@ class Shape
      */
     public function getHipHeight()
     {
-        return $this->hipHeight;
+        return $this->decrypt($this->hipHeight,$this->id);
     }
 
     /**
@@ -1733,7 +1733,7 @@ class Shape
      */
     public function setAnkleOut($ankleOut)
     {
-        $this->ankleOut = $ankleOut;
+        $this->ankleOut = $this->encrypt($ankleOut,$this->id);
 
         return $this;
     }
@@ -1745,7 +1745,7 @@ class Shape
      */
     public function getAnkleOut()
     {
-        return $this->ankleOut;
+        return $this->decrypt($this->ankleOut,$this->id);
     }
 
     /**
@@ -1757,7 +1757,7 @@ class Shape
      */
     public function setPerineum($perineum)
     {
-        $this->perineum = $perineum;
+        $this->perineum = $this->encrypt($perineum,$this->id);
 
         return $this;
     }
@@ -1769,7 +1769,7 @@ class Shape
      */
     public function getPerineum()
     {
-        return $this->perineum;
+        return $this->decrypt($this->perineum,$this->id);
     }
 
     /**
@@ -1781,7 +1781,7 @@ class Shape
      */
     public function setHeight($height)
     {
-        $this->height = $height;
+        $this->height = $this->encrypt($height,$this->id);
 
         return $this;
     }
@@ -1793,7 +1793,7 @@ class Shape
      */
     public function getHeight()
     {
-        return $this->height;
+        return $this->decrypt($this->height,$this->id);
     }
 
     /**
@@ -1805,7 +1805,7 @@ class Shape
      */
     public function setWeight($weight)
     {
-        $this->weight = $weight;
+        $this->weight = $this->encrypt($weight,$this->id);
 
         return $this;
     }
@@ -1817,7 +1817,7 @@ class Shape
      */
     public function getWeight()
     {
-        return $this->weight;
+        return $this->decrypt($this->weight,$this->id);
     }
 
     /**
@@ -1829,7 +1829,7 @@ class Shape
      */
     public function setRemarks($remarks)
     {
-        $this->remarks = $remarks;
+        $this->remarks = $this->encrypt($remarks,$this->id);
 
         return $this;
     }
@@ -1841,7 +1841,7 @@ class Shape
      */
     public function getRemarks()
     {
-        return $this->remarks;
+        return $this->decrypt($this->remarks,$this->id);
     }
 
     /**
@@ -1894,6 +1894,62 @@ class Shape
 
     public function __toString()
     {
-        return '体型数据'.$this->id;
+        return $this->user->getUsername().'的体型数据';
+    }
+
+    public function encrypt($data, $key)
+    {
+        $key    =   md5($key);
+        $x      =   0;
+        $len    =   strlen($data);
+        $l      =   strlen($key);
+        $char = '';
+        $str = '';
+        for ($i = 0; $i < $len; $i++)
+        {
+            if ($x == $l)
+            {
+                $x = 0;
+            }
+            $char .= $key{$x};
+            $x++;
+        }
+        for ($i = 0; $i < $len; $i++)
+        {
+            $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);
+        }
+        return base64_encode($str);
+    }
+
+    public function decrypt($data, $key)
+    {
+        $key = md5($key);
+        $x = 0;
+        $data = base64_decode($data);
+        $len = strlen($data);
+        $l = strlen($key);
+        $char = '';
+        $str = '';
+        for ($i = 0; $i < $len; $i++)
+        {
+            if ($x == $l)
+            {
+                $x = 0;
+            }
+            $char .= substr($key, $x, 1);
+            $x++;
+        }
+        for ($i = 0; $i < $len; $i++)
+        {
+            if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1)))
+            {
+                $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));
+            }
+            else
+            {
+                $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));
+            }
+        }
+        return $str;
     }
 }

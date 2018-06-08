@@ -36,5 +36,4 @@ class TradeController extends Controller
     }
 
 
-
 }

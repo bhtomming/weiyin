@@ -147,6 +147,7 @@ class User extends FOSUser
      */
     public function setAddress($address)
     {
+        $address->setUser($this);
         $this->addAddress($address);
 
         return $this;
@@ -197,7 +198,10 @@ class User extends FOSUser
 
 
 
-    public function setBirthday(\DateTime $birthday){
+    public function setBirthday($birthday){
+        if(null == $birthday || !($birthday instanceof \DateTime)){
+            return $this;
+        }
         $this->birthday = $birthday;
         return $this;
     }

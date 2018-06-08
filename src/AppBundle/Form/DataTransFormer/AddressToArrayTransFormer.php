@@ -23,17 +23,19 @@ class AddressToArrayTransFormer implements DataTransformerInterface
 
    //取数据的时候调用
     public function transform($collection){
-        //把数组集转换成对象
+
+        if($collection->isEmpty()){
+            return null;
+        }
 
         if($collection instanceof Address){
-
             return $collection;
         }
 
-        //var_dump(get_class($collection));die();
-        if($collection instanceof ArrayCollection && $collection->isEmpty() || $collection instanceof PersistentCollection ){
+        /*if($collection instanceof ArrayCollection || $collection->isEmpty() ){
             return null;
-        }
+        }*/
+        //把数组集转换成对象
         foreach ($collection as $object){
             if($object instanceof Address){
                 if($object->getIsDefault()){
