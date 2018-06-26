@@ -25,14 +25,19 @@ class TradeController extends Controller
     /**
      * @Route("/{id}",name="view_trade",defaults={"id":0})
      */
-    public function createTradeAction(Goods $trade){
+    public function viewTradeAction(Goods $trade){
         if(!$trade){
             throw new EntityNotFoundException('没有此订单');
         }
+        $this->denyAccessUnlessGranted('show',$trade,'你无权查看此订单');
 
         return $this->render('trade/show.html.twig',[
             'trade' => $trade,
         ]);
+    }
+
+    public function createTradeApiAction($data){
+
     }
 
 

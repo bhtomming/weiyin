@@ -1,5 +1,9 @@
-body{
+body,a,p,ul,li{
     font-family: "微软雅黑";
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar-toggler-icon{
@@ -8,6 +12,13 @@ body{
 .navbar-brand{
     color:#000;
     font-weight: bold;
+}
+.navbar-navs,.navbar-brands{
+    color:#000;
+    font-weight:bolder;
+}
+.navbar-navs li{
+    padding: .5rem;
 }
 .nav-item{
     position: relative;

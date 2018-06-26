@@ -279,7 +279,9 @@ class Goods
     }
 
     public function removeGoodsDetail($goodsDetail){
-        $this->goodsDetail->remove($goodsDetail);
+        if($this->goodsDetail->contains($goodsDetail)){
+            $this->goodsDetail->remove($goodsDetail);
+        }
     }
 
     /**

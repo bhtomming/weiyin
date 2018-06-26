@@ -13,7 +13,7 @@
             <script src="{{ asset('bundles/app/js/jquery-3.3.1.min.js') }}"></script>
         {% endblock %}
     </head>
-    <body>
+    <body id="{% block body_id %}{% endblock %}">
         {% block menu %}
             {{ render(controller('AppBundle:Default:menu')) }}
         {% endblock %}

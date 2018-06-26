@@ -17,6 +17,8 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\NumberType;
 use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -39,7 +41,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("/product/{id}", name="product_show")
+     * @Route("/product/{id}", name="product_show", requirements={"id": "[1-9]\d*"})
      */
     public function showAction(Product $product){
         $form = $this->createForm(NumberType::class,null,array(
