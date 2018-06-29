@@ -26,19 +26,18 @@ class Cart
     /**
      * @var User
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn()
      */
     private $user;
 
     /**
-     * @var Goods[] | ArrayCollection
+     * @var Product
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Goods",cascade={"persist"})
-     * @ORM\JoinTable(name="cart_products")
-     * @ORM\OrderBy({"id":"ASC"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product")
+     *  @ORM\JoinColumn()
      */
-    private $products;
+    private $product;
 
     /**
      * @var int
@@ -84,38 +83,27 @@ class Cart
     /**
      * Set product
      *
-     * @param Goods
+     * @param Product
      *
      * @return Cart
      */
-    public function setProducts($product)
+    public function setProduct($product)
     {
-        if(!$this->products->contains($product)){
-            $this->addProducts($product);
-        }
+        $this->product=$product;
         return $this;
     }
 
     /**
      * Get product
      *
-     * @return Goods[] | ArrayCollection
+     * @return Product
      */
-    public function getProducts()
+    public function getProduct()
     {
-        return $this->products;
+        return $this->product;
     }
 
-    public function addProducts($product){
-        $this->products->add($product);
-    }
 
-    public function removeProducts($product){
-        if($this->products->contains($product)){
-            $this->products->remove($product);
-        }
-        return $this;
-    }
 
     /**
      * @param int $amount
@@ -134,7 +122,6 @@ class Cart
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
     }
 }
 

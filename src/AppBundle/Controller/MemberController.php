@@ -8,10 +8,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Address;
+
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\User;
-use AppBundle\Form\AddressType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,22 +35,11 @@ class MemberController extends Controller
      */
     public function profileAction(User $member){
         if($this->getUser() != $member){
-            return $this->render('member/alc.html.twig');
+            throw $this->createAccessDeniedException('你无权查看此页面内容');
         }
         return $this->render('member/index.html.twig',array(
             'member' => $member,
         ));
-    }
-
-    /**
-     * @Route("/trade/list", name="trade_list")
-     */
-    public function tradeListAction(){
-        $em = $this->getDoctrine()->getManager();
-        $trades = $em->getRepository(Goods::class)->findBy(array('user'=>$this->getUser()->getId()));
-        return $this->render('member/trade_list.html.twig',[
-            'trades' => $trades
-            ]);
     }
 
     /**

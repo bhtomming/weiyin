@@ -1,9 +1,3 @@
-
-{{ form_start(form) }}
-{{ form_label(form.number) }}
-{{ form_widget(form.reduce) }}
-{{ form_widget(form.number) }}
-{{ form_widget(form.add) }}
-{{ form_end(form) }}
-
-<script src="{{ asset('bundles/app/js/goods_number.js') }}"></script>
+<input id="reduce-{{ id }}" type="button" class="btn reduce" name="reduce" data-id="{{ id }}"  value="-"/>
+<input id="num-{{ id }}" type="text" name="number" class="number num-{{ id }}" value="{{ num }}" size="2" data-id="{{ id }}"/>
+<input id="add-{{ id }}" type="button" class="btn add" name="add" data-id="{{ id }}"  value="+"/>

@@ -51,3 +51,9 @@ services:
         class: 'AppBundle\Services\FileUploader'
         arguments: ["%kernel.project_dir%/web%app.path.article_images%"]
         public: true
+
+    app.cart.controller:
+        class: 'AppBundle\Controller\CartController'
+        arguments:
+            - "@security.csrf.token_manager"
+        public: true

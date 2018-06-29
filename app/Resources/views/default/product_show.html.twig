@@ -42,9 +42,8 @@
                     <div class="col"></div>
                     <div class="col-md-3 col-md-offset-9">
                         <div class="text-danger text-bold">价格:{{ product.price }}元</div>
-                        {{ include('default/goods_number.html.twig') }}
+                        {{ include('default/goods_number.html.twig',{'id':product.id, 'num': 1 }) }}
                         <div id="add-car" class="btn btn-danger my-3" data-id="{{ product.id }}">添加到购物车</div>
-                        {# <a class="btn btn-success" href="{{ path('view_car') }}">查看购物车</a>#}
                     </div>
                 </div>
                 <div class="card-text">
@@ -56,5 +55,6 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/app/js/goods_number.js') }}"></script>
     <script src="{{ asset('bundles/app/js/shopping_car.js') }}"></script>
 {% endblock %}

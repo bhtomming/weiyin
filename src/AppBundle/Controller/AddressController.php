@@ -83,7 +83,7 @@ class AddressController extends Controller
      * @Route("/{id}", name="address_delete")
      *
      */
-    public function deleteAction( Address $address)
+    public function deleteAction(Address $address)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($address);

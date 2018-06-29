@@ -6,7 +6,7 @@ easy_admin:
             form:
                 fields:
                     - { property: 'amount', label: '金额' }
-                    - { property: 'expiredAt', label: '过期时间' }
+                    - { property: 'expiredAt', label: '过期时间', type: 'date' }
                     - { property: 'owner', label: '获得者', type: 'easyadmin_autocomplete', , type_options: { class: 'AppBundle\Entity\User' } }
             list:
                 title: '%%entity_label%%列表'
