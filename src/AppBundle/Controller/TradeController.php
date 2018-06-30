@@ -48,7 +48,8 @@ class TradeController extends Controller
      * @Route("/create", name="new_trade")
      */
     public function createAction(Request $request){
-        if(!$request->isXmlHttpRequest()){
+        $user = $this->getUser();
+        if(!$request->isXmlHttpRequest() || !($user instanceof User)){
             return new JsonResponse(['msg'=>'请求发生错误!']);
         }
         $data = $request->request->all();
@@ -98,7 +99,7 @@ class TradeController extends Controller
             $em->persist($coupon);
             $em->flush();
         }
-        $user = $this->getUser();
+
         $trade->setStatus(Goods::UNPAID);
         $trade->setUser($user);
         $trade->setAddress($user->getDefaultAddress());

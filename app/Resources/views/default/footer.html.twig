@@ -3,12 +3,14 @@
     <div class="container">
         {% if settings %}
         <div class="row justify-content-center">
-            <div class="col-md-auto">
-                {{ settings.siteName }}
-                {{ settings.company }}
-                {{ settings.address }}
-                {{ settings.beian }}
-                {{ settings.copyRight }}
+            <div class="col-md-auto text-center">
+                网站名称:{{ settings.siteName }}
+                电话: {{ settings.phone }}
+                地址:{{ settings.address }}<br/>
+                版权:{{ settings.copyRight }}
+                公司名称:{{ settings.company }}
+                <a href="http://www.miitbeian.gov.cn">{{ settings.beian }}</a><br/>
+                技术支持:<a href="http://www.drupai.com">助派网络</a>
             </div>
         </div>
         {% endif %}
