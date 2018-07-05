@@ -4,13 +4,13 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="text-danger">{{ 'http_error.name'|trans({ '%status_code%': 404 }) }}</h1>
+        <h1 class="text-danger">发生错误404</h1>
 
         <p class="lead">
-            {{ 'http_error_404.description'|trans }}
+            无法找到请求的页面
         </p>
         <p>
-            {{ 'http_error_404.suggestion'|trans({ '%url%': path('homepage') })|raw }}
+            请检查链接中的拼写错误或者 <a href="{{ path('homepage') }}">返回首页</a>
         </p>
     </div>
 

@@ -4,6 +4,7 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/app/css/swiper.min.css') }}" />
 {% endblock %}
+
 {% block body %}
     {% if swipers %}
         {{ include('default/swiper.html.twig',{'swipers':swipers}) }}

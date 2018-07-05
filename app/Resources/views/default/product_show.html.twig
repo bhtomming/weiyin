@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
+{% block body_id 'product-show' %}
 {% block body %}
     <div class="container">
         {% if product %}
-        <div class="card">
-            <img class="card-img img-responsive" src="{{ product_image }}/{{ product.image }}" />
-            <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <img class="img-responsive" src="{{ product_image }}/{{ product.image }}" alt="{{ product.title }}"/>
+            </div>
+            <div class="col-12 col-md-6">
                 <h2 class="card-title">{{ product.title }}</h2>
                 <ul class="row list-unstyled">
                         <li class="col-6 col-md-3">版型:{{ product.model }}</li>
@@ -40,14 +43,18 @@
                 <div id="alert"></div>
                 <div class="row">
                     <div class="col"></div>
-                    <div class="col-md-3 col-md-offset-9">
+                    <div class="col-md-4 col-md-offset-8">
                         <div class="text-danger text-bold">价格:{{ product.price }}元</div>
                         {{ include('default/goods_number.html.twig',{'id':product.id, 'num': 1 }) }}
                         <div id="add-car" class="btn btn-danger my-3" data-id="{{ product.id }}">添加到购物车</div>
                     </div>
                 </div>
-                <div class="card-text">
-                商品详情:{{ product.description | raw }}</div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                商品详情:{{ product.description | raw }}
             </div>
         </div>
             {% endif %}

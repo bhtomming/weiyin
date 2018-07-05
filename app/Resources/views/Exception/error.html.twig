@@ -4,7 +4,7 @@
     <h1>找不到你要的页面</h1>
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {# ... #}
+        返回<a href="{{ path('member') }}" >个人中心</a>
     {% endif %}
 
     <p>

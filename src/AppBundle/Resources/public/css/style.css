@@ -5,17 +5,16 @@ body,a,p,ul,li{
     margin: 0;
     padding: 0;
 }
+#mainContent{
+    background-color: #f5f5f5;
+}
 
 .navbar-toggler-icon{
     width: 100%;
 }
-.navbar-brand{
-    color:#000;
-    font-weight: bold;
-}
+
 .navbar-navs,.navbar-brands{
     color:#000;
-    font-weight:bolder;
 }
 .navbar-navs li{
     padding: .5rem;
@@ -26,7 +25,7 @@ body,a,p,ul,li{
 
 .nav-link{
     color:#000;
-    font-weight: bolder;
+    padding: .5rem .8rem;
 }
 .nav-item:after{
     content: '';
@@ -44,4 +43,10 @@ body,a,p,ul,li{
 }
 #footer{
     border-top:1px solid #ff6700;
+}
+#product-show{
+    background-color: #ffffff;
+}
+.shadow{
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.07);
 }

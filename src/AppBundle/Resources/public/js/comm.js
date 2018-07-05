@@ -1,0 +1,1 @@
+var indexpage = "/app_dev.php";

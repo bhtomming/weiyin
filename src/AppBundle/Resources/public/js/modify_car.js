@@ -1,3 +1,4 @@
+document.write("<script language=javascript src='/bundles/app/js/comm.js'><\/script>");
 $(function(){
     var friend_text = $("#friend_phone");
 
@@ -26,7 +27,7 @@ $(function(){
             friend.html("<span class=\"text-danger\" >请输入正确的手机号码</span>");
             return false;
         }
-        $.post("/app_dev.php/cart/friend/quire",{'phone' : phone},function(data,status){
+        $.post(indexpage+"/cart/friend/quire",{'phone' : phone},function(data,status){
                 var color = data.member ? "text-success" : "text-danger";
                 friend.html("<span class=\""+color+"\" >"+data.msg+"</span>") ;
                 if(status !== "success"){
@@ -37,7 +38,7 @@ $(function(){
     });
 
     function del_car(id){
-        $.post('/app_dev.php/cart/delete',
+        $.post(indexpage+'/cart/delete',
             {'id':id},
             function(data,status){
             if("success" === status ){
@@ -64,7 +65,7 @@ $(function(){
         data = $("#cart_view").serializeObject();
         $.post("/app_dev.php/trade/create",data,function(data,status){
             if('success' === status){
-                console.log(data.url);
+                window.location.href = data.url;
             }
         });
     });
