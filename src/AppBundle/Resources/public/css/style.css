@@ -5,6 +5,9 @@ body,a,p,ul,li{
     margin: 0;
     padding: 0;
 }
+a:hover{
+    text-decoration: none;
+}
 #mainContent{
     background-color: #f5f5f5;
 }
@@ -49,4 +52,8 @@ body,a,p,ul,li{
 }
 .shadow{
     box-shadow: 0px 5px 5px rgba(0,0,0,0.07);
+}
+.img-sm{
+    max-width: 60px;
+    max-height: 60px;
 }

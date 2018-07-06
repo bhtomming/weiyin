@@ -135,6 +135,7 @@ class TradeController extends Controller
     public function createSingleTrade(Cart $cart){
         $product = $cart->getProduct();
         $amount = 0;
+        $msg='';
         $num = $cart->getAmount();
         $em = $this->getDoctrine()->getManager();
         //创建单个订单
@@ -144,8 +145,11 @@ class TradeController extends Controller
         $singleStrade->setNumber($num);
         $singleStrade->setAmount($product->getPrice() * $num);
         //设置商品销量库存
-        $product->setSales($product->getSales() + $num);
-        $product->setStock($product->getStock() - $num);
+        //$product->setSales($product->getSales() + $num);
+        //$product->setStock($product->getStock() - $num);
+        if($product->getStock() - $num <= 0){
+            $msg = '库存不足';
+        }
         //设置订单标题
         $subject[] = $product->getTitle();
         //设置总金额
@@ -156,6 +160,7 @@ class TradeController extends Controller
         return array(
             'singleStrade' => $singleStrade,
             'amount' => $amount,
+            'msg' => $msg,
         );
     }
 

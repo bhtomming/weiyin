@@ -9,7 +9,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Goods;
+use AppBundle\Event\TradeEvents;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\EventDispatcher\GenericEvent;
+use Yansongda\Pay\Exceptions\Exception;
 use Yansongda\Pay\Pay;
 use Yansongda\Pay\Log;
 
@@ -20,6 +23,7 @@ class PayController extends Controller
     protected $config = [
         'app_id' => '2016091600521407',
         'notify_url' => 'http://www.weiyin.com/app_dev.php/notify.php',
+        //'notify_url' => 'http://requestbin.leo108.com/1g7dl6o1',
         'return_url' => 'http://www.weiyin.com/app_dev.php/return.php',
         'ali_public_key' => 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkrBKkAaXSMcAMIe/C/AmpCdcDBQ9U9pcEST3DqZxngtTYbTBC7SY/hlnnRQj9VNK07yiXN+cv/kzAcEy2ouBBFlL9VrO0LJ8hsz24TUVEVgn027uP0E0eNqSq+8Myo3/ALRvdKZ6MYWHuBcRFst8NN2OhVYMV9Q8HoXb0mYMLpUJQEIphM0R8dPhPAQH6eBqxz13F2iKE30jMy9n3DGfoRxYBTeh06Dffm7Cchn05XNgrLj/dCA0mtVphlVz9WvFPQXt7gXXiEECBFMHYC3RSnEouFtswfmu82BdUKc6P/NgwtCLFmqv/ohffpjJClySliOVauvdeFuw/NxFByNBqQIDAQAB',
         // 加密方式： **RSA2**
@@ -59,11 +63,17 @@ class PayController extends Controller
     public function return()
     {
         $data = Pay::alipay($this->config)->verify(); // 是的，验签就这么简单！
-        $stradeNo = $data->out_trade_no;
 
+        $stradeNo = $data->out_trade_no;
         $em = $this->getDoctrine()->getManager();
         $trade = $em->getRepository(Goods::class)->findOneBy(array('tradeNo'=>$stradeNo));
-        $trade->setStatus(Goods::PAID);
+
+        $arguments = [
+            'em' => $this->getDoctrine()->getManager(),
+            'entity' => $trade,
+        ];
+        $event = new GenericEvent($trade,$arguments);
+        $this->get('event_dispatcher')->dispatch(TradeEvents::PRE_PAID,$event);
         $trade->setPayNo($data->trade_no);
         $em->persist($trade);
         $em->flush();
@@ -91,10 +101,37 @@ class PayController extends Controller
             // 4、验证app_id是否为该商户本身。
             // 5、其它业务逻辑情况
 
+            if($data->trade_status != 'TRADE_SUCCESS' || $data->trade_status != 'TRADE_FINISHED'){
+                throw new Exception('支付订单不成功');
+            }
+            $stradeNo = $data->out_trade_no;
+            $em = $this->getDoctrine()->getManager();
+            $trade = $em->getRepository(Goods::class)->findOneBy(array('tradeNo'=>$stradeNo));
+            if(!$trade instanceof Goods){
+                throw new Exception('没有该订单');
+            }
+            if($data->total_amount != $trade->getTotalAmount()){
+                throw new Exception('订单金额不对');
+            }
+            if($data->app_id != $this->config['app_id']){
+                throw new Exception('商家信息不对');
+            }
+            $arguments = [
+                'em' => $this->getDoctrine()->getManager(),
+                'entity' => $trade,
+            ];
+            $event = new GenericEvent($trade,$arguments);
+            $this->get('event_dispatcher')->dispatch(TradeEvents::PRE_PAID,$event);
+            //$trade->setStatus(Goods::PAID);
+            $trade->setPayNo($data->trade_no);
+            $em->persist($trade);
+            $em->flush();
+
             Log::debug('Alipay notify', $data->all());
         } catch (Exception $e) {
-            // $e->getMessage();
+             $e->getMessage();
         }
+
 
         return $alipay->success()->send();
     }

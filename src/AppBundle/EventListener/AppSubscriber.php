@@ -9,6 +9,8 @@
 namespace AppBundle\EventListener;
 
 
+use AppBundle\Entity\Goods;
+use AppBundle\Event\TradeEvents;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,7 +25,10 @@ class AppSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(EasyAdminEvents::PRE_LIST =>  'checkUserRights');
+        return array(
+            EasyAdminEvents::PRE_LIST =>  'checkUserRights',
+            TradeEvents::PRE_PAID=>'checkTrade',
+        );
     }
 
     public function __construct(ContainerInterface $container){
@@ -52,5 +57,26 @@ class AppSubscriber implements EventSubscriberInterface
                 throw new AccessDeniedException();
             }
         }
+    }
+
+    //监听订单支付成功后的事件
+    public function checkTrade(GenericEvent $event){
+        $trade = $event->getSubject();
+        $em = $event->getArgument('em');
+
+        if(!$trade instanceof Goods){
+            return;
+        }
+        $tradeItems = $trade->getGoodsDetail();
+        foreach ($tradeItems as $tradeItem){
+            $product = $tradeItem->getProduct();
+            //设置商品销量库存
+            $product->setSales($product->getSales() + $tradeItem->getNumber());
+            $product->setStock($product->getStock() - $tradeItem->getNumber());
+            $product->setUpdatedAt(new \DateTime('now'));
+            $em->persist($product);
+            $em->flush();
+        }
+        $trade->setStatus(Goods::PAID);
     }
 }
