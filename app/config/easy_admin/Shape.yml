@@ -68,6 +68,7 @@ easy_admin:
                     - { property: 'remarks', label: '备注', css_class: 'col-md-4'}
                     - { property: 'keep', label: '顾客留底', css_class: 'col-md-4'}
             show:
+                title: '%%entity_label%%详情'
                 actions:
                     - {name: 'backtoUser', label: '返回'}
                     - '-list'

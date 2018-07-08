@@ -25,7 +25,7 @@ easy_admin:
                     - { property: 'phone', label: '电话',type_options:{required: true} }
                     - { property: 'birthday', label: '生日',type: 'birthday' }
                     - { property: 'sex', label: '性别', type: 'choice', type_options: { choices: {'男': '男', '女': '女'}, placeholder: '请选择性别' } }
-                    - { property: 'address',  label: '地址', type: 'AppBundle\Form\Type\AddressType', type_options:{required: true}}
+                    - { property: 'address',  label: '地址', type: 'AppBundle\Form\Type\AddressType', type_options:{required: true, data_class: 'AppBundle\Entity\Address'}}
 
  #               form_options: { validation_groups: ['Profile'] }
             new:
@@ -52,6 +52,6 @@ easy_admin:
                     - { property: 'sex',label: '性别'}
                     - { property: 'birthday',label: '生日'}
                     - { property: 'address',label: '地址'}
-                    - { property: 'shape',label: '体型数据'}
+                    - { property: 'shape',label: '体型数据',template: 'easy_admin/fields/shape.html.twig'}
                     - { property: 'lastLogin',label: '最后活跃时间'}
 

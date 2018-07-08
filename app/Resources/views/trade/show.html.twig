@@ -28,7 +28,7 @@
                             <td> {{ product.price }}</td>
                             <td>{{ item.number }}</td>
                             <td>{{ product.price * item.number }}元</td>
-                            <td>{{ trade.status ? "已付款" : "未付款" }}</td>
+                            <td>{{ trade.status == 1 ? "已付款"}}{{  trade.status == 0 ? "未付款" }}{{  trade.status == 4 ? "已关闭" }}</td>
                         </tr>
                         {% endfor %}
                         <tr>

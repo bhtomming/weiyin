@@ -28,6 +28,11 @@ class Product
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User");
+     */
+    private $provider;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="model", type="string", length=12)
@@ -1166,6 +1171,15 @@ class Product
     public function getSelling()
     {
         return $this->selling;
+    }
+
+    public function setProvider(User $user){
+        $this->provider = $user;
+        return $this;
+    }
+
+    public function getProvider(){
+        return $this->provider;
     }
 
 

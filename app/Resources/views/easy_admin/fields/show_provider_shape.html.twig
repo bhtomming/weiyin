@@ -1,7 +1,7 @@
-{% set shape = value %}
+{% set shape = item.user.shape.last %}
 <table>
     <tbody>
-    {% if shape.neckAround %}
+    {% if shape.neckAround is null %}
     <tr>
         <th>颈围</th>
         <td>{{ shape.neckAround }}</td>

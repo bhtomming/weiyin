@@ -1,5 +1,4 @@
-{{ dump(value) }}
-{#
-{%  for shape in value  %}
-
-{% endfor %}#}
+{{ dump(app.request.requestUri) }}
+{% for shape in item.shape %}
+    <a href="{{ path('easyadmin', {entity: 'Shape', referer: app.request.requestUri, action: 'show', id: shape.id }) }}">{{ shape }}</a>
+{% endfor %}

@@ -27,7 +27,7 @@ class AddressType extends AbstractType
             'label'=>'默认地址',
         ))
             ->add('province',EntityType::class,array(
-                'class'=>'AppBundle\Entity\Province',
+                'class'=>'AppBundle:Province',
                 'choice_value' => function(Province $entity = null){
                     return $entity ? $entity->getCode() : '';
                 },

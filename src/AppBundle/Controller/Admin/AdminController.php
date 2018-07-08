@@ -86,27 +86,31 @@ class AdminController extends BaseAdminController
     }
     public function addShapeAction(){
         $userId = $this->request->query->get('id');
-        return $this->redirectToRoute('easyadmin',array(
+        $referer = $this->request->query->get('referer');
+        return $this->redirect($this->generateUrl('easyadmin',array(
+            'action'=>'new',
             'entity'=>'Shape',
             'userId' => $userId,
-            'action'=>'new',
-        ));
+            'referer' => $referer,
+        )));
     }
 
     public function showssShapeAction(){
         $userId = $this->request->query->get('id');
+        //$referer = $this->request->getRequestUri();
+        $referer = $this->generateUrl('easyadmin',array('entity'=>'Member','action'=>'edit','id'=>$userId));
         $user =  $this->getDoctrine()->getRepository(User::class)->find($userId);
         $shapes = $user->getShape();
         $shape = $shapes->last();
         if( !($shape instanceof Shape) ){
             return $this->addShapeAction();
         }
-        return $this->redirectToRoute('easyadmin',array(
+        return $this->redirect($this->generateUrl('easyadmin',array(
             'entity' => 'Shape',
             'action' => 'show',
-            'userId' => $userId,
             'id' => $shape->getId(),
-        ));
+            'referer' => $referer,
+        )));
     }
 
     public function createNewShapeEntity(){
@@ -123,8 +127,9 @@ class AdminController extends BaseAdminController
     }
 
 
-    public function editShapeAction(){
+    /*public function editShapeAction(){
         $id = $this->request->query->get('id');
+
         $easyadmin = $this->request->attributes->get('easyadmin');
         $entity = $easyadmin['item'];
         $fields = $this->entity['edit']['fields'];
@@ -141,7 +146,7 @@ class AdminController extends BaseAdminController
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
-    }
+    }*/
 
 
     public function shapeGetUser(){
@@ -151,7 +156,12 @@ class AdminController extends BaseAdminController
 
 
     public function backtoUserAction(){
-        $id =  $this->request->query->get('id');
+        $referer = $this->request->query->get('referer');
+        if(!$referer){
+            return $this->redirect($this->generateUrl('easyadmin',array('action'=>'list','entity' => 'Member')));
+        }
+        return $this->redirectToReferrer();
+        /*$id =  $this->request->query->get('id');
         if( null == $id){
             return $this->redirectToRoute('easyadmin',array(
                 'entity' => 'Member',
@@ -163,7 +173,7 @@ class AdminController extends BaseAdminController
             'entity' => 'Member',
             'action' => 'edit',
             'id' => $shape->getUser()->getId(),
-        ));
+        ));*/
     }
 
 

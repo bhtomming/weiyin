@@ -12,27 +12,20 @@ use AppBundle\Entity\Address;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\PersistentCollection;
+use function PHPSTORM_META\type;
 use Symfony\Component\Form\DataTransformerInterface;
 class AddressToArrayTransFormer implements DataTransformerInterface
 {
-   /* protected $manager;
 
-    public function __construct(ObjectManager $manager){
-        $this->manager = $manager;
-    }*/
 
    //取数据的时候调用
     public function transform($collection){
-
-        /*if($collection->isEmpty()){
-            return null;
-        }*/
 
         if($collection instanceof Address){
             return $collection;
         }
 
-        if($collection instanceof ArrayCollection && $collection->isEmpty() ){
+        if(/*$collection instanceof ArrayCollection && */$collection->isEmpty()){
             return null;
         }
         //把数组集转换成对象

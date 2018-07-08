@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="goods")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GoodsRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Goods
 {
@@ -17,6 +18,7 @@ class Goods
     const PAID = 1;
     const SEND_OUT = 2;
     const RETURN_BACK = 3;
+    const CLOSED = 4;
 
 
     /**
@@ -529,5 +531,22 @@ class Goods
     public function getPayNo()
     {
         return $this->payNo;
+    }
+
+    /**
+     * @ORM\PostLoad
+     * @ORM\PreUpdate
+     */
+    public function checkStatus(){
+        if($this->status == self::UNPAID){
+            $date =  $this->createdAt->add(new \DateInterval('P1D'))->format('Y-m-d');
+            $testTime = new \DateTime($date.' 03:00');
+            $nowTime = new \DateTime('now');
+            $interval = $nowTime->diff($testTime);
+            if( '-' == $interval->format('%R')){
+                $this->setStatus(self::CLOSED);
+            }
+        }
+        return $this;
     }
 }

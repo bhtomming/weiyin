@@ -28,6 +28,7 @@ class AppSubscriber implements EventSubscriberInterface
         return array(
             EasyAdminEvents::PRE_LIST =>  'checkUserRights',
             TradeEvents::PRE_PAID=>'checkTrade',
+            EasyAdminEvents::PRE_SHOW => 'changeReferrer',
         );
     }
 
@@ -78,5 +79,10 @@ class AppSubscriber implements EventSubscriberInterface
             $em->flush();
         }
         $trade->setStatus(Goods::PAID);
+    }
+
+    public function changeReferrer(GenericEvent $event){
+        $request = $event->getArgument('request');
+        //var_dump($request->query->get('referer'));die();
     }
 }

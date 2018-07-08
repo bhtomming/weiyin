@@ -72,9 +72,8 @@ $(function(){
         var cparea = [];
         cparea['code'] = [];
         cparea['name'] = [];
-
+        var areazz = new RegExp('^'+code.substring(0,4)+'[0-9]{2}');
         for(var i=0; i<areadata['code'].length; i++){
-            var areazz = new RegExp(code.substring(0,4)+'[0-9]{2}');
             if(areazz.test(areadata['code'][i])){
                 cparea['code'].push(areadata['code'][i]);
                 cparea['name'].push(areadata['name'][i]);
@@ -88,10 +87,11 @@ $(function(){
         var cpcity = [];
         cpcity['code'] = [];
         cpcity['name'] = [];
+        var province_code = new RegExp('^'+code.substring(0,2)+'[0-9]{4}');
         if(isGov(code)){
             for(var j=0; j<areadata['code'].length; j++){
-                var areazz = new RegExp(code.substring(0,3)+'[0-9]{2}');
-                if(areazz.test(areadata['code'][j])){
+
+                if(province_code.test(areadata['code'][j])){
                     cpcity['code'].push(areadata['code'][j]);
                     cpcity['name'].push(areadata['name'][j]);
                 }
@@ -102,8 +102,7 @@ $(function(){
             changeCityData(cpcity);
         }else{
             for(var i=0; i<citydata['code'].length; i++){
-                var cityzz = new RegExp(code.substring(0,2)+'[0-9]{4}');
-                if(cityzz.test(citydata['code'][i])){
+                if(province_code.test(citydata['code'][i])){
                     cpcity['code'].push(citydata['code'][i]);
                     cpcity['name'].push(citydata['name'][i]);
                 }
