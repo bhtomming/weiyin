@@ -16,6 +16,7 @@ easy_admin:
                 dql_filter: 'entity.status = 1'
                 actions:
                     - { name: 'show', label: '查看', icon: 'eye' }
+                    - { name: 'paid', label: '已付款', icon: 'eye' }
                     - '-new'
                     - '-edit'
                     - '-delete'

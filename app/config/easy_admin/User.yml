@@ -20,5 +20,7 @@ easy_admin:
                     - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_SUPER_ADMIN'  }}
             new:
                 title: '添加%%entity_label%%'
+                role: ROLE_ADMIN
             edit:
                 title: '编辑%%entity_label%%'
+                role: ROLE_ADMIN

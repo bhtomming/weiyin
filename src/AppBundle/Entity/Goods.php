@@ -549,4 +549,5 @@ class Goods
         }
         return $this;
     }
+
 }

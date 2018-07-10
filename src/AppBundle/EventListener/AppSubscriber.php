@@ -9,8 +9,11 @@
 namespace AppBundle\EventListener;
 
 
+use AppBundle\DependencyInjection\Compiler\ConfigPass;
 use AppBundle\Entity\Goods;
+use AppBundle\Entity\Product;
 use AppBundle\Event\TradeEvents;
+use EasyCorp\Bundle\EasyAdminBundle\Configuration\ActionConfigPass;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,6 +30,10 @@ class AppSubscriber implements EventSubscriberInterface
     {
         return array(
             EasyAdminEvents::PRE_LIST =>  'checkUserRights',
+            EasyAdminEvents::PRE_EDIT =>  'checkUserRights',
+            EasyAdminEvents::PRE_SHOW =>  'checkUserRights',
+            EasyAdminEvents::PRE_NEW =>  'checkUserRights',
+            EasyAdminEvents::PRE_DELETE =>  'checkUserRights',
             TradeEvents::PRE_PAID=>'checkTrade',
             EasyAdminEvents::PRE_SHOW => 'changeReferrer',
         );
@@ -38,26 +45,27 @@ class AppSubscriber implements EventSubscriberInterface
 
     public function checkUserRights(GenericEvent $event){
         $authorization = $this->container->get('security.authorization_checker');
-        $request = $this->container->get('request_stack')->getCurrentRequest()->query;
+        //$request = $this->container->get('request_stack')->getCurrentRequest()->query;
         if($authorization->isGranted('ROLE_ADMIN')){
             return;
         }
-        $entity = $request->get('entity');
-        $action = $request->get('action');
-        $userId = $request->get('id');
+        $entity = $this->container->get('request_stack')->getCurrentRequest()->query->get('entity');;
+        $action = $this->container->get('request_stack')->getCurrentRequest()->query->get('action');
+        $userId = $this->container->get('request_stack')->getCurrentRequest()->query->get('id');
         if($entity == 'User'){
             if($action == 'show' || $action == 'edit'){
                 if($userId == $this->container->get('security.token_storage')->getToken()->getUser()->getId()){
                     return;
                 }
             }
-        }
-        $config = $this->container->get('easyadmin.config.manager')->getBackendConfig();
-        foreach ($config['entities'] as $k => $v){
-            if($entity == $k && !$authorization->isGranted($v[$action]['role'])){
-                throw new AccessDeniedException();
+            $config = $this->container->get('easyadmin.config.manager')->getBackendConfig();
+            foreach ($config['entities'] as $k => $v){
+                if($entity == $k && !$authorization->isGranted($v[$action]['role'])){
+                    throw new AccessDeniedException();
+                }
             }
         }
+
     }
 
     //监听订单支付成功后的事件
@@ -83,6 +91,6 @@ class AppSubscriber implements EventSubscriberInterface
 
     public function changeReferrer(GenericEvent $event){
         $request = $event->getArgument('request');
-        //var_dump($request->query->get('referer'));die();
+
     }
 }

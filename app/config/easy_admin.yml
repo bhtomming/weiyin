@@ -13,12 +13,12 @@ easy_admin:
         menu:
             - {entity: 'Settings', label: '网站设置',role: ROLE_ADMIN, default: true}
             - {entity: 'Menu', label: '网站菜单',role: ROLE_ADMIN }
-            - {entity: 'Product', label: '服装管理',role: ROLE_ADMIN }
-            - {entity: 'Provider_Product', label: '服装管理', role: ROLE_PROVIDER }
+            - {entity: 'Product', label: '服装管理',role: ROLE_PROVIDER }
+            - {entity: 'Provider_Product', label: '服装管理', role: ROLE_ADMIN }
             - {entity: 'Category', label: '分类管理',role: ROLE_ADMIN}
             - {entity: 'Provider_Goods', label: '订单管理',role: ROLE_PROVIDER }
             - label: '订单管理'
-              role: ROLE_ADMIN
+              #role: ROLE_ADMIN
               children:
                 - {entity: 'Goods', label: '已付款订单'}
                 - {entity: 'UnPayTrade', label: '未付款订单'}
@@ -33,7 +33,7 @@ easy_admin:
                 - { entity: 'Swipper', label: '幻灯片管理' }
                 - { entity: 'Region', label: '自定义区域' }
             - label: '用户管理'
-              role: ROLE_ADMIN
+              #role: ROLE_PROVIDER
               children:
                 - {entity: 'User', label: '管理员'}
                 - {entity: 'Provider', label: '商家'}
