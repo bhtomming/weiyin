@@ -26,10 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends BaseAdminController
 {
-    public function listAction(){
-        $this->dispatch(EasyAdminEvents::PRE_LIST);
-        return parent::listAction();
-    }
+
 
     public function createNewUserEntity(){
         return $this->container->get('fos_user.user_manager')->createUser();
@@ -188,7 +185,7 @@ class AdminController extends BaseAdminController
         if(!($this->isGranted('ROLE_ADMIN'))){
             $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId();
         }
-        return $this->listAction();
+        return parent::listAction();
     }
 
     //修改商品
@@ -226,6 +223,7 @@ class AdminController extends BaseAdminController
 
         $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
         $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
+
 
         if(!($this->isGranted('ROLE_ADMIN'))){
             $editForm->remove('price');
@@ -270,6 +268,7 @@ class AdminController extends BaseAdminController
 
         $newForm = $this->executeDynamicMethod('create<EntityName>NewForm', array($entity, $fields));
 
+
         if(!($this->isGranted('ROLE_ADMIN'))){
             $newForm->remove('price');
             $newForm->remove('selling');
@@ -307,8 +306,11 @@ class AdminController extends BaseAdminController
     }
 
     //订单列表
-    public function listTradeAction(){
+    public function listGoodsAction(){
         if(!($this->isGranted('ROLE_ADMIN'))){
+            $products = $this->findAll('AppBundle\Entity\Product', $this->request->query->get('page', 1), $this->entity['list']['max_results'], $this->request->query->get('sortField'), $this->request->query->get('sortDirection'), 'entity.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId());
+            var_dump($products);die();
+            $goodsDetail = $this->findAll('AppBundle\Entity\GoodsDetail', $this->request->query->get('page', 1), $this->entity['list']['max_results'], $this->request->query->get('sortField'), $this->request->query->get('sortDirection'), $this->entity['list']['dql_filter']);
             $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId();
         }
         return $this->listAction();
