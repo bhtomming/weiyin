@@ -329,7 +329,14 @@ class AdminController extends BaseAdminController
         if(!($this->isGranted('ROLE_ADMIN'))){
             unset($this->entity['show']['fields']['totalAmount']);
             unset($this->entity['show']['fields']['user']);
+            unset($this->entity['show']['fields']['subject']);
+            unset($this->entity['show']['fields']['address']);
             $this->entity['show']['fields']['goodsDetail']['template'] = 'easy_admin/fields/good_details.html.twig';
+            array_push($this->entity['show']['fields']['user.newShape'],['label','template']);
+            $this->entity['show']['fields']['user.newShape']['label'] = '服装参数';
+            $this->entity['show']['fields']['user.newShape']['template'] = 'easy_admin/fields/show_provider_shape.html.twig';
+
+            //var_dump($this->entity['show']['fields']);die();
             //$this->entity['show']['fields']['user']['label'] = '服装参数';
             //$this->entity['show']['fields']['user']['newShape']['template'] = 'easy_admin/fields/show_provider_shape.html.twig';
         }
