@@ -62,7 +62,10 @@ class Goods
      * @var SingleStrade[] | ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\SingleStrade" ,cascade={"persist"})
-     * @ORM\JoinTable(name="goods_SingleStrade")
+     * @ORM\JoinTable(name="goods_SingleStrade",
+     *     joinColumns={@ORM\JoinColumn(name="goods_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="single_strade_id", referencedColumnName="id", unique=true)}
+     *     )
      * @ORM\OrderBy({"id":"ASC"})
      */
     private $goodsDetail;

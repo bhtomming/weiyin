@@ -15,9 +15,11 @@ use AppBundle\Entity\Goods;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Shape;
+use AppBundle\Entity\SingleStrade;
 use AppBundle\Entity\User;
 
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -308,12 +310,10 @@ class AdminController extends BaseAdminController
     //订单列表
     public function listGoodsAction(){
         if(!($this->isGranted('ROLE_ADMIN'))){
-            $products = $this->findAll('AppBundle\Entity\Product', $this->request->query->get('page', 1), $this->entity['list']['max_results'], $this->request->query->get('sortField'), $this->request->query->get('sortDirection'), 'entity.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId());
-            var_dump($products);die();
-            $goodsDetail = $this->findAll('AppBundle\Entity\GoodsDetail', $this->request->query->get('page', 1), $this->entity['list']['max_results'], $this->request->query->get('sortField'), $this->request->query->get('sortDirection'), $this->entity['list']['dql_filter']);
-            $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId();
+            unset($this->entity['list']['fields']['totalAmount']);
+            unset($this->entity['list']['fields']['user']);
         }
-        return $this->listAction();
+        return parent::listAction();
     }
 
     public function paidAction(){
@@ -323,6 +323,17 @@ class AdminController extends BaseAdminController
         $this->entity['list']['dql_filter'] .= ' and entity.status = 1';
 
         return  parent::listAction();
+    }
+
+    public function showGoodsAction(){
+        if(!($this->isGranted('ROLE_ADMIN'))){
+            unset($this->entity['show']['fields']['totalAmount']);
+            unset($this->entity['show']['fields']['user']);
+            $this->entity['show']['fields']['goodsDetail']['template'] = 'easy_admin/fields/good_details.html.twig';
+            //$this->entity['show']['fields']['user']['label'] = '服装参数';
+            //$this->entity['show']['fields']['user']['newShape']['template'] = 'easy_admin/fields/show_provider_shape.html.twig';
+        }
+        return parent::showAction();
     }
 
 

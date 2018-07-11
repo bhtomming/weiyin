@@ -16,6 +16,7 @@ use AppBundle\Event\TradeEvents;
 use EasyCorp\Bundle\EasyAdminBundle\Configuration\ActionConfigPass;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -35,7 +36,7 @@ class AppSubscriber implements EventSubscriberInterface
             EasyAdminEvents::PRE_NEW =>  'checkUserRights',
             EasyAdminEvents::PRE_DELETE =>  'checkUserRights',
             TradeEvents::PRE_PAID=>'checkTrade',
-            EasyAdminEvents::PRE_SHOW => 'changeReferrer',
+            EasyAdminEvents::POST_LIST => 'changeReferrer',
         );
     }
 
@@ -65,6 +66,9 @@ class AppSubscriber implements EventSubscriberInterface
                 }
             }
         }
+        if($entity == 'Goods'){
+            $this->changeReferrer($event);
+        }
 
     }
 
@@ -90,7 +94,6 @@ class AppSubscriber implements EventSubscriberInterface
     }
 
     public function changeReferrer(GenericEvent $event){
-        $request = $event->getArgument('request');
 
     }
 }
