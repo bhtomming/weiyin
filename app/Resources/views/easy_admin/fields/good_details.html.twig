@@ -1,13 +1,15 @@
 {% for strade in value.owner.goodsDetail %}
     {% set product = strade.product %}
     <div class="panel-body">
+        {% if product.provider == app.user or is_granted('ROLE_ADMIN') %}
         {% if is_granted('ROLE_ADMIN') %}
             衣服编号:{% for no in  strade.tradeNo %}{{ no }}、{% endfor %}<br/>
-            衣服:{{ product.title }}<br/>
             单价:{{ product.price }}<br/>
             金额:{{ strade.amount }}<br/>
         {% else %}
+            衣服:{{ product.title }}<br/>
             数量:{{ strade.number }}<br/>
+        {% endif %}
         {% endif %}
     </div>
 {% endfor %}

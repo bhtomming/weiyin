@@ -40,9 +40,115 @@ class AdminController extends BaseAdminController
     }
 
     public function updateUserEntity($user){
-
         $this->container->get('fos_user.user_manager')->updateUser($user,false);
         parent::updateEntity($user);
+    }
+
+    //个人中心
+    public function profileAction(){
+        $this->dispatch(EasyAdminEvents::PRE_EDIT);
+        $id = $this->getUser()->getId();
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $entity = $easyadmin['item'];
+
+        if ($this->request->isXmlHttpRequest() && $property = $this->request->query->get('property')) {
+            $newValue = 'true' === mb_strtolower($this->request->query->get('newValue'));
+            $fieldsMetadata = $this->entity['list']['fields'];
+
+            if (!isset($fieldsMetadata[$property]) || 'toggle' !== $fieldsMetadata[$property]['dataType']) {
+                throw new \RuntimeException(sprintf('The type of the "%s" property is not "toggle".', $property));
+            }
+
+            $this->updateEntityProperty($entity, $property, $newValue);
+
+            // cast to integer instead of string to avoid sending empty responses for 'false'
+            return new Response((int) $newValue);
+        }
+
+        $fields = $this->entity['edit']['fields'];
+
+        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
+        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
+
+        if(!($this->isGranted('ROLE_ADMIN'))){
+            $editForm->remove('role');
+        }
+        $editForm->handleRequest($this->request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
+
+            $this->executeDynamicMethod('preUpdate<EntityName>Entity', array($entity));
+            $this->executeDynamicMethod('update<EntityName>Entity', array($entity));
+
+            $this->dispatch(EasyAdminEvents::POST_UPDATE, array('entity' => $entity));
+
+            return $this->redirectToReferrer();
+        }
+
+        $this->dispatch(EasyAdminEvents::POST_EDIT);
+
+        $parameters = array(
+            'form' => $editForm->createView(),
+            'entity_fields' => $fields,
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+
+        return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
+
+    }
+
+    public function editUserAction(){
+
+        $this->dispatch(EasyAdminEvents::PRE_EDIT);
+        $id = $this->request->query->get('id');
+        $easyadmin = $this->request->attributes->get('easyadmin');
+        $entity = $easyadmin['item'];
+
+        if ($this->request->isXmlHttpRequest() && $property = $this->request->query->get('property')) {
+            $newValue = 'true' === mb_strtolower($this->request->query->get('newValue'));
+            $fieldsMetadata = $this->entity['list']['fields'];
+
+            if (!isset($fieldsMetadata[$property]) || 'toggle' !== $fieldsMetadata[$property]['dataType']) {
+                throw new \RuntimeException(sprintf('The type of the "%s" property is not "toggle".', $property));
+            }
+
+            $this->updateEntityProperty($entity, $property, $newValue);
+
+            // cast to integer instead of string to avoid sending empty responses for 'false'
+            return new Response((int) $newValue);
+        }
+
+        $fields = $this->entity['edit']['fields'];
+
+        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
+        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
+
+        if(!($this->isGranted('ROLE_ADMIN'))){
+            $editForm->remove('role');
+        }
+        $editForm->handleRequest($this->request);
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
+
+            $this->executeDynamicMethod('preUpdate<EntityName>Entity', array($entity));
+            $this->executeDynamicMethod('update<EntityName>Entity', array($entity));
+
+            $this->dispatch(EasyAdminEvents::POST_UPDATE, array('entity' => $entity));
+
+            return $this->redirectToReferrer();
+        }
+
+        $this->dispatch(EasyAdminEvents::POST_EDIT);
+
+        $parameters = array(
+            'form' => $editForm->createView(),
+            'entity_fields' => $fields,
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+
+        return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
     }
 
     public function persistCouponEntity($coupon){
@@ -126,9 +232,6 @@ class AdminController extends BaseAdminController
         $user->setShape($shape);
         parent::persistEntity($shape);
     }
-
-
-
 
 
     public function shapeGetUser(){
@@ -318,10 +421,10 @@ class AdminController extends BaseAdminController
 
     public function paidAction(){
         if(!($this->isGranted('ROLE_ADMIN'))){
-            $this->entity['list']['dql_filter'] = 'entity.goodsDetail.product.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId();
+           $this->entity['list']['dql_filter'] = 'entity.status = 1';
+           unset($this->entity['list']['fields']['totalAmount']);
+           unset($this->entity['list']['fields']['user']);
         }
-        $this->entity['list']['dql_filter'] .= ' and entity.status = 1';
-
         return  parent::listAction();
     }
 
@@ -331,16 +434,17 @@ class AdminController extends BaseAdminController
             unset($this->entity['show']['fields']['user']);
             unset($this->entity['show']['fields']['subject']);
             unset($this->entity['show']['fields']['address']);
-            $this->entity['show']['fields']['goodsDetail']['template'] = 'easy_admin/fields/good_details.html.twig';
-            array_push($this->entity['show']['fields']['user.newShape'],['label','template']);
-            $this->entity['show']['fields']['user.newShape']['label'] = '服装参数';
-            $this->entity['show']['fields']['user.newShape']['template'] = 'easy_admin/fields/show_provider_shape.html.twig';
-
-            //var_dump($this->entity['show']['fields']);die();
-            //$this->entity['show']['fields']['user']['label'] = '服装参数';
-            //$this->entity['show']['fields']['user']['newShape']['template'] = 'easy_admin/fields/show_provider_shape.html.twig';
         }
         return parent::showAction();
+    }
+
+    public function unpaidAction(){
+        if(!($this->isGranted('ROLE_ADMIN'))){
+            $this->entity['list']['dql_filter'] = 'entity.status = 0';
+            unset($this->entity['list']['fields']['totalAmount']);
+            unset($this->entity['list']['fields']['user']);
+        }
+        return  parent::listAction();
     }
 
 

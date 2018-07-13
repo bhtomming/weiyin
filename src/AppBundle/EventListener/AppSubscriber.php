@@ -36,7 +36,7 @@ class AppSubscriber implements EventSubscriberInterface
             EasyAdminEvents::PRE_NEW =>  'checkUserRights',
             EasyAdminEvents::PRE_DELETE =>  'checkUserRights',
             TradeEvents::PRE_PAID=>'checkTrade',
-            EasyAdminEvents::POST_LIST => 'changeReferrer',
+            EasyAdminEvents::POST_EDIT => 'changeReferrer',
         );
     }
 
@@ -66,9 +66,6 @@ class AppSubscriber implements EventSubscriberInterface
                 }
             }
         }
-        if($entity == 'Goods'){
-            $this->changeReferrer($event);
-        }
 
     }
 
@@ -94,6 +91,5 @@ class AppSubscriber implements EventSubscriberInterface
     }
 
     public function changeReferrer(GenericEvent $event){
-
     }
 }

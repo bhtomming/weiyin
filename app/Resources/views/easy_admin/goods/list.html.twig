@@ -32,6 +32,12 @@ page: app.request.get('page', 1)
         {% if 'search' == app.request.get('action') %}
             {% set _default_title = 'search.page_title'|transchoice(paginator.nbResults, {}, 'EasyAdminBundle') %}
             {{ (_entity_config.search.title is defined ? _entity_config.search.title|transchoice(paginator.nbResults) : _default_title)|raw }}
+        {% elseif 'paid' == app.request.get('action') %}
+            {% set _default_title = 'list.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
+            {{ (_entity_config.paid.title is defined ? _entity_config.paid.title|trans(_trans_parameters) : _default_title)|raw }}
+        {% elseif 'unpaid' == app.request.get('action') %}
+            {% set _default_title = 'list.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
+            {{ (_entity_config.unpaid.title is defined ? _entity_config.unpaid.title|trans(_trans_parameters) : _default_title)|raw }}
         {% else %}
             {% set _default_title = 'list.page_title'|trans(_trans_parameters, 'EasyAdminBundle') %}
             {{ (_entity_config.list.title is defined ? _entity_config.list.title|trans(_trans_parameters) : _default_title)|raw }}
@@ -99,6 +105,7 @@ page: app.request.get('page', 1)
     {% set _list_item_actions = easyadmin_get_actions_for_list_item(_entity_config.name) %}
 
     <div class="table-responsive">
+
         <table class="table">
             <thead>
             {% block table_head %}
@@ -134,8 +141,13 @@ page: app.request.get('page', 1)
             {% block table_body %}
                 {% for item in paginator.currentPageResults %}
                     {# the empty string concatenation is needed when the primary key is an object (e.g. an Uuid object) #}
+                    {% set is_show = 0 | default(0) %}
                         {% for goodsDetail in  item.goodsDetail %}
                             {% if goodsDetail.product.provider == app.user or is_granted("ROLE_ADMIN") %}
+                                {% set is_show = 1 %}
+                            {% endif %}
+                        {% endfor %}
+                                {% if is_show == 1 %}
                                 {% set _item_id = '' ~ attribute(item, _entity_config.primary_key_field_name) %}
                                 <tr data-id="{{ _item_id }}">
                                     {% for field, metadata in fields %}
@@ -163,7 +175,6 @@ page: app.request.get('page', 1)
                                     {% endif %}
                                 </tr>
                             {% endif %}
-                        {% endfor %}
                 {% else %}
                     <tr>
                         <td class="no-results" colspan="{{ _list_item_actions|length > 0 ? fields|length + 1 : fields|length }}">
@@ -174,6 +185,7 @@ page: app.request.get('page', 1)
             {% endblock table_body %}
             </tbody>
         </table>
+
     </div>
 
     {% block paginator %}

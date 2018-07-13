@@ -24,3 +24,8 @@ easy_admin:
             edit:
                 title: '编辑%%entity_label%%'
                 role: ROLE_ADMIN
+            profile:
+                title: '%%entity_label%%列表'
+                role: IS_AUTHENTICATED_FULLY
+                actions:
+                    - { name: 'edit', label: '编辑' }
