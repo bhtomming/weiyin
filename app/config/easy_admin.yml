@@ -11,7 +11,8 @@ easy_admin:
             js:
                 - 'bundles\app\js\backend.js'
         menu:
-            - {entity: 'Settings', label: '网站设置',role: ROLE_ADMIN, default: true}
+            - {route: 'dashboard', label: '后台管理', default: true}
+            - {entity: 'Settings', label: '网站设置',role: ROLE_ADMIN}
             - {entity: 'Menu', label: '网站菜单',role: ROLE_ADMIN }
             - {entity: 'Product', label: '服装管理',role: ROLE_PROVIDER }
            # - {entity: 'Provider_Product', label: '服装管理', role: ROLE_ADMIN }
@@ -36,7 +37,7 @@ easy_admin:
             - label: '用户管理'
               #role: ROLE_PROVIDER
               children:
-                - {entity: 'User', label: '管理员'}
-                - {entity: 'Provider', label: '商家'}
-                - {entity: 'Member', label: '会员'}
+                - {entity: 'User', label: '管理员',params:{urole: 'admin'}}
+                - {entity: 'User', label: '商家',params:{urole: 'provider'}}
+                - {entity: 'User', label: '会员',params:{urole: 'member'}}
                 - {entity: 'User', label: '个人中心',params: {action: 'profile' },role: ROLE_PROVIDER}

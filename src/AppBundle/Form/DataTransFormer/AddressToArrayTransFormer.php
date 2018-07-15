@@ -24,6 +24,9 @@ class AddressToArrayTransFormer implements DataTransformerInterface
         if($collection instanceof Address){
             return $collection;
         }
+        if($collection == null){
+            return $collection;
+        }
 
         if(/*$collection instanceof ArrayCollection && */$collection->isEmpty()){
             return null;

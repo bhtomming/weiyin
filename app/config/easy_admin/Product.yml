@@ -44,6 +44,8 @@ easy_admin:
                     - {property: 'marketTime', label: '上市时间', type: 'date', type_options: {disabled: true}}
             list:
                 title: '%%entity_label%%列表'
+                actions:
+                    - { name: new, label: '添加%%entity_label%%'}
                 fields:
                     - { property: 'model', label: '型号' }
                     - { property: 'title', label: '标题' }

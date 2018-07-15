@@ -138,3 +138,17 @@
         {{ form_widget(form.street) }}
     </div>
 {% endblock %}
+{% block _user_address_widget %}
+    <div class="col-xs-3  col-sm-3" style="padding: 0">
+        {{ form_widget(form.province) }}
+    </div>
+    <div class="col-xs-3  col-sm-3" style="padding: 0">
+        {{ form_widget(form.city) }}
+    </div>
+    <div class="col-xs-3  col-sm-3" style="padding: 0">
+        {{ form_widget(form.area) }}
+    </div>
+    <div class="col-xs-3" style="padding: 0">
+        {{ form_widget(form.street) }}
+    </div>
+{% endblock %}

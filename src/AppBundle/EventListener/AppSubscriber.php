@@ -12,6 +12,7 @@ namespace AppBundle\EventListener;
 use AppBundle\DependencyInjection\Compiler\ConfigPass;
 use AppBundle\Entity\Goods;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
 use AppBundle\Event\TradeEvents;
 use EasyCorp\Bundle\EasyAdminBundle\Configuration\ActionConfigPass;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -36,7 +37,8 @@ class AppSubscriber implements EventSubscriberInterface
             EasyAdminEvents::PRE_NEW =>  'checkUserRights',
             EasyAdminEvents::PRE_DELETE =>  'checkUserRights',
             TradeEvents::PRE_PAID=>'checkTrade',
-            EasyAdminEvents::POST_EDIT => 'changeReferrer',
+            EasyAdminEvents::POST_NEW => 'selectUserRoles',
+            EasyAdminEvents::POST_SHOW => 'checkShowRights',
         );
     }
 
@@ -66,6 +68,11 @@ class AppSubscriber implements EventSubscriberInterface
                 }
             }
         }
+        $allowEntity = array('Goods','Product','User');
+        if(in_array($entity,$allowEntity)){
+            return;
+        }
+        throw new AccessDeniedException();
 
     }
 
@@ -90,6 +97,46 @@ class AppSubscriber implements EventSubscriberInterface
         $trade->setStatus(Goods::PAID);
     }
 
-    public function changeReferrer(GenericEvent $event){
+
+    public function selectUserRoles(GenericEvent $event){
+        $entity = $event->getArgument('entity');
+        if(!$entity instanceof User){
+            return;
+        }
+        $urole = $this->container->get('request_stack')->getCurrentRequest()->query->get('urole');
+        $form = $event->getArgument('form');
+
+        if('admin' == $urole){
+            $form->remove('companyName');
+            $form->remove('sex');
+            $form->remove('birthday');
+            $form->remove('address');
+        }elseif ('provider' == $urole){
+            $form->remove('sex');
+            $form->remove('birthday');
+        }elseif ('member' == $urole){
+            $form->remove('companyName');
+        }
+
+    }
+
+    public function checkShowRights(GenericEvent $event){
+        $entity = $event->getArgument('entity');
+        if(!$entity instanceof Goods){
+            return;
+        }
+        $authorization = $this->container->get('security.authorization_checker');
+        if($authorization->isGranted('ROLE_ADMIN')){
+            $entity->setAdminRead(true);
+            return;
+        }
+        foreach($entity->getGoodsDetail() as $goodsDetail){
+            $entity->setProviderRead(true);
+            if($goodsDetail->getProduct()->getProvider() == $this->container->get('security.token_storage')->getToken()->getUser()){
+                return;
+            }
+        }
+        throw new AccessDeniedException();
+
     }
 }

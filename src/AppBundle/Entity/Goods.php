@@ -20,7 +20,6 @@ class Goods
     const RETURN_BACK = 3;
     const CLOSED = 4;
 
-
     /**
      * @var int
      *

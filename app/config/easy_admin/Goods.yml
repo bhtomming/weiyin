@@ -30,7 +30,7 @@ easy_admin:
             show:
                 title: '查看%%entity_label%%'
                 actions:
-                    - { name: 'send', label: '发货' }
+                    #- { name: 'send', label: '发货' }
                     - '-edit'
                     - '-delete'
 

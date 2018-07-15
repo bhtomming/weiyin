@@ -28,75 +28,61 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends BaseAdminController
 {
+    /**
+     * @Route("/dashboard", name="dashboard")
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     */
+    public function dashboardAction(Request $request){
+        $goods = $this->em->createQueryBuilder()->select('g')
+            ->from('goods','g')
+            ->where('g.goodsDetails')
+        ;
+        return $this->render('/default/dashboard.html.twig');
+    }
 
 
     public function createNewUserEntity(){
-        return $this->container->get('fos_user.user_manager')->createUser();
+        return $this->get('fos_user.user_manager')->createUser();
     }
 
-    public function persistUserEntity($user){
-        $this->container->get('fos_user.user_manager')->updateUser($user,false);
-        parent::persistEntity($user);
+    public function prePersistUserEntity($user){
+        $this->get('fos_user.user_manager')->updateUser($user,false);
     }
 
-    public function updateUserEntity($user){
-        $this->container->get('fos_user.user_manager')->updateUser($user,false);
-        parent::updateEntity($user);
+    public function preUpdateUserEntity($user){
+        $this->get('fos_user.user_manager')->updateUser($user, false);
     }
 
     //个人中心
     public function profileAction(){
-        $this->dispatch(EasyAdminEvents::PRE_EDIT);
         $id = $this->getUser()->getId();
-        $easyadmin = $this->request->attributes->get('easyadmin');
-        $entity = $easyadmin['item'];
-
-        if ($this->request->isXmlHttpRequest() && $property = $this->request->query->get('property')) {
-            $newValue = 'true' === mb_strtolower($this->request->query->get('newValue'));
-            $fieldsMetadata = $this->entity['list']['fields'];
-
-            if (!isset($fieldsMetadata[$property]) || 'toggle' !== $fieldsMetadata[$property]['dataType']) {
-                throw new \RuntimeException(sprintf('The type of the "%s" property is not "toggle".', $property));
-            }
-
-            $this->updateEntityProperty($entity, $property, $newValue);
-
-            // cast to integer instead of string to avoid sending empty responses for 'false'
-            return new Response((int) $newValue);
+        $referer = $this->request->query->get('referer');
+        if(!$referer && !$this->isGranted('ROLE_ADMIN')){
+            $referer = $this->generateUrl('dashboard');
         }
-
-        $fields = $this->entity['edit']['fields'];
-
-        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
-        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
-
-        if(!($this->isGranted('ROLE_ADMIN'))){
-            $editForm->remove('role');
-        }
-        $editForm->handleRequest($this->request);
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
-
-            $this->executeDynamicMethod('preUpdate<EntityName>Entity', array($entity));
-            $this->executeDynamicMethod('update<EntityName>Entity', array($entity));
-
-            $this->dispatch(EasyAdminEvents::POST_UPDATE, array('entity' => $entity));
-
-            return $this->redirectToReferrer();
-        }
-
-        $this->dispatch(EasyAdminEvents::POST_EDIT);
-
-        $parameters = array(
-            'form' => $editForm->createView(),
-            'entity_fields' => $fields,
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-
-        return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
-
+        return $this->redirect($this->generateUrl('easyadmin',array(
+            'id'=>$id,
+            'action' => 'edit',
+            'entity' => $this->entity['name'],
+            'profile' => true,
+            'referer'=>$referer,
+        )));
     }
+
+    public function listUserAction(){
+        $urole = $this->request->query->get('urole');
+        if('provider' == $urole){
+            $this->entity['list']['dql_filter'] = " entity.roles = 'a:1:{i:0;s:13:\"ROLE_PROVIDER\";}'";
+        }elseif('member' == $urole){
+            $this->entity['list']['dql_filter'] = "entity.roles = 'a:0:{}'";
+        }
+        return parent::listAction();
+    }
+
+
 
     public function editUserAction(){
 
@@ -104,6 +90,8 @@ class AdminController extends BaseAdminController
         $id = $this->request->query->get('id');
         $easyadmin = $this->request->attributes->get('easyadmin');
         $entity = $easyadmin['item'];
+        $urole = $this->request->query->get('urole');
+        $profile = $this->request->query->get('profile');
 
         if ($this->request->isXmlHttpRequest() && $property = $this->request->query->get('property')) {
             $newValue = 'true' === mb_strtolower($this->request->query->get('newValue'));
@@ -120,13 +108,25 @@ class AdminController extends BaseAdminController
         }
 
         $fields = $this->entity['edit']['fields'];
+        $fields['role']['type_options']['data']= 'ROLE_PROVIDER';
 
-        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
+        $editForm = $this->createEditForm($entity, $fields);
         $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
-
-        if(!($this->isGranted('ROLE_ADMIN'))){
+        if($profile && $this->isGranted('ROLE_ADMIN') || 'admin' == $urole){
+            $editForm->remove('companyName');
+            $editForm->remove('birthday');
+            $editForm->remove('sex');
+            $editForm->remove('address');
+            $editForm->remove('role');
+        }elseif ($profile && $this->isGranted('ROLE_PROVIDER') || 'provider' == $urole){
+            $editForm->remove('birthday');
+            $editForm->remove('sex');
             $editForm->remove('role');
         }
+        if ('member' == $urole){
+            $editForm->remove('companyName');
+        }
+
         $editForm->handleRequest($this->request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
@@ -140,6 +140,7 @@ class AdminController extends BaseAdminController
         }
 
         $this->dispatch(EasyAdminEvents::POST_EDIT);
+
 
         $parameters = array(
             'form' => $editForm->createView(),
@@ -288,7 +289,7 @@ class AdminController extends BaseAdminController
     //商品列表
     public function listProductAction(){
         if(!($this->isGranted('ROLE_ADMIN'))){
-            $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->container->get('security.token_storage')->getToken()->getUser()->getId();
+            $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->getUser()->getId();
         }
         return parent::listAction();
     }

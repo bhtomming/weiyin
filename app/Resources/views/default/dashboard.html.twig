@@ -1,0 +1,11 @@
+{%  extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    <p>
+        你好 {{ app.user.username }}，欢迎使用未因服饰管理系统
+    </p>
+    <p>
+        你的上次登陆时间是: {{ app.user.lastLogin | date('Y-m-d H:i:s') }}
+    </p>
+
+{% endblock %}
