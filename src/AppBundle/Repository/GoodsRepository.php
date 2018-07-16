@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class GoodsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findProvider($id){
+        $query = $this->createQueryBuilder('g')
+            ->join('g.goodsDetail','d','WITH')
+            ->join('d.product','p','WITH')
+            ->where('p.provider = :id')
+            ->andWhere('g.providerRead = false')
+            ->andWhere('g.status = 1')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ;
+        return $query->getResult();
+    }
 }

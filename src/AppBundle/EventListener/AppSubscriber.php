@@ -126,13 +126,18 @@ class AppSubscriber implements EventSubscriberInterface
             return;
         }
         $authorization = $this->container->get('security.authorization_checker');
+        $em = $event->getArgument('em');
         if($authorization->isGranted('ROLE_ADMIN')){
             $entity->setAdminRead(true);
+            $em->persist($entity);
+            $em->flush();
             return;
         }
         foreach($entity->getGoodsDetail() as $goodsDetail){
             $entity->setProviderRead(true);
             if($goodsDetail->getProduct()->getProvider() == $this->container->get('security.token_storage')->getToken()->getUser()){
+                $em->persist($entity);
+                $em->flush();
                 return;
             }
         }

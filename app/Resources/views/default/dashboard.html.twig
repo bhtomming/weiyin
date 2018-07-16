@@ -4,6 +4,9 @@
     <p>
         你好 {{ app.user.username }}，欢迎使用未因服饰管理系统
     </p>
+    <P>
+        你有<a href="{{ path('easyadmin',{entity: 'Goods',action: 'list'}) }}"  class="text-red" >{{ goods|length }}</a>个新的订单，请注意查看。
+    </P>
     <p>
         你的上次登陆时间是: {{ app.user.lastLogin | date('Y-m-d H:i:s') }}
     </p>

@@ -36,11 +36,16 @@ class AdminController extends BaseAdminController
      *
      */
     public function dashboardAction(Request $request){
-        $goods = $this->em->createQueryBuilder()->select('g')
-            ->from('goods','g')
-            ->where('g.goodsDetails')
-        ;
-        return $this->render('/default/dashboard.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $goods = $em->getRepository(Goods::class)->findBy(['adminRead'=>false]);
+        if(!$this->isGranted('ROLE_ADMIN')){
+            $goods = $em->getRepository(Goods::class)->findProvider($user->getId());
+        }
+
+        return $this->render('/default/dashboard.html.twig',array(
+            'goods'=>$goods,
+        ));
     }
 
 
@@ -416,6 +421,7 @@ class AdminController extends BaseAdminController
         if(!($this->isGranted('ROLE_ADMIN'))){
             unset($this->entity['list']['fields']['totalAmount']);
             unset($this->entity['list']['fields']['user']);
+            //$this->entity['list']['dql_filter'] = 'entity.'
         }
         return parent::listAction();
     }

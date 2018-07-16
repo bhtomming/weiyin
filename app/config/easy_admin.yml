@@ -1,6 +1,7 @@
 imports:
     - { resource: 'easy_admin/' }
 easy_admin:
+    disabled_actions: ['search']
     site_name: '管理系统'
     formats:
         date: 'Y年m月d日'
