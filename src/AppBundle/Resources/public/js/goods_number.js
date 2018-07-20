@@ -1,4 +1,6 @@
+
 $(function(){
+    $.getScript("/bundles/app/js/comm.js");
     var number_text = $("input[name=number]");
 
     number_text.keyup(function(){
@@ -73,7 +75,8 @@ $(function(){
     }
 
     function send(id,num){
-        $.post('/app_dev.php/cart/add',{
+
+        $.post(getPath("/cart/add"),{
             'id':id,
             'num':num
         },function(data,status){

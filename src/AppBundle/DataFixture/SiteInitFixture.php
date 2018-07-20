@@ -11,6 +11,7 @@ namespace AppBundle\DataFixture;
 
 use AppBundle\Entity\Area;
 use AppBundle\Entity\City;
+use AppBundle\Entity\Company;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\Menu;
 use AppBundle\Entity\Province;
@@ -35,6 +36,7 @@ class SiteInitFixture extends Fixture
         $this->initSittings($manager);
         $this->initRegion($manager);
         $this->initContact($manager);
+        $this->initCompany($manager);
     }
 
     public function initCityData(ObjectManager $manager){
@@ -68,7 +70,7 @@ class SiteInitFixture extends Fixture
     }
 
     public function initMenu(ObjectManager $manager){
-        $menus = ['主页','产品展示','品牌展示','联系我们','会员登录'];
+        $menus = ['主页','服饰','品牌','联系我们','会员'];
         foreach ($menus as $name){
             $menu = new Menu();
             $menu->setName($name);
@@ -95,6 +97,14 @@ class SiteInitFixture extends Fixture
         $contact = new Contact();
         $contact->setContent('敬请期待...');
         $manager->persist($contact);
+        $manager->flush();
+    }
+
+    public function initCompany(ObjectManager $manager){
+        $content = new Company();
+        $content->setTitle('未因品牌');
+        $content->setContent('品牌服饰正在装修...');
+        $manager->persist($content);
         $manager->flush();
     }
 }

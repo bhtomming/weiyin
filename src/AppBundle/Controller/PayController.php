@@ -20,20 +20,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PayController extends Controller
 {
-    protected $config = [
-        'app_id' => '2016091600521407',
-        'notify_url' => 'http://www.weiyin.com/app_dev.php/notify.php',
-        //'notify_url' => 'http://requestbin.leo108.com/1g7dl6o1',
-        'return_url' => 'http://www.weiyin.com/app_dev.php/return.php',
-        'ali_public_key' => 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkrBKkAaXSMcAMIe/C/AmpCdcDBQ9U9pcEST3DqZxngtTYbTBC7SY/hlnnRQj9VNK07yiXN+cv/kzAcEy2ouBBFlL9VrO0LJ8hsz24TUVEVgn027uP0E0eNqSq+8Myo3/ALRvdKZ6MYWHuBcRFst8NN2OhVYMV9Q8HoXb0mYMLpUJQEIphM0R8dPhPAQH6eBqxz13F2iKE30jMy9n3DGfoRxYBTeh06Dffm7Cchn05XNgrLj/dCA0mtVphlVz9WvFPQXt7gXXiEECBFMHYC3RSnEouFtswfmu82BdUKc6P/NgwtCLFmqv/ohffpjJClySliOVauvdeFuw/NxFByNBqQIDAQAB',
-        // 加密方式： **RSA2**
-        'private_key' => 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC2482fQtgwl5lF8vqvXPZq5fkhmnnLfrQybniyn9zk5EiOhMiCm9V73twRP3PhVT/ZWowyVkRhYuHU25rbidgdM3awdmS6BE5G3Dysx3H2Zn7xXJH11kJGrolM93B/VueuoEnnwlxILX4OLNSkP6mwtRfDcYh1BLR/Qna2wY2tFyRMun4OeMxw3sEogAsR+Jhbum476DejEUvPiGQyzLUlnMUQUP05ZHT1tE2mgdjPa0zqEW9S/aMEC9T+Hdwr8MUFBMxLzVFdRfEtaEscoMuNIxrENpXVPUIJiYul11JpF+IId8vbK0OHy686VrMm0MAlHBQoy1lye+CWZTAm0LQXAgMBAAECggEAf7aij1V5bK1gjjU4E5+CQHHpwCqEZLNNGG6GgI4cDgbQGB3nezVhJgghezXpMPB8DscpYblWNP99HkxgXnBq5zFZ764tdqytENSY1jrMfTlj6h4vmxGM5JjbLlEYUQQZ85rhISNbl9eU0EdEEpKWZ9x+BLBSjwzDEp8SEVsmGTkCnqKJGRdmhREo0loC1GIqJPoElSLvQAmkNo8R8/ElgDXCVSNv+MgBFKMe3tZTPSUi9eQ3S4AfI8U7c3IYYpaCQc+ijZPW330I9WMlSTUIbeYs1Zry2G2+M9qUSkusB83VigDJWhm+CPZ0c8xIPLD24+1KTk5FXJ06igxlFoqaOQKBgQDZVYlIQutK5u4Eb65k5kuSd/du7mCzCW7eMjBAWgW5sai07SJM7qTlASdXzNRpAhHDQ34x7JjHJndLzRi+ResqZJBKqc6JPq2burlz9WXoYs1zCkUcXAB6xDES1m5Ee26NG4cvipNqnd7+/3A2PQ4BjV36uLjsXxeC472OuDZbcwKBgQDXbYF10AZmuaP1F+XJJuj1Iq916xv4MjBltDGANiGtc3n4R8z25UhXseTTKGdI1reef6QwIKMUpKZscl/0ksaQFKfVP2WWaUXRNVRj/1bB93HIQtX3oNlwtYwRegsu4PVthEuB/bWZlovbhN/JUDW+e0IJ9NfSXmsWwX1rR2RjzQKBgAikXBchghWyZRiMEFU2yx6B4rboh7PW1i/DsyN78OpXZCv9mfWRL8FjcFsPbArY6DfpgSUfEVwp7Wh4OVmnkhhXc11kry/J7EFbBXDU+z5oX18Js4HTLrmy/3iOSkgy2EyIIbIEQqRkrq9ZHO8rMllhc7E6ky/jAB5WS/1W2eJ9AoGBAKUGwhGaFg1DUJJEiEabhAGlXHwcawSqjeCbNQBed1YEC/9iIWVRJyXmpMANR3HI6kiExyYHGmaJ6uNQiqk0dt+QszDsq8mZQ16MV+VyiOd1wrgCWx6jHW715CLPNxnmQpxup9kgnajWZrT3COeShlkw2tn9sgb5RVfdSVKREhpRAoGBAJvGKNXGdgfeP14g7Vz/A5umQPDNjhdY3LSLcMVxtuBApnLhCgMvEKJYVybF7Q/M23QQimTfEdx+u6ugyODMevuVBhD6eE4HKNIvpkzf6Xrpvu7GqfRq1L9Vatfgq7TeNSdSd5ayJUur3gbY9XT+Vf9poH0jpWQamX6WcQfkshnf',
-        'log' => [ // optional
-            'file' => '../var/logs/alipay.log',
-            'level' => 'debug'
-        ],
-        'mode' => 'dev', // optional,设置此参数，将进入沙箱模式
-    ];
+
+
+    protected $config;
+
 
     /**
      * @Route("/alipay/pay/{id}",name="pay")
@@ -42,7 +32,7 @@ class PayController extends Controller
     {
        /* $em = $this->getDoctrine()->getManager();
         $trade = $em->getRepository(Goods::class)->find($id);*/
-
+       $this->getConfig();
         $order = [
             'out_trade_no' => $trade->getTradeNo(),
             'total_amount' => $trade->getTotalAmount(),
@@ -62,6 +52,7 @@ class PayController extends Controller
      */
     public function return()
     {
+        $this->getConfig();
         $data = Pay::alipay($this->config)->verify(); // 是的，验签就这么简单！
 
         $stradeNo = $data->out_trade_no;
@@ -89,6 +80,7 @@ class PayController extends Controller
      */
     public function notify()
     {
+        $this->getConfig();
         $alipay = Pay::alipay($this->config);
 
         try{
@@ -165,6 +157,11 @@ class PayController extends Controller
             return  true;
         }
         return false;
+    }
+
+
+    public function getConfig(){
+        $this->config = $this->getParameter('alipay_config');
     }
 
 }

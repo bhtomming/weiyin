@@ -110,7 +110,7 @@ class TradeController extends Controller
             if (!empty($friend)){
                 $trade->setGiveTo($friend);
                 $trade->setAddress($friend->getDefaultAddress());
-                $user->setFriend($friend);
+                $user->setFriends($friend);
             }
         }
         $em->persist($trade);

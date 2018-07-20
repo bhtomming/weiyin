@@ -44,8 +44,11 @@ easy_admin:
                     - { property: 'user.newShape', label: '服装参数', template: 'easy_admin/fields/show_provider_shape.html.twig' }
                     - { property: 'user', label: '消费者' }
                     - { property: 'createdAt', label: '购买时间' }
+                    - { property: 'status', label: '订单状态', template: 'easy_admin/fields/goods_status.html.twig' }
                     - { property: 'description', label: '备注' }
             paid:
                 title: '查看已付款%%entity_label%%'
             unpaid:
                 title: '查看未付款%%entity_label%%'
+            unread:
+                title: '新的%%entity_label%%'

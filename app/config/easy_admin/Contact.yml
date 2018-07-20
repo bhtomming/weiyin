@@ -9,6 +9,9 @@ easy_admin:
                     - { property: 'content', label: '详细联系方式', type: 'ckeditor' }
             list:
                 title: '%%entity_label%%列表'
+                actions:
+                    - '-new'
+                    - '-delete'
             new:
                 title: '添加%%entity_label%%'
             edit:

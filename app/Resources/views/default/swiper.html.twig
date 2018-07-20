@@ -1,7 +1,7 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {% for swiper in swipers %}
-            <div class="swiper-slide"><img src="{{ swiper_image }}/{{ swiper.image }}" class="img-fluid"></div>
+            <div class="swiper-slide"><a href="{{ swiper.link }}"><img src="{{ swiper_image }}/{{ swiper.image }}" class="img-fluid"></a> </div>
         {% endfor %}
     </div>
     <!-- 如果需要分页器 -->

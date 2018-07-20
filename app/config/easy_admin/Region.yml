@@ -10,6 +10,9 @@ easy_admin:
                 title: '添加%%entity_label%%'
             list:
                 title: '%%entity_label%%列表'
+                actions:
+                    - '-new'
+                    - '-delete'
                 fields:
                     - { property: 'id', label: 'ID' }
                     - { property: 'createdAt', label: '创建时间' }

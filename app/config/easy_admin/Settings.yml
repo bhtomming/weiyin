@@ -14,7 +14,12 @@ easy_admin:
                     - { property: 'copyRight', label: '版权声明' }
             edit:
                 title: '编辑%%entity_label%%'
+                actions:
+                    - '-delete'
             list:
                 title: '%%entity_label%%列表'
+                actions:
+                    - '-new'
+                    - '-delete'
             new:
                 title: '新建%%entity_label%%'

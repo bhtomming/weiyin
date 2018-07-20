@@ -10,7 +10,7 @@ easy_admin:
                     - { property: 'title', label: '名称',css_class: 'col-sm-6' }
                     - { property: 'productType', label: '类型',css_class: 'col-sm-6' }
                     - { property: 'model', label: '版型',css_class: 'col-sm-6' }
-                    - { property: 'stock', label: '数量',css_class: 'col-sm-6' }
+                    - { property: 'stock', label: '库存',css_class: 'col-sm-6' }
                     - { property: 'supplyPrice', label: '供应价格',css_class: 'col-sm-6' }
                     - { property: 'price', label: '价格',css_class: 'col-sm-6' }
                     - { property: 'size', label: '尺码', css_class: 'col-sm-6' }
@@ -54,6 +54,7 @@ easy_admin:
                     - { property: 'price', label: '价格'  }
                     - { property: 'stock', label: '库存' }
                     - { property: 'sales', label: '销量' }
+                    #- { property: 'selling', label: '是否上架',role: 'ROLE_ADMIN' }
             new:
                 title: '添加%%entity_label%%'
             edit:

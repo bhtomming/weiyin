@@ -3,6 +3,7 @@ easy_admin:
         Shape:
             class: 'AppBundle\Entity\Shape'
             label: '体型数据'
+            disabled_actions: [list]
             form:
                 fields:
                     - { type: 'tab', label: '必填信息' }
@@ -134,10 +135,12 @@ easy_admin:
                     - { property: 'remarks', label: '备注', css_class: 'col-md-4'}
                     - { property: 'keep', label: '顾客留底', css_class: 'col-md-4'}
             edit:
+                title: '编辑%%entity_label%%'
                 actions:
                     - '-list'
                     - '-delete'
             new:
+                title: '添加%%entity_label%%'
                 actions:
                     - { name: 'backtoUser', label: '返回'}
                     - '-list'

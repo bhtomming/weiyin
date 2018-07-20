@@ -4,11 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="text-danger">发生错误404</h1>
+        <h1 class="text-red">找不到你要的页面</h1>
 
-        <p class="lead">
-            无法找到请求的页面
-        </p>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p class="lead">返回<a href="{{ path('member') }}" >个人中心</a></p>
+        {% endif %}
         <p>
             请检查链接中的拼写错误或者 <a href="{{ path('homepage') }}">返回首页</a>
         </p>

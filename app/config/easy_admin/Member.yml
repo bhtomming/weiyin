@@ -7,6 +7,7 @@ easy_admin:
                 title: '%%entity_label%%列表'
                 dql_filter: "entity.roles = 'a:0:{}'"
                 actions:
+                    - {name: 'new', label: '添加%%entity_label%%'}
                     - {name: 'show', label: '查看'}
                 fields:
                     - {property: 'username', label: '姓名'}
@@ -20,19 +21,17 @@ easy_admin:
                 fields:
                     - { type: 'tab', label: '基本信息'}
                     - { property: 'username', label: '用户名' }
-                    - { property: 'email', label: '邮箱' ,type_options:{required: false}}
+                    - { property: 'email', label: '邮箱' ,type_options:{required: false} }
                     - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_USER'  }}
                     - { property: 'phone', label: '电话',type_options:{required: true} }
                     - { property: 'birthday', label: '生日',type: 'birthday' }
                     - { property: 'sex', label: '性别', type: 'choice', type_options: { choices: {'男': '男', '女': '女'}, placeholder: '请选择性别' } }
                     - { property: 'address',  label: '地址', type: 'AppBundle\Form\Type\AddressType', type_options:{required: true, data_class: 'AppBundle\Entity\Address'}}
 
- #               form_options: { validation_groups: ['Profile'] }
             new:
                 title: '添加%%entity_label%%'
                 fields:
                     - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'} ,invalid_message: '两次输入的密码不一致','label_attr': {'class': required}, required: true } }
-                form_options: { validation_groups: ['Registration'] }
             edit:
                 title: '编辑%%entity_label%%'
                 actions:
@@ -41,8 +40,6 @@ easy_admin:
                 fields:
                      - { type: 'tab', label: '修改密码'}
                      - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'} ,invalid_message: '两次输入的密码不一致',required: false } }
-                form_options: { validation_groups: ['Profile'] }
-
             show:
                 title: '显示%%entity_label%%'
                 fields:

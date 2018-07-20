@@ -18,6 +18,7 @@ use AppBundle\Entity\Shape;
 use AppBundle\Entity\SingleStrade;
 use AppBundle\Entity\User;
 
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -50,15 +51,29 @@ class AdminController extends BaseAdminController
 
 
     public function createNewUserEntity(){
-        return $this->get('fos_user.user_manager')->createUser();
+        $user = $this->get('fos_user.user_manager')->createUser();
+        $user->setEnabled(true);
+        return $user;
+    }
+
+    public function createNewMemberEntity(){
+        return $this->createNewUserEntity();
     }
 
     public function prePersistUserEntity($user){
         $this->get('fos_user.user_manager')->updateUser($user,false);
     }
 
+    public function prePersistMemberEntity($user){
+        $this->prePersistUserEntity($user);
+    }
+
     public function preUpdateUserEntity($user){
         $this->get('fos_user.user_manager')->updateUser($user, false);
+    }
+
+    public function preUpdateMemberEntity($user){
+        $this->prePersistUserEntity($user);
     }
 
     //个人中心
@@ -127,9 +142,17 @@ class AdminController extends BaseAdminController
             $editForm->remove('birthday');
             $editForm->remove('sex');
             $editForm->remove('role');
+            $editForm->remove('addShape');
         }
         if ('member' == $urole){
+            //var_dump('用户');die();
             $editForm->remove('companyName');
+            $this->entity['edit']['actions']['addShape'] = array(
+                'name' => 'addShape',
+                'type' => 'method',
+                'label' => '添加体型数据',
+                'target'=> '_self',
+            );
         }
 
         $editForm->handleRequest($this->request);
@@ -144,8 +167,8 @@ class AdminController extends BaseAdminController
             return $this->redirectToReferrer();
         }
 
-        $this->dispatch(EasyAdminEvents::POST_EDIT);
 
+        $this->dispatch(EasyAdminEvents::POST_EDIT);
 
         $parameters = array(
             'form' => $editForm->createView(),
@@ -295,6 +318,7 @@ class AdminController extends BaseAdminController
     public function listProductAction(){
         if(!($this->isGranted('ROLE_ADMIN'))){
             $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->getUser()->getId();
+            unset($this->entity['list']['fields']['price']);
         }
         return parent::listAction();
     }
@@ -340,6 +364,7 @@ class AdminController extends BaseAdminController
             $editForm->remove('price');
             $editForm->remove('selling');
             $editForm->remove('provider');
+            $editForm->remove('isFront');
         }
         $editForm->handleRequest($this->request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -427,8 +452,8 @@ class AdminController extends BaseAdminController
     }
 
     public function paidAction(){
+        $this->entity['list']['dql_filter'] = 'entity.status = 1';
         if(!($this->isGranted('ROLE_ADMIN'))){
-           $this->entity['list']['dql_filter'] = 'entity.status = 1';
            unset($this->entity['list']['fields']['totalAmount']);
            unset($this->entity['list']['fields']['user']);
         }
@@ -441,19 +466,43 @@ class AdminController extends BaseAdminController
             unset($this->entity['show']['fields']['user']);
             unset($this->entity['show']['fields']['subject']);
             unset($this->entity['show']['fields']['address']);
+            unset($this->entity['show']['fields']['status']);
         }
         return parent::showAction();
     }
 
     public function unpaidAction(){
+        $this->entity['list']['dql_filter'] = 'entity.status = 0';
         if(!($this->isGranted('ROLE_ADMIN'))){
-            $this->entity['list']['dql_filter'] = 'entity.status = 0';
             unset($this->entity['list']['fields']['totalAmount']);
             unset($this->entity['list']['fields']['user']);
         }
         return  parent::listAction();
     }
 
+    public function unreadAction(){
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->entity['list']['dql_filter'] = 'entity.adminRead = 0';
+        }
+        return parent::listAction();
+    }
+
+    public function createGoodsListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null){
+        if($this->isGranted('ROLE_ADMIN')){
+            return parent::createListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter);
+        }
+        $query = $this->em->getRepository(Goods::class)->createQueryBuilder('g')
+            ->join('g.goodsDetail','d')
+            ->join('d.product','p')
+            ->where('p.provider = :id')
+            ->andWhere('g.status = 1')
+            ->setParameter('id',$this->getUser()->getId());
+        $action = $this->request->query->get('action');
+        if($action == 'unread' && !$this->isGranted('ROLE_ADMIN')){
+            $query->andWhere('g.providerRead = false');
+        }
+        return $query;
+    }
 
 
 }

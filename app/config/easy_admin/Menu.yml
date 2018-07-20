@@ -17,3 +17,5 @@ easy_admin:
             list:
                 title: '%%entity_label%%列表'
                 dql_filter: 'entity.parentMenu = 2'
+                actions:
+                - {name: 'new', label: '添加%%entity_label%%'}

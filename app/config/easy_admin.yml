@@ -13,7 +13,7 @@ easy_admin:
                 - 'bundles\app\js\backend.js'
         menu:
             - {route: 'dashboard', label: '后台管理', default: true}
-            - {entity: 'Settings', label: '网站设置',role: ROLE_ADMIN}
+            - {entity: 'Settings', label: '网站设置',params: {action: 'edit',id: 1},role: ROLE_ADMIN}
             - {entity: 'Menu', label: '网站菜单',role: ROLE_ADMIN }
             - {entity: 'Product', label: '服装管理',role: ROLE_PROVIDER }
            # - {entity: 'Provider_Product', label: '服装管理', role: ROLE_ADMIN }
@@ -23,22 +23,23 @@ easy_admin:
               #role: ROLE_ADMIN
               children:
                 - {entity: 'Goods', label: '全部订单',role: ROLE_ADMIN }
+                - {entity: 'Goods', label: '新订单', params: {action: 'unread'}, role: ROLE_PROVIDER }
                 - {entity: 'Goods', label: '已付款订单', params: {action: 'paid'}, role: ROLE_PROVIDER }
                 - {entity: 'Goods', label: '未付款订单', params: {action: 'unpaid'},role: ROLE_ADMIN}
                 #- {entity: 'SendOutTrade', label: '已发货订单'}
                 #- {entity: 'RetrunBackTrade', label: '退款订单'}
             - {entity: 'Coupon', label: '礼券管理',role: ROLE_ADMIN}
-            - {entity: 'Company', label: '品牌信息',role: ROLE_ADMIN}
-            - {entity: 'Contact', label: '联系信息',role: ROLE_ADMIN}
+            - {entity: 'Company', label: '品牌信息',params: {action: 'edit', id: 1},role: ROLE_ADMIN}
+            - {entity: 'Contact', label: '联系信息',params: {action: 'edit', id: 1},role: ROLE_ADMIN}
             - label: '网站首页'
               role: ROLE_ADMIN
               children:
                 - { entity: 'Swipper', label: '幻灯片管理' }
-                - { entity: 'Region', label: '自定义区域' }
+                - { entity: 'Region', label: '自定义区域',params: {action: 'edit', id: 1} }
             - label: '用户管理'
               #role: ROLE_PROVIDER
               children:
                 - {entity: 'User', label: '管理员',params:{urole: 'admin'}}
                 - {entity: 'User', label: '商家',params:{urole: 'provider'}}
-                - {entity: 'User', label: '会员',params:{urole: 'member'}}
+                - {entity: 'Member', label: '会员'}
                 - {entity: 'User', label: '个人中心',params: {action: 'profile' },role: ROLE_PROVIDER}

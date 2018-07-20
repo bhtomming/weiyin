@@ -14,7 +14,12 @@ easy_admin:
                     - { property: 'title', label: '标题' }
                     - { property: 'image', label: '标题图片', type: 'image', base_path: '%app.path.product_images%' }
                     - { property: 'content', label: '内容' }
+                actions:
+                    - '-new'
+                    - '-delete'
             new:
                 title: '添加%%entity_label%%'
             edit:
                 title: '修改%%entity_label%%'
+                actions:
+                    - '-delete'

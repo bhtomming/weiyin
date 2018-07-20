@@ -12,7 +12,7 @@ parameters:
     app.path.product_images: /uploads/images/products
     app.path.swipper_images: /uploads/images/swipper
     app.path.article_images: /uploads/images/article
-    admin_path: '/adminabc'
+    admin_path: '/manager'
 
 framework:
     #esi: ~

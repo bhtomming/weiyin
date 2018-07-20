@@ -16,6 +16,8 @@ easy_admin:
                     - { property: 'owner', label: '获得者' }
                     - { property: 'status', label: '状态' }
                     - { property: 'expiredAt', label: '过期时间' }
+                actions:
+                    - {name: 'new', label: '添加%%entity_label%%'}
             new:
                 title: '添加%%entity_label%%'
             edit:

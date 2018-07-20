@@ -12,3 +12,5 @@ easy_admin:
                 fields:
                     - { property: 'image', label: '图片', type: 'image', base_path: '%app.path.swipper_images%' }
                     - { property: 'link', label: '链接' }
+                actions:
+                    - {name: 'new',label: '添加%%entity_label%%'}

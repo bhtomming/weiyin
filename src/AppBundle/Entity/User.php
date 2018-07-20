@@ -218,7 +218,7 @@ class User extends FOSUser
     }
 
     public function addFriends(User $friend){
-        if($this->shape->contains($friend)){
+        if($this->friends->contains($friend)){
             return $this;
         }
         $this->friends[] = $friend;

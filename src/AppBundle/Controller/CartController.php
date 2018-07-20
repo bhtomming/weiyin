@@ -44,7 +44,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $carts = $em->getRepository(Cart::class)->findBy(['user'=>$user]);
         if(empty($carts)){
-            throw $this->createNotFoundException('你还没有添加商品，现在去添加.');
+            return $this->render('default/car_view.html.twig',array());
         }
         $coupons = $em->getRepository(Coupon::class)->findCanUse($user->getId());
 
