@@ -43,7 +43,7 @@ $(function(){
             {'id':id},
             function(data,status){
             if("success" === status ){
-
+                $(".alert-error").addClass("alert-info").html(data.msg);
             }
         });
     }
@@ -65,9 +65,10 @@ $(function(){
     $("#submit").click(function(){
         data = $("#cart_view").serializeObject();
         $.post(getPath("/trade/create"),data,function(data,status){
-            if('success' === status){
+            if('undefined' === data.error && 'success' === status){
                 window.location.href = data.url;
             }
+            $(".alert-error").addClass("alert-danger").html(data.msg);
         });
     });
 

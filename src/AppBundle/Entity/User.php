@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\AttributeOverride;
 use Doctrine\ORM\Mapping\Column;
 use FOS\UserBundle\Model\User as FOSUser;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *  User
@@ -50,8 +51,15 @@ class User extends FOSUser
 
     /**
      * @var string
+     *@Assert\Regex(
+     *     pattern="/^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/",
+     *     match=true,
+     *     message="电话/手机号码不正确",
+     *     groups={"Registrations","Default"}
+     * )
+     * @Assert\NotBlank(message="手机号码不能为空",groups={"Registrations","Default"})
+     * @ORM\Column(name="phone", type="string", length=20, nullable=true, unique=true)
      *
-     * @ORM\Column(name="phone", type="string", length=11, nullable=true, unique=true)
      */
     private $phone;
 

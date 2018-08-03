@@ -4,6 +4,7 @@ easy_admin:
             class: 'AppBundle\Entity\Settings'
             label: '网站基本信息'
             role: ROLE_ADMIN
+            disabled_actions: ['list']
             form:
                 fields:
                     - { property: 'siteName', label: '网站名称' }

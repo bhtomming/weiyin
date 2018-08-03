@@ -5,28 +5,28 @@
         {{ form_errors(edit_form.userName,{attr:{class: 'alert alert-danger'}}) }}
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_userName">姓名:</label>
-            {{ form_widget(edit_form.userName,{attr: {class: 'form-control col-md-10'}}) }}
+            {{ form_widget(edit_form.userName,{attr: {class: 'form-control col-md-10',placeholder: '请输入姓名'}}) }}
         </div>
         {{ form_errors(edit_form.email,{attr:{class: 'alert alert-danger'}}) }}
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_email">邮箱:</label>
-            {{ form_widget(edit_form.email,{attr: {class: 'form-control col-md-10'}}) }}
+            {{ form_widget(edit_form.email,{attr: {class: 'form-control col-md-10',placeholder: '请输入您的电子邮箱'}}) }}
         </div>
         {{ form_errors(edit_form.phone,{attr:{class: 'alert alert-danger'}}) }}
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_phone">电话:</label>
-            {{ form_widget(edit_form.phone,{attr: {class: 'form-control col-md-10'}}) }}
+            {{ form_widget(edit_form.phone,{attr: {class: 'form-control col-md-10',placeholder: '请输入手机号码'}}) }}
         </div>
         {% if form_errors(edit_form.plainPassword.first) %}
             <div class="alert alert-danger"> {{ form_errors(edit_form.plainPassword.first) }}</div>
         {% endif %}
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_phone">密码:</label>
-            {{ form_widget(edit_form.plainPassword.first,{attr: {class: 'form-control col-md-10',name: 'plainPassword_first'}}) }}
+            {{ form_widget(edit_form.plainPassword.first,{attr: {class: 'form-control col-md-10',name: 'plainPassword_first', placeholder: '请输入6位以上字母及数字组成的密码'}}) }}
         </div>
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_phone">确定密码:</label>
-            {{ form_widget(edit_form.plainPassword.second,{attr: {class: 'form-control col-md-10',name: 'plainPassword_second'}}) }}
+            {{ form_widget(edit_form.plainPassword.second,{attr: {class: 'form-control col-md-10',name: 'plainPassword_second', placeholder: '请重复输入密码'}}) }}
         </div>
         <div class="row">
             <div class="col-12 text-right">
@@ -35,4 +35,5 @@
         </div>
             {{ form_end(edit_form) }}
     </div>
+    <script src="{{ asset('bundles/app/js/reg_validation.js') }}"></script>
 {% endblock %}

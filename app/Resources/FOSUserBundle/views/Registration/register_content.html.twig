@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 {% trans_default_domain 'FOSUserBundle' %}
 {% block body %}
 <div class="container">
@@ -9,25 +9,25 @@
             <div class="form-group">
             {{ form_errors(form.username) }}
             {{ form_label(form.username) }}
-            {{ form_widget(form.username,{attr: {class: 'form-control'}}) }}
+            {{ form_widget(form.username,{attr: {class: 'form-control', placeholder: '请输入姓名'}}) }}
             </div>
             <div class="form-group">
             {{ form_errors(form.phone) }}
             {{ form_label(form.phone) }}
-            {{ form_widget(form.phone,{attr: {class: 'form-control'}}) }}
+            {{ form_widget(form.phone,{attr: {class: 'form-control', placeholder: '请输入手机号码'}}) }}
             </div>
             <div class="form-group">
             {{ form_errors(form.plainPassword.first) }}
             {{ form_label(form.plainPassword.first) }}
-            {{ form_widget(form.plainPassword.first,{attr: {class: 'form-control'}}) }}
+            {{ form_widget(form.plainPassword.first,{attr: {class: 'form-control', placeholder: '请输入6位以上字母及数字组成的密码'}}) }}
             </div>
             <div class="form-group">
             {{ form_errors(form.plainPassword.second) }}
             {{ form_label(form.plainPassword.second) }}
-            {{ form_widget(form.plainPassword.second,{attr: {class: 'form-control'}}) }}
+            {{ form_widget(form.plainPassword.second,{attr: {class: 'form-control', placeholder: '请重复输入密码'}}) }}
             </div>
             <div>
-                <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-outline-warning"/>
+                <input id="submit" type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-outline-warning"/>
             </div>
             {{ form_end(form) }}
         </div>

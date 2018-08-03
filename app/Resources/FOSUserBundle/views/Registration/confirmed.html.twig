@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <h2 class="text-center">注册成功，用户名为：{{  user.username }}</h2>
+            {% if targetUrl %}
+                <p class="text-center"><a href="{{ targetUrl }}">返回用户中心</a></p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock body %}

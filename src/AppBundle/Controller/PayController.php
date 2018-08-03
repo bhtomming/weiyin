@@ -55,7 +55,7 @@ class PayController extends Controller
         $this->getConfig();
         $data = Pay::alipay($this->config)->verify(); // 是的，验签就这么简单！
 
-        $stradeNo = $data->out_trade_no;
+        /*$stradeNo = $data->out_trade_no;
         $em = $this->getDoctrine()->getManager();
         $trade = $em->getRepository(Goods::class)->findOneBy(array('tradeNo'=>$stradeNo));
 
@@ -67,7 +67,7 @@ class PayController extends Controller
         $this->get('event_dispatcher')->dispatch(TradeEvents::PRE_PAID,$event);
         $trade->setPayNo($data->trade_no);
         $em->persist($trade);
-        $em->flush();
+        $em->flush();*/
 
         // 订单号：$data->out_trade_no
         // 支付宝交易号：$data->trade_no

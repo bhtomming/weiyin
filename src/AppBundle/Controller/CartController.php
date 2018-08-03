@@ -76,20 +76,20 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository(Product::class)->find($data['id']);
         if(!$product instanceof Product){
-            throw $this->createNotFoundException('没有所选的商品');
+            return new JsonResponse(array('error'=>'没有所选择商品'));
         }
         $cart = current($em->getRepository(Cart::class)->findBy(['user'=>$user,'product'=>$data['id']]));
         if(!($cart instanceof Cart)){
             $cart = new Cart();
             $cart->setUser($user);
         }
-        $p_status = '';
+        $msg = '添加商品成功';
         $p_num = $product->getStock();
         if($p_num<10){
-            $p_status='该商品库存紧张';
+            $msg .= ',该商品库存紧张';
         }
         if($data['num']>$p_num){
-            $p_status='该商品数量不足';
+            $msg .= ',该商品数量不足';
             $data['num'] = $p_num;
         }
         $cart->setProduct($product);
@@ -97,8 +97,7 @@ class CartController extends Controller
         $em->persist($cart);
         $em->flush();
         return new JsonResponse([
-            'msg'=>'添加商品成功',
-            'p_status'=>$p_status,
+            'msg'=> $msg,
         ]);
     }
 
@@ -109,25 +108,20 @@ class CartController extends Controller
         $cart = new Cart();
     }
 
-    /**
-     * @Route("/edit",name="cart_edit")
-     */
-    public function editAction(){
 
-    }
 
     /**
      * @Route("/delete",name="cart_delete")
      */
     public function deleteAction(Request $request){
         if(!$request->isXmlHttpRequest()){
-            return new JsonResponse(['error'=>'发生错误']);
+            return new JsonResponse(['msg'=>'发生错误']);
         }
         $data = $request->request->all();
         $em = $this->getDoctrine()->getManager();
         $cart = $em->getRepository(Cart::class)->find($data['id']);
         if(!$cart instanceof Cart){
-            return $this->createAccessDeniedException('没有你所要的商品');
+            return new JsonResponse(['msg'=>'没有你选择的商品']);
         }
         $em->remove($cart);
         $em->flush();

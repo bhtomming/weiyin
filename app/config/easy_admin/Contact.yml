@@ -3,6 +3,7 @@ easy_admin:
         Contact:
             class: 'AppBundle\Entity\Contact'
             label: '联系信息'
+            disabled_actions: ['list']
             form:
                 fields:
                     - { property: 'title', label: '标题' }

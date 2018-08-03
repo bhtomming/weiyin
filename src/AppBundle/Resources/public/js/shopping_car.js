@@ -8,7 +8,7 @@ $(function(){
             'num':num
         },function(data,status){
             if("success" === status ){
-                $("#alert").html("添加商品成功!<a href='"+getPath("/cart/show")+"'>现在查看购物车</a>").addClass('alert alert-success');
+                $("#alert").html(data.msg + "<a href='"+getPath("/cart/show")+"'>现在查看购物车</a>").addClass('alert alert-success');
             }
         });
     });

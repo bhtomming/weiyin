@@ -3,6 +3,7 @@ easy_admin:
         Company:
             class: 'AppBundle\Entity\Company'
             label: '品牌信息'
+            disabled_actions: ['list']
             form:
                 fields:
                     - { property: 'title', label: '标题' }

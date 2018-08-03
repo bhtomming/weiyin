@@ -56,34 +56,27 @@ class TradeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $carts = $data['cart_id'];
         $trade = new Goods();
+        $tradeData = [];
         $subject = [];
         $amount = 0;
-        if(is_array($carts)){
-            $index=0;
-            foreach ($carts as $cart_id){
-                $cart = $em->getRepository(Cart::class)->find($cart_id);
-                if(!$cart instanceof Cart){
-                    throw $this->createNotFoundException("没有你购买的商品");
-                }
-                $cart->setAmount($data['number'][$index]);
-                $tradeData = $this->createSingleTrade($cart);
-                $trade->setGoodsDetail($tradeData['singleStrade']);
-                $trade->setDescription($data['remarks']);
-                //设置总金额
-                $amount += $tradeData['amount'];
-                $index++;
-            }
-        }else{
-            $cart = $em->getRepository(Cart::class)->find($carts);
+        $carts = is_array($carts) ? $carts : array($carts);
+        $index = 0;
+        foreach ($carts as $cart_id){
+            $cart = $em->getRepository(Cart::class)->find($cart_id);
             if(!$cart instanceof Cart){
-                throw $this->createNotFoundException("没有你购买的商品");
+                return new JsonResponse(array(
+                    'msg'=>'没有你要购买的物品',
+                    'error' => '出现错误',
+                ),202);
             }
-            $cart->setAmount($data['number']);
+            $cart->setAmount($data['number'][$index]);
             $tradeData = $this->createSingleTrade($cart);
             $trade->setGoodsDetail($tradeData['singleStrade']);
             $trade->setDescription($data['remarks']);
             //设置总金额
             $amount += $tradeData['amount'];
+            $subject[] = $tradeData['subject'];
+            $index++;
         }
 
         $trade->setSubject('在未因购买'.implode(',',$subject));
@@ -126,7 +119,7 @@ class TradeController extends Controller
      */
     public function tradeListAction(){
         $em = $this->getDoctrine()->getManager();
-        $trades = $em->getRepository(Goods::class)->findBy(array('user'=>$this->getUser()->getId()));
+        $trades = $em->getRepository(Goods::class)->findBy(array('user'=>$this->getUser()->getId()),['createdAt'=>'DESC']);
         return $this->render('member/trade_list.html.twig',[
             'trades' => $trades
         ]);
@@ -151,7 +144,7 @@ class TradeController extends Controller
             $msg = '库存不足';
         }
         //设置订单标题
-        $subject[] = $product->getTitle();
+        $subject = $product->getTitle();
         //设置总金额
         $amount += $product->getPrice() * $num;
         //清空购物车
@@ -161,8 +154,8 @@ class TradeController extends Controller
             'singleStrade' => $singleStrade,
             'amount' => $amount,
             'msg' => $msg,
+            'subject' => $subject,
         );
     }
-
 
 }

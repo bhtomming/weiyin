@@ -2,6 +2,7 @@
 {% block body %}
     <div class="container">
         {% if carts is defined %}
+            <div class="alert alert-error"></div>
             <form id="cart_view" name="cart_view" method="post" action="{{ path('new_trade') }}">
             {% set total_amount = 0 %}
                 <div class="table-responsive">

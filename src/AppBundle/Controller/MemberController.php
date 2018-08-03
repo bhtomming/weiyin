@@ -43,11 +43,11 @@ class MemberController extends Controller
     }
 
     /**
-     * @Route("/register", name="register")
-     */
+     * **Route("/register", name="register")
+
     public function registerAction(){
         $user = $this->get('fos_user.user_manager')->createUser();
-    }
+    }*/
 
     /**
      * @Route("/edit/{id}", name="member_edit")

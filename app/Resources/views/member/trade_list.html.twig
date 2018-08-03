@@ -17,7 +17,7 @@
                 {% for trade in trades %}
                 <tr>
                     <th scope="row"><a href="{{ path('view_trade',{'id': trade.id}) }}" >{{ trade.tradeNo }}</a></th>
-                    <td>{{ trade.totalAmount }}</td>
+                    <td>{{ trade.totalAmount }}元</td>
                     <td>{{ trade.status == 1 ? "已付款"}}{{  trade.status == 0 ? "未付款" }}{{  trade.status == 4 ? "已关闭" }}</td>
                     <td>{{ trade.createdAt |date('Y年m月d日') }}</td>
                 </tr>
