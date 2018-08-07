@@ -11,7 +11,7 @@
     {% endif %}
     <div id="main" class="container">
         {{ products ? include('default/front_product.html.twig',{'products': products}) : '' }}
-        <div class="row">{{ region ? region.content | raw : '' }}</div>
+        <div class="row custom-region">{{ region ? region.content | raw : '' }}</div>
     </div>
 {% endblock %}
 
