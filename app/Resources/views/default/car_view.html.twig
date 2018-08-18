@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <div class="container">
+    <div class="container container-while">
         {% if carts is defined %}
             <div class="alert alert-error"></div>
             <form id="cart_view" name="cart_view" method="post" action="{{ path('new_trade') }}">
@@ -24,8 +24,8 @@
                             <td>{{ cart.product.title }}</td>
                             <td><em id="item-{{ cart.product.id }}-price" class="text-price">{{ cart.product.price }}</em>元</td>
                             <td><em id="item-{{ cart.product.id }}-amount" class="amount text-price" >{{ cart.amount * cart.product.price }}</em>元</td>
-                            <td>{{ include('default/goods_number.html.twig',{'id': cart.product.id,'num':cart.amount}) }}</td>
-                            <td><i class="btn icon icon-trash float-md-right" data-id="{{ cart.id }}">删除</i></td>
+                            <td>{{ include('default/goods_number.html.twig',{'id': cart.product.id,'num':cart.amount, 'max': cart.product.stock }) }}</td>
+                            <td><i class="btn icon icon-trash float-md-right" data-cart-id="{{ cart.id }}" data-id="{{ cart.product.id }}">删除</i></td>
                         </tr>
                     <input type="hidden" name="cart_id" id="cart_id" value="{{ cart.id }}" />
                     {% set total_amount = total_amount + cart.amount * cart.product.price %}
@@ -43,12 +43,12 @@
                             <select class="form-control" id="coupon" name="coupon">
                                 <option value=" ">请选择优惠券</option>
                                 {% for coupon in coupons %}
-                                <option value="{{ coupon.id }}">{{ coupon.couponNo }}</option>
+                                <option value="{{ coupon.id }}">{{ coupon.amount }}元</option>
                                 {% endfor %}
                             </select>
 
                     {% endif %}
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button class="btn btn-outline-while my-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         帮朋友购买
                     </button>
                 </div>
@@ -57,9 +57,10 @@
                 <div class="card card-body">
                     <div class="alert" id="friend-alert"></div>
                     <div class="input-group">
+                        <label for="friend_phone">手机号:</label>
                         <input id="friend_phone" name="friend_phone" class="form-control" type="text" />
                         <div class="input-group-append">
-                            <input id="check_phone" type="button" class="btn btn-primary" value="验证好友电话" />
+                            <input id="check_phone" type="button" class="btn btn-orange" value="验证好友电话"  placeholder="请您输入朋友的手机号"/>
                         </div>
                     </div>
                 </div>
@@ -67,23 +68,25 @@
                 <div class="row my-3">
                     <div class="col form-group">
                         <label for="remarks">添加备注信息 </label>
-                        <textarea class="form-control" name="remarks" id="remarks" rows="3"></textarea>
+                        <textarea class="form-control" name="remarks" id="remarks" rows="3" placeholder="如衣服颜色需要更换，或需要索取发票信息可在这里填写"></textarea>
                     </div>
                 </div>
 
-            <div class="row my-3">
-                <div class="col">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        {% if app.user.defaultAddress %}
-                            <div class="address">地址:{{  app.user.defaultAddress  }}</div>
-                        {% else %}
-                            <div class="address alert alert-warning"><a href="{{ path('address_new') }}">请先设置地址"</a></div>
+                <div class="row my-3">
+                    <div class="col">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if app.user.defaultAddress %}
+                                <div class="address">收货地址:{{  app.user.defaultAddress  }}</div>
+                            {% else %}
+                                <div class="address alert alert-warning">您还没有添加收货地址,请先<a href="{{ path('address_new') }}">添加地址</a></div>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                <div class="col-xs-6 col-md-2"><input type="button" name="submit" id="submit" class="btn btn-warning" value="生成订单"/> </div>
-            </div>
+                <div class="row my-5">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <div class="col text-center"><input type="button" name="submit" id="submit" class="btn btn-outline-orange" value="生成订单"/> </div>
+                </div>
             </form>
             {% else %}
             <div class="alert alert-info">你没有添加任何商品，<a href="{{ path('homepage') }}">现在去添加</a> </div>

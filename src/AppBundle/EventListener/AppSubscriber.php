@@ -14,6 +14,7 @@ use AppBundle\Entity\Goods;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use AppBundle\Event\TradeEvents;
+use AppBundle\Form\Type\AddressType;
 use EasyCorp\Bundle\EasyAdminBundle\Configuration\ActionConfigPass;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 
@@ -37,7 +38,6 @@ class AppSubscriber implements EventSubscriberInterface
             EasyAdminEvents::PRE_NEW =>  'checkUserRights',
             EasyAdminEvents::PRE_DELETE =>  'checkUserRights',
             TradeEvents::PRE_PAID=>'checkTrade',
-            EasyAdminEvents::POST_NEW => 'selectUserRoles',
             EasyAdminEvents::POST_SHOW => 'checkShowRights',
         );
     }
@@ -46,15 +46,17 @@ class AppSubscriber implements EventSubscriberInterface
         $this->container = $container;
     }
 
+    //根据用户权限显示管理菜单
     public function checkUserRights(GenericEvent $event){
         $authorization = $this->container->get('security.authorization_checker');
         //$request = $this->container->get('request_stack')->getCurrentRequest()->query;
         if($authorization->isGranted('ROLE_ADMIN')){
             return;
         }
-        $entity = $this->container->get('request_stack')->getCurrentRequest()->query->get('entity');;
-        $action = $this->container->get('request_stack')->getCurrentRequest()->query->get('action');
-        $userId = $this->container->get('request_stack')->getCurrentRequest()->query->get('id');
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $entity = $request->query->get('entity');;
+        $action = $request->query->get('action');
+        $userId = $request->query->get('id');
         if($entity == 'User'){
             if($action == 'show' || $action == 'edit'){
                 if($userId == $this->container->get('security.token_storage')->getToken()->getUser()->getId()){
@@ -68,7 +70,7 @@ class AppSubscriber implements EventSubscriberInterface
                 }
             }
         }
-        $allowEntity = array('Goods','Product','User');
+        $allowEntity = array('Goods','Product','Provider');
         if(in_array($entity,$allowEntity)){
             return;
         }
@@ -90,6 +92,10 @@ class AppSubscriber implements EventSubscriberInterface
             //设置商品销量库存
             $product->setSales($product->getSales() + $tradeItem->getNumber());
             $product->setStock($product->getStock() - $tradeItem->getNumber());
+            //商品没有库存自动下架
+            if($product->getStock() == 0){
+                $product->setSelling(false);
+            }
             $product->setUpdatedAt(new \DateTime('now'));
             $em->persist($product);
             $em->flush();
@@ -98,27 +104,6 @@ class AppSubscriber implements EventSubscriberInterface
     }
 
 
-    public function selectUserRoles(GenericEvent $event){
-        $entity = $event->getArgument('entity');
-        if(!$entity instanceof User){
-            return;
-        }
-        $urole = $this->container->get('request_stack')->getCurrentRequest()->query->get('urole');
-        $form = $event->getArgument('form');
-
-        if('admin' == $urole){
-            $form->remove('companyName');
-            $form->remove('sex');
-            $form->remove('birthday');
-            $form->remove('address');
-        }elseif ('provider' == $urole){
-            $form->remove('sex');
-            $form->remove('birthday');
-        }elseif ('member' == $urole){
-            $form->remove('companyName');
-        }
-
-    }
 
     public function checkShowRights(GenericEvent $event){
         $entity = $event->getArgument('entity');
@@ -144,4 +129,6 @@ class AppSubscriber implements EventSubscriberInterface
         throw new AccessDeniedException();
 
     }
+
+
 }

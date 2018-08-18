@@ -4,10 +4,16 @@ $(function(){
     var friend_text = $("#friend_phone");
 
     $(".icon-trash").click(function(){
-        id = $(this).attr("data-id");
+        id = $(this).attr("data-cart-id");
+        pid = $(this).attr("data-id");
         del = confirm('你要删除该商品?');
         if(del === true){
             del_car(id);
+            var amount = $("#item-"+pid+"-amount").text();
+            var total = $("#total_amount");
+	        var total_amount = total.text();
+	        total_amount = parseFloat(total_amount) - parseFloat(amount);
+	        total.text(total_amount);
             $(this).parent().parent().remove();
         }
     });
@@ -65,7 +71,7 @@ $(function(){
     $("#submit").click(function(){
         data = $("#cart_view").serializeObject();
         $.post(getPath("/trade/create"),data,function(data,status){
-            if('undefined' === data.error && 'success' === status){
+            if(null !== data.url && 'success' === status){
                 window.location.href = data.url;
             }
             $(".alert-error").addClass("alert-danger").html(data.msg);

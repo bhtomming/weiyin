@@ -1,7 +1,7 @@
 
 {% block _address_widget %}
     <div class="container">
-    <div class="row">
+    <div class="row my-4">
         <div class="col-sx-12 col-md-2 my-1" style="padding: 0">
             {{ form_widget(form.province) }}
         </div>
@@ -18,9 +18,9 @@
             {{ form_widget(form.isDefault) }}{{ form_label(form.isDefault) }}
         </div>
     </div>
-        <div class="row">
-            <div class="offset-10">
-                <input type="submit" value="{{ value.id ? "保存" : "添加" }}" class="btn btn-success"/>
+        <div class="row mt-3">
+            <div class="col text-center">
+                <input type="submit" value="{{ value.id ? "保存" : "添加" }}" class="btn btn-orange"/>
             </div>
         </div>
     </div>

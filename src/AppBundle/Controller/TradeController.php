@@ -97,10 +97,11 @@ class TradeController extends Controller
         $trade->setUser($user);
         $trade->setAddress($user->getDefaultAddress());
         $trade->setTotalAmount($amount);
+        //帮朋友购买
         if(null != $data['friend_phone'] && preg_match("/^1[34578]{1}\d{9}$/",$data['friend_phone'])){
             $friendEm = $em->getRepository(User::class);
             $friend = $friendEm->findOneBy(array('phone'=>$data['friend_phone']));
-            if (!empty($friend)){
+            if ($friend instanceof User){
                 $trade->setGiveTo($friend);
                 $trade->setAddress($friend->getDefaultAddress());
                 $user->setFriends($friend);
@@ -147,6 +148,8 @@ class TradeController extends Controller
         $subject = $product->getTitle();
         //设置总金额
         $amount += $product->getPrice() * $num;
+
+
         //清空购物车
         $em->remove($cart);
         $em->flush();

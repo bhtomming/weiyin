@@ -2,33 +2,34 @@ easy_admin:
     entities:
         Provider:
             class: 'AppBundle\Entity\User'
-            label: '商家'
+            label: '供应商'
             list:
                 dql_filter: " entity.roles = 'a:1:{i:0;s:13:\"ROLE_PROVIDER\";}'"
                 title: '%%entity_label%%列表'
                 actions:
-                    - 'show'
+                    -  { name: 'show', label: '查看'}
+                    - { name: 'new', label: '添加供应商'}
                 fields:
+                    - {property: 'companyName', label: '公司名称'}
                     - {property: 'username', label: '姓名'}
                     - {property: 'email', label: '邮箱'}
                     - {property: 'phone', label: '电话'}
-                    - {property: 'address', label: '地址'}
             form:
                 fields:
-                    - { property: 'username', label: '用户名' }
                     - { property: 'companyName', label: '公司名称'}
+                    - { property: 'username', label: '用户名' }
                     - { property: 'email', label: '邮箱',type_options:{required: false} }
                     - { property: 'phone', label: '电话', type_options: {required: true} }
+                    - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'},invalid_message: '输入两次密码必须要一致' } }
                     - { property: 'address', label: '联系地址',type: 'AppBundle\Form\Type\AddressType', type_options: {required: true}}
-                    - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_PROVIDER'  }}
+                    #- { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_PROVIDER'  }}
                     #- { property: 'enabled', label: '是否可用'}
-                    - { property: 'plainPassword', label: '密码', type: 'repeated', type_options: { type: 'Symfony\Component\Form\Extension\Core\Type\PasswordType', first_options: { label: '密码'},second_options: {label : '重复密码'},invalid_message: '密码是必须要填写的' } }
-                form_options: { validation_groups: ['Profile'] }
+                #form_options: { validation_groups: ['Registration'] }
             new:
                 title: '添加%%entity_label%%'
                 fields:
                     - { property: 'plainPassword', type_options: { 'label_attr': {'class': required} } }
-                form_options: { validation_groups: ['Registration'] }
+                #form_options: { validation_groups: ['Registration'] }
             edit:
                 title: '编辑%%entity_label%%'
                 fields:

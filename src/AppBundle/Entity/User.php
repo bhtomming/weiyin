@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping\Column;
 use FOS\UserBundle\Model\User as FOSUser;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  *  User
@@ -29,7 +31,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- *
+ * @UniqueEntity("username",message="该用户名已经有人使用,请重新输入!")
+ * @UniqueEntity(fields="phone",message="手机号码已被使用,请重新输入!")
  */
 class User extends FOSUser
 {
@@ -43,6 +46,17 @@ class User extends FOSUser
     protected $id;
 
     /**
+     *  @Assert\Regex(
+     *     pattern="/\ |\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/",
+     *     match=false,
+     *     message="用户名由2-20个字母、数字、中文、下划线等组成，不能包含特殊字符串及空格",
+     *     groups={"Registrations","Default"}
+     * )
+     * @Assert\Length(min="2",max="20",minMessage="用户名长度至少2个字符串",maxMessage="用户名最大长度为20个字符串")
+     */
+    protected $username;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="sex", type="string", nullable=true, length=2)
@@ -51,14 +65,16 @@ class User extends FOSUser
 
     /**
      * @var string
+     *
      *@Assert\Regex(
      *     pattern="/^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/",
      *     match=true,
-     *     message="电话/手机号码不正确",
+     *     message="电话/手机号码不正确!",
      *     groups={"Registrations","Default"}
      * )
-     * @Assert\NotBlank(message="手机号码不能为空",groups={"Registrations","Default"})
-     * @ORM\Column(name="phone", type="string", length=20, nullable=true, unique=true)
+     * @Assert\NotBlank(message="手机号码不能为空!",groups={"Registrations","Default"})
+     *
+     * @ORM\Column(name="phone", type="string", length=20, unique=true)
      *
      */
     private $phone;
@@ -66,7 +82,7 @@ class User extends FOSUser
     /**
      * @var Address[] | ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Address",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Address",cascade={"persist","remove"})
      * @ORM\JoinTable(name="user_address")
      */
     private $address;
@@ -86,7 +102,7 @@ class User extends FOSUser
 
     /**
      * @var Shape[] | ArrayCollection
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Shape", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Shape", cascade={"persist","remove"})
      * @ORM\JoinTable(name="user_shape")
      */
     private $shape;

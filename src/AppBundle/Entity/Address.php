@@ -23,9 +23,8 @@ class Address
 
     /**
      * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="address")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -159,7 +158,7 @@ class Address
     /**
      * @param User $user
      */
-    public function setUser($user){
+    public function setUser($user = null){
         $this->user = $user;
         return;
     }

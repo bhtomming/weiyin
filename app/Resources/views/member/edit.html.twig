@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
     <div class="container px-3">
             {{ form_start(edit_form) }}
-        {{ form_errors(edit_form.userName,{attr:{class: 'alert alert-danger'}}) }}
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_userName">姓名:</label>
-            {{ form_widget(edit_form.userName,{attr: {class: 'form-control col-md-10',placeholder: '请输入姓名'}}) }}
+            <input type="text" value="{{ app.user.username }}" class="form-control col-md-10" disabled="true" />
         </div>
         {{ form_errors(edit_form.email,{attr:{class: 'alert alert-danger'}}) }}
         <div class="row form-group">
@@ -16,6 +16,18 @@
         <div class="row form-group">
             <label class="col-md-2 col-form-label" for="member_phone">电话:</label>
             {{ form_widget(edit_form.phone,{attr: {class: 'form-control col-md-10',placeholder: '请输入手机号码'}}) }}
+        </div>
+        {{ form_errors(edit_form.birthday,{attr:{class: 'alert alert-danger'}}) }}
+        <div class="row form-group">
+            <label class="col-md-2 col-form-label" for="member_birthday">生日:</label>
+            {{ form_widget(edit_form.birthday.children.year,{attr: {class: 'form-control col-md-3 mr-2',placeholder: '请输入生日'}}) }}<label class="col-form-label">年</label>
+            {{ form_widget(edit_form.birthday.children.month,{attr: {class: 'form-control col-md-3 mx-2',placeholder: '请输入生日'}}) }}<label class="col-form-label">月</label>
+            {{ form_widget(edit_form.birthday.children.day,{attr: {class: 'form-control col-md-3 mx-2',placeholder: '请输入生日'}}) }}<label class="col-form-label">日</label>
+        </div>
+        {{ form_errors(edit_form.sex,{attr:{class: 'alert alert-danger'}}) }}
+        <div class="row form-group">
+            <label class="col-md-2 col-form-label" for="member_sex">性别:</label>
+            {{ form_widget(edit_form.sex,{attr: {class: 'form-control col-md-10',placeholder: '请选择您的性别'}}) }}
         </div>
         {% if form_errors(edit_form.plainPassword.first) %}
             <div class="alert alert-danger"> {{ form_errors(edit_form.plainPassword.first) }}</div>
@@ -28,12 +40,11 @@
             <label class="col-md-2 col-form-label" for="member_phone">确定密码:</label>
             {{ form_widget(edit_form.plainPassword.second,{attr: {class: 'form-control col-md-10',name: 'plainPassword_second', placeholder: '请重复输入密码'}}) }}
         </div>
-        <div class="row">
-            <div class="col-12 text-right">
-                <input type="submit" value="确认修改" class="btn btn-success" />
+        <div class="row my-5">
+            <div class="col-12 text-center">
+                <input type="submit" value="确认修改" class="btn btn-outline-orange" />
             </div>
         </div>
             {{ form_end(edit_form) }}
     </div>
-    <script src="{{ asset('bundles/app/js/reg_validation.js') }}"></script>
 {% endblock %}

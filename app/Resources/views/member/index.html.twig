@@ -1,29 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container">
-        <div class="card">
-            <div class="card-header text-center">
-                <h2 class="card-title">会员中心</h2>
+        <div class="row mt-5">
+            <div class="col">
+                <h2 class="text-center">会员中心</h2>
             </div>
         </div>
-        <div class="card-body">
-            <a href="{{ path('member_edit',{id: member.id}) }}" class="float-right">修改资料</a>
-            <p class="card-text">会员姓名:{{ member.username }}</p>
-            <p class="card-text">邮箱: {{ member.email }}</p>
-            <p class="card-text">手机号: {{ member.phone }}</p>
-            <p class="card-text">我的地址: <a href="{{ path('address_new') }}">添加地址</a></p>
-            <ul class="list-group">
-                {% for address in member.address %}
-                    <li class="list-group-item">
-                        {% if address.isDefault %}默认地址: {% endif %}{{ address }}
-                        <div class="float-right">
-                            <a href="{{ path('edit_address',{id: address.id}) }}" class="btn btn-info">修改</a>
-                            <a href="{{ path('address_delete',{id: address.id}) }} " class="btn btn-danger">删除</a>
-                        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <a href="{{ path('member_edit',{id: member.id}) }}" class="float-right">修改资料</a>
+                <p class="my-2">会员姓名:{{ member.username }}</p>
+                <p class="my-2">邮箱: {{ member.email }}</p>
+                <p class="my-2">手机号: {{ member.phone }}</p>
+                <p class="my-2">我的地址:<a href="{{ path('address_new') }}"  class="float-right">添加地址</a></p>
 
-                    </li>
-                {% endfor %}
-            </ul>
+                <div class="my-3">
+                    {% for address in member.address %}
+                        <div class="my-3">
+                            {% if address.isDefault %}默认地址: {% endif %}{{ address }}
+                            <div class="float-right">
+                                <a href="{{ path('edit_address',{id: address.id}) }}" class="btn btn-outline-orange">修改</a>
+                                <a href="{{ path('address_delete',{id: address.id}) }} " class="btn btn-outline-orange">删除</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
 
 

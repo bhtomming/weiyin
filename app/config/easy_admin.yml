@@ -30,16 +30,16 @@ easy_admin:
                 #- {entity: 'RetrunBackTrade', label: '退款订单'}
             - {entity: 'Coupon', label: '礼券管理',role: ROLE_ADMIN}
             - {entity: 'Company', label: '品牌信息',params: {action: 'edit', id: 1},role: ROLE_ADMIN}
-            - {entity: 'Contact', label: '联系信息',params: {action: 'edit', id: 1},role: ROLE_ADMIN}
+            - {entity: 'Contact', label: '联系我们',params: {action: 'edit', id: 1},role: ROLE_ADMIN}
             - label: '网站首页'
               role: ROLE_ADMIN
               children:
                 - { entity: 'Swipper', label: '幻灯片管理' }
                 - { entity: 'Region', label: '自定义区域',params: {action: 'edit', id: 1} }
             - label: '用户管理'
-              #role: ROLE_PROVIDER
+              #role: ROLE_SUPER_ADMIN
               children:
                 - {entity: 'User', label: '管理员',params:{urole: 'admin'}}
-                - {entity: 'User', label: '商家',params:{urole: 'provider'}}
+                - {entity: 'Provider', label: '商家',params:{urole: 'provider'},role: ROLE_SUPER_ADMIN}
                 - {entity: 'Member', label: '会员'}
                 - {entity: 'User', label: '个人中心',params: {action: 'profile' },role: ROLE_PROVIDER}

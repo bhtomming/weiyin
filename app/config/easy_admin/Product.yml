@@ -11,9 +11,9 @@ easy_admin:
                     - { property: 'productType', label: '类型',css_class: 'col-sm-6' }
                     - { property: 'model', label: '版型',css_class: 'col-sm-6' }
                     - { property: 'stock', label: '库存',css_class: 'col-sm-6' }
-                    - { property: 'supplyPrice', label: '供应价格',css_class: 'col-sm-6' }
-                    - { property: 'price', label: '价格',css_class: 'col-sm-6' }
-                    - { property: 'size', label: '尺码', css_class: 'col-sm-6' }
+                    - { property: 'supplyPrice', label: '供应价格',css_class: 'col-sm-6', type_options: {required: true} }
+                    - { property: 'price', label: '价格',css_class: 'col-sm-6', type_options: {required: true} }
+                    - { property: 'size', label: '尺码', css_class: 'col-sm-6', type_options: {required: true} }
                     - { property: 'category', label: '分类', type: 'AppBundle\Form\Type\CategoryType',css_class: 'col-sm-6'  }
                     - { property: 'cycle', label: '制作周期', css_class: 'col-sm-6'}
                     - { property: 'isFront', label: '推荐到首页', css_class: 'col-sm-6' }
@@ -41,7 +41,7 @@ easy_admin:
                     - {property: 'skirtLength', label: '裙长', css_class: 'col-sm-6'}
                     - {property: 'skirtStyle', label: '裙型', css_class: 'col-sm-6'}
                     - {property: 'productLabel', label: '标签', css_class: 'col-sm-6'}
-                    - {property: 'marketTime', label: '上市时间', type: 'date', type_options: {disabled: true}}
+                    - {property: 'marketTime', label: '上市时间'}
             list:
                 title: '%%entity_label%%列表'
                 actions:

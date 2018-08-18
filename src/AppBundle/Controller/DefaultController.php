@@ -10,10 +10,12 @@ use AppBundle\Entity\Product;
 use AppBundle\Entity\Region;
 use AppBundle\Entity\Settings;
 use AppBundle\Entity\Swipper;
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\AddressType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -53,6 +55,36 @@ class DefaultController extends Controller
         $contact = $em->getRepository(Contact::class)->findOneBy(['id'=>1]);
         return $this->render('default/contact.html.twig',['contact' => $contact]);
     }
+
+    /**
+     * @Route("/user/query", name="userQuery")
+     */
+    public function queryUser(Request $request){
+        $data = array('used' => false);
+        if(!$request->isXmlHttpRequest()){
+            return new JsonResponse(['msg'=>0,'member'=>0]);
+        }
+        $phone = $request->request->has('phone') ? $request->request->get('phone') : '';
+        $userName = $request->request->has('name') ? $request->request->get('name') : '';
+        if($phone){
+            if(!preg_match("/^1[34578]{1}\d{9}$/",$phone)){
+                $data['msg'] = '无效手机号码';
+                return new JsonResponse($data);
+            }
+        }
+        $em = $this->getDoctrine()->getManager();
+        $field = $userName ? 'username' : 'phone';
+        $value = $userName ? $userName : $phone;
+        $member = $em->getRepository(User::class)->findOneBy(array(
+            $field => $value,
+        ));
+        if($member instanceof User){
+            $data['used'] = true;
+            return new JsonResponse($data);
+        }
+        return new JsonResponse($data);
+    }
+
 
     /**
      * 显示网站菜单

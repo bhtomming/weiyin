@@ -62,43 +62,47 @@ class CartController extends Controller
      * @Route("/add",name="cart_add")
      */
     public function addAction(Request $request){
+        $reData = array(
+            'status' => 401,
+        );
         if(!$request->isXmlHttpRequest()){
-            return new JsonResponse(['id'=>0,'num'=>0]);
+            return new JsonResponse($reData);
         }
         $user = $this->getUser();
         if(!$user instanceof User){
-            return new JsonResponse(['user'=>$user]);
+            return new JsonResponse($reData);
         }
         $data = $request->request->all();
         if(!preg_match('/[0-9]/',$data['id']) || !preg_match('/[0-9]/',$data['num'])){
-            return new JsonResponse(array('error'=>'数据不正确'));
+            return new JsonResponse($reData['status'] = 'unmatch');
         }
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository(Product::class)->find($data['id']);
         if(!$product instanceof Product){
-            return new JsonResponse(array('error'=>'没有所选择商品'));
+            return new JsonResponse($reData['status'] = 'unfind');
         }
         $cart = current($em->getRepository(Cart::class)->findBy(['user'=>$user,'product'=>$data['id']]));
         if(!($cart instanceof Cart)){
             $cart = new Cart();
             $cart->setUser($user);
         }
-        $msg = '添加商品成功';
+        $reData['msg'] = '添加商品成功';
+        $reData['status'] = 200;
         $p_num = $product->getStock();
-        if($p_num<10){
-            $msg .= ',该商品库存紧张';
+        if($p_num < 10){
+            $reData['msg'] .= ',该商品库存紧张!';
+            $reData['status'] = 'nervous';
         }
-        if($data['num']>$p_num){
-            $msg .= ',该商品数量不足';
+        if($data['num'] >= $p_num){
+            $reData['msg'] .= ',但该商品数量不足，最多只能提供'.$p_num.'件。';
             $data['num'] = $p_num;
+            $reData['status'] = 'insufficient';
         }
         $cart->setProduct($product);
         $cart->setAmount($data['num']);
         $em->persist($cart);
         $em->flush();
-        return new JsonResponse([
-            'msg'=> $msg,
-        ]);
+        return new JsonResponse($reData);
     }
 
     /**

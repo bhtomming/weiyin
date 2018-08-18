@@ -2,14 +2,12 @@
 {% block body %}
     {% trans_default_domain 'FOSUserBundle' %}
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 offset-md-4">
-                <div class="card border-light">
-                    <h2 class="card-title text-center">未因服饰</h2>
+        <div class="row justify-content-md-center mt-5">
+            <div class="col-md-4">
+                    <h2 class="text-center">未因服饰</h2>
                     {% if error %}
                         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
-
                     <form action="{{ path("fos_user_security_check") }}" method="post">
                         {% if csrf_token %}
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -21,23 +19,24 @@
                         <label for="password" class="form-label">{{ 'security.login.password'|trans }}</label>
                         <input type="password" id="password" class="form-control" name="_password" required="required" autocomplete="current-password" placeholder="请输入你的密码"/>
 
-
-                        <div class="form-check form-check-inline">
-                            <input type="checkbox" id="remember_me" class="form-check" name="_remember_me" value="on" />
-                            <label for="remember_me" class="form-check-label">{{ 'security.login.remember_me'|trans }}</label>
+                        <div class="my-3">
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" id="remember_me" class="form-check" name="_remember_me" value="on" />
+                                <label for="remember_me" class="form-check-label">{{ 'security.login.remember_me'|trans }}</label>
+                            </div>
+                            <span class="text-right float-right">
+                                <a  href="{{ path('fos_user_registration_register') }}" >注册</a>
+                            </span>
                         </div>
+
 
                         <div class="row">
                             <div class="col offset-4">
-                                <input type="submit" id="_submit" class="btn btn-info" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-                            </div>
-                            <div class="col justify-content-end">
-                                <a  class="btn btn-outline"  href="{{ path('fos_user_registration_register') }}" >注册</a>
+                                <input type="submit" id="_submit" class="btn btn-outline-orange" name="_submit" value="{{ 'security.login.submit'|trans }}" />
                             </div>
                         </div>
 
                     </form>
-                </div>
             </div>
         </div>
 

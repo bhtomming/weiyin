@@ -9,7 +9,9 @@ a:hover{
     text-decoration: none;
 }
 #mainContent{
-    background-color: #f5f5f5;
+}
+.container-while{
+    background-color: #fff;
 }
 
 .navbar-toggler-icon{
@@ -60,13 +62,22 @@ a:hover{
 .title-img{
     max-width: 270px;
 }
-.btn-add-car{
+.btn-add-car,.btn-orange{
     border-color: #ff6700;
     background-color: #ff6700;
     color: #ffffff;
 }
-.btn-add-car:hover{
+.btn-add-car:hover,.btn-orange:hover{
     background-color: #f25807;
+}
+.btn-outline-orange{
+    border-color: #ff6700;
+    color: #ff6700;
+    background-color:transparent;
+}
+.btn-outline-orange:hover{
+    background-color: #ff6700;
+    color: #ffffff;
 }
 .btn-outline-gray{
     border-color: #b0b0b0;
@@ -76,6 +87,16 @@ a:hover{
 .btn-outline-gray:hover{
     color: #000;
     border-color: #000;
+}
+.btn-outline-while{
+    border-color: #b0b0b0;
+    color: #000;
+    background-color:transparent;
+}
+.btn-outline-while:hover{
+    color: #fff;
+    background-color: #ff6700;
+    border-color: #ff6700;
 }
 .number{
     text-align: center;

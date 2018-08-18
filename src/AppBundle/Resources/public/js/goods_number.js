@@ -12,7 +12,12 @@ $(function(){
     });
     number_text.change(function(){
         id = $(this).attr("data-id");
+        max = $(this).attr("data-max");
         num = $(this).val();
+        if(num >= max){
+            num = max;
+            $(this).val(max);
+        }
         //改变当前金额
         if($("#item-"+id+"-amount").length > 0){
             setItemAmount(id,num);
@@ -41,8 +46,12 @@ $(function(){
     $("input[name=add]").click(function(){
         id = $(this).attr("data-id");
         num_now = parseInt($("#num-"+id).val());
-        num = num_now + 1;
+        max = $(this).attr("data-max");
+        //num = num_now + 1;
         num_now++;
+        if(num_now >= max ){
+            num_now = max;
+        }
         //改变文本框的值
         setNumber("#num-"+id,num_now);
         if($("#item-"+id+"-amount").length > 0){
@@ -75,14 +84,13 @@ $(function(){
     }
 
     function send(id,num){
-
         $.post(getPath("/cart/add"),{
             'id':id,
             'num':num
         },function(data,status){
-            if(status === 200){
-                console.log('添加商品成功');
-                console.log(data);
+            if(status === "success"){}
+            if("success" !== status){
+                $(".alert-error").html("网络有问题，请稍后再试");
             }
         });
     }

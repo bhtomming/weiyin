@@ -53,6 +53,7 @@ twig:
         menu: '@AppBundle\Controller\DefaultController'
     form_themes:
         - 'fields/address.html.twig'
+        - 'fields/phone.html.twig'
 
 # Doctrine Configuration
 doctrine:

@@ -2,32 +2,34 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% block body %}
 <div class="container">
-    <div class="card">
-        <h2 class="card-header text-center">会员注册</h2>
-        <div class="card-body">
+    <div class="row justify-content-md-center">
+        <h2 class="col text-center">会员注册</h2>
+    </div>
+    <div class="row">
+        <div class="col">
             {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
             <div class="form-group">
-            {{ form_errors(form.username) }}
-            {{ form_label(form.username) }}
-            {{ form_widget(form.username,{attr: {class: 'form-control', placeholder: '请输入姓名'}}) }}
+                {{ form_errors(form.username) }}
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username,{attr: {class: 'form-control', placeholder: '请输入用户名，用户名由2-10个中文组成'}}) }}
             </div>
             <div class="form-group">
-            {{ form_errors(form.phone) }}
-            {{ form_label(form.phone) }}
-            {{ form_widget(form.phone,{attr: {class: 'form-control', placeholder: '请输入手机号码'}}) }}
+                {{ form_errors(form.phone) }}
+                {{ form_label(form.phone) }}
+                {{ form_widget(form.phone,{attr: {class: 'form-control', placeholder: '请输入手机号码'}}) }}
             </div>
             <div class="form-group">
-            {{ form_errors(form.plainPassword.first) }}
-            {{ form_label(form.plainPassword.first) }}
-            {{ form_widget(form.plainPassword.first,{attr: {class: 'form-control', placeholder: '请输入6位以上字母及数字组成的密码'}}) }}
+                {{ form_errors(form.plainPassword.first) }}
+                {{ form_label(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first,{attr: {class: 'form-control', placeholder: '请输入6位以上字母及数字组成的密码'}}) }}
             </div>
             <div class="form-group">
-            {{ form_errors(form.plainPassword.second) }}
-            {{ form_label(form.plainPassword.second) }}
-            {{ form_widget(form.plainPassword.second,{attr: {class: 'form-control', placeholder: '请重复输入密码'}}) }}
+                {{ form_errors(form.plainPassword.second) }}
+                {{ form_label(form.plainPassword.second) }}
+                {{ form_widget(form.plainPassword.second,{attr: {class: 'form-control', placeholder: '请重复输入密码'}}) }}
             </div>
-            <div>
-                <input id="submit" type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-outline-warning"/>
+            <div class="text-center">
+                <input id="submit" type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-outline-orange"/>
             </div>
             {{ form_end(form) }}
         </div>

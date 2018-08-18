@@ -38,26 +38,27 @@
                         <li class="col-6 col-md-3">标签:{{ product.productLabel }}</li>
                         <li class="col-6 col-md-3">上市时间:{{ product.marketTime }}</li>
                         <li></li>
-
                 </ul>
                 <div id="alert"></div>
                 <div class="row">
                     <div class="col"></div>
                     <div class="col-md-4 col-md-offset-8">
                         <div class="text-price text-bold my-3">价格:{{ product.price }}元</div>
-                        {{ include('default/goods_number.html.twig',{'id':product.id, 'num': 1 }) }}
+                        {{ include('default/goods_number.html.twig',{'id':product.id, 'num': 1, 'max': product.stock }) }}
                         <div id="add-car" class="btn btn-add-car my-3" data-id="{{ product.id }}">添加到购物车</div>
                     </div>
                 </div>
 
             </div>
         </div>
+            {% if product.description %}
         <div class="row product-description">
             <div class="col">
                 <p class="text-center my-3">商品详情</p>
                 {{ product.description | raw }}
             </div>
         </div>
+            {% endif %}
             {% endif %}
     </div>
 {% endblock %}

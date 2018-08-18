@@ -22,10 +22,10 @@ easy_admin:
                     - { type: 'tab', label: '基本信息'}
                     - { property: 'username', label: '用户名' }
                     - { property: 'email', label: '邮箱' ,type_options:{required: false} }
-                    - { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_USER'  }}
+                    #- { property: 'role', label: '角色', type: 'choice', type_options: {choices:  {'普通用户': 'ROLE_USER', '供应商': 'ROLE_PROVIDER' , '超级管理员': 'ROLE_SUPER_ADMIN'}, placeholder: '请选择角色', data: 'ROLE_USER'  }}
                     - { property: 'phone', label: '电话',type_options:{required: true} }
                     - { property: 'birthday', label: '生日',type: 'birthday' }
-                    - { property: 'sex', label: '性别', type: 'choice', type_options: { choices: {'男': '男', '女': '女'}, placeholder: '请选择性别' } }
+                    - { property: 'sex', label: '性别', type: 'choice', type_options: { choices: {true: '男', false: '女'}, placeholder: '请选择性别' } }
                     - { property: 'address',  label: '地址', type: 'AppBundle\Form\Type\AddressType', type_options:{required: true, data_class: 'AppBundle\Entity\Address'}}
             new:
                 title: '添加%%entity_label%%'
