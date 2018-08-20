@@ -28,8 +28,8 @@ class MemberType extends AbstractType
             ->add('phone')
             ->add('sex',ChoiceType::class,array(
                 'choices' => array(
-                    '男'=> true,
-                    '女' => false,
+                    '男'=> '男',
+                    '女' => '女',
                 )
             ))
             ->add('birthday',BirthdayType::class,array(

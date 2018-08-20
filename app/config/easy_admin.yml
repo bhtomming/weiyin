@@ -15,7 +15,7 @@ easy_admin:
             - {route: 'dashboard', label: '后台管理', default: true}
             - {entity: 'Settings', label: '网站设置',params: {action: 'edit',id: 1},role: ROLE_ADMIN}
             - {entity: 'Menu', label: '网站菜单',role: ROLE_ADMIN }
-            - {entity: 'Product', label: '服装管理',role: ROLE_PROVIDER }
+            - {entity: 'Product', label: '服装管理',params: {action: 'whichEntity' },role: ROLE_PROVIDER }
            # - {entity: 'Provider_Product', label: '服装管理', role: ROLE_ADMIN }
             - {entity: 'Category', label: '分类管理',role: ROLE_ADMIN}
             #- {entity: 'Provider_Goods', label: '订单管理',role: ROLE_PROVIDER }
@@ -24,7 +24,7 @@ easy_admin:
               children:
                 - {entity: 'Goods', label: '全部订单',role: ROLE_ADMIN }
                 - {entity: 'Goods', label: '新订单', params: {action: 'unread'}, role: ROLE_PROVIDER }
-                - {entity: 'Goods', label: '已付款订单', params: {action: 'paid'}, role: ROLE_PROVIDER }
+                - {entity: 'Goods', label: '已查阅订单', params: {action: 'paid'}, role: ROLE_PROVIDER }
                 - {entity: 'Goods', label: '未付款订单', params: {action: 'unpaid'},role: ROLE_ADMIN}
                 #- {entity: 'SendOutTrade', label: '已发货订单'}
                 #- {entity: 'RetrunBackTrade', label: '退款订单'}

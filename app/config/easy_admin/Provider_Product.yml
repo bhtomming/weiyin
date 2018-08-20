@@ -7,15 +7,15 @@ easy_admin:
                 fields:
                     - { type: 'tab', label: '基本信息', css_class: 'col-sm-10 col-offset-1'}
                     - { property: 'productNo', label: '编号', css_class: 'col-sm-6' }
-                    - { property: 'title', label: '名称',css_class: 'col-sm-6' }
+                    - { property: 'title', label: '名称',css_class: 'col-sm-6', type_options: {required: true} }
                     - { property: 'productType', label: '类型',css_class: 'col-sm-6' }
-                    - { property: 'model', label: '版型',css_class: 'col-sm-6' }
-                    - { property: 'stock', label: '数量',css_class: 'col-sm-6' }
-                    - { property: 'supplyPrice', label: '供应价',css_class: 'col-sm-6' }
+                    - { property: 'model', label: '版型',css_class: 'col-sm-6', type_options: {required: true} }
+                    - { property: 'stock', label: '数量',css_class: 'col-sm-6', type_options: {required: true} }
+                    - { property: 'supplyPrice', label: '供应价',css_class: 'col-sm-6', type_options: {required: true} }
                     - { property: 'size', label: '尺码', css_class: 'col-sm-6' }
                     - { property: 'category', label: '分类', type: 'AppBundle\Form\Type\CategoryType',css_class: 'col-sm-6'  }
                     - { property: 'cycle', label: '制作周期', css_class: 'col-sm-6'}
-                    - { property: 'isFront', label: '推荐到首页', css_class: 'col-sm-6' }
+                    #- { property: 'isFront', label: '推荐到首页', css_class: 'col-sm-6' }
                     - { property: 'imageFile', label: '图片', type: 'vich_image' }
                     - { property: 'description', label: '详细信息', type: 'ckeditor' }
                     - {type: 'tab', label: '详细参数', css_class: 'col-sm-10 col-offset-1'}
@@ -37,16 +37,18 @@ easy_admin:
                     - {property: 'pantsLength', label: '裤长', css_class: 'col-sm-6'}
                     - {property: 'skirtLength', label: '裙长', css_class: 'col-sm-6'}
                     - {property: 'skirtStyle', label: '裙型', css_class: 'col-sm-6'}
-                    - {property: 'marketTime', label: '上市时间',type: 'date'}
+                    - {property: 'marketTime', label: '上市时间'}
             list:
                 title: '%%entity_label%%列表'
+                actions:
+                    - {name: new, label: '添加服装'}
                 fields:
                     - { property: 'productNo', label: '编号' }
-                    - { property: 'model', label: '型号' }
-                    - { property: 'title', label: '名称' }
                     - { property: 'image', label: '图片',type: 'image', base_path: '%app.path.product_images%' }
-                    - { property: 'category', label: '分类'  }
+                    - { property: 'title', label: '名称' }
+                    - { property: 'model', label: '型号' }
                     - { property: 'stock', label: '库存' }
+                    - { property: 'sales', label: '销量' }
             new:
                 title: '添加%%entity_label%%'
             edit:

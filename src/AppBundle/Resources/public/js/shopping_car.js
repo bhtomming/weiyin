@@ -22,4 +22,25 @@ $(function(){
             }
         });
     });
+    $("#shop").click(function(){
+	    var id = $(this).attr('data-id');
+	    var num = $("input[name=number]").val();
+	    $.post(getPath('/cart/add'),{
+		    'id':id,
+		    'num':num
+	    },function(data,status) {
+		    if ("success" === status) {
+			    if (401 === data.status) {
+				    inhtml = "您未登录,请先<a href='" + getPath("/member") + "'>登录</a>再添加商品";
+			    } else if ("unmatch" === data.status) {
+				    inhtml = "请输入正确的数据";
+			    } else if ("unfind" === data.status) {
+				    inhtml = "找不到你要的商品";
+			    } else {
+				    window.location.href = getPath("/cart/show");
+			    }
+			    $("#alert").html(inhtml).addClass('alert alert-success');
+		    }
+	    });
+    });
 });

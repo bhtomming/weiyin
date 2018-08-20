@@ -70,12 +70,11 @@ class AppSubscriber implements EventSubscriberInterface
                 }
             }
         }
-        $allowEntity = array('Goods','Product','Provider');
+        $allowEntity = array('Goods','Provider_Product','Provider');
         if(in_array($entity,$allowEntity)){
             return;
         }
         throw new AccessDeniedException();
-
     }
 
     //监听订单支付成功后的事件

@@ -2,7 +2,7 @@ $(function(){
 	$.getScript("/bundles/app/js/comm.js");
 	$("#fos_user_registration_form_username").change(function(){
 		var name = $(this).val();
-		var isValid = validation(this,/^[\u4E00-\u9FA5]{2,10}$/,"用户名由2-10个中文组成");
+		var isValid = validation(this,/^[\u4E00-\u9FA5]{2,20}$/,"用户名由2-20个中文组成");
 		if(isValid && isUsed('name',name)){
 			$(this).parent().append("<div class='text-danger'>该手用户名已经有人使用!</div>");
 		}

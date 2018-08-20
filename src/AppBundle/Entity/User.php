@@ -117,7 +117,7 @@ class User extends FOSUser
     /**
      * Set sex
      *
-     * @param boolean $sex
+     * @param string $sex
      *
      * @return User
      */

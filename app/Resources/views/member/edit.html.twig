@@ -4,8 +4,8 @@
     <div class="container px-3">
             {{ form_start(edit_form) }}
         <div class="row form-group">
-            <label class="col-md-2 col-form-label" for="member_userName">姓名:</label>
-            <input type="text" value="{{ app.user.username }}" class="form-control col-md-10" disabled="true" />
+            <label class="col-md-2 col-form-label" for="member_username">姓名:</label>
+            <input type="text" id="member_username" value="{{ app.user.username }}" class="form-control col-md-10" disabled="disabled" />
         </div>
         {{ form_errors(edit_form.email,{attr:{class: 'alert alert-danger'}}) }}
         <div class="row form-group">

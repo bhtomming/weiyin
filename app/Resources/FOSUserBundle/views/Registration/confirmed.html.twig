@@ -5,8 +5,15 @@
         <div class="card">
             <h2 class="text-center">注册成功，用户名为：{{  user.username }}</h2>
             {% if targetUrl %}
-                <p class="text-center"><a href="{{ targetUrl }}">返回用户中心</a></p>
+                <p class="text-center">即将<a href="{{ targetUrl }}">返回用户中心</a></p>
             {% endif %}
         </div>
     </div>
+    <script>
+        $(function(){
+        	setTimeout(function(){
+        		window.location.href = "{{ targetUrl }}";
+            },3000);
+        });
+    </script>
 {% endblock body %}

@@ -14,7 +14,6 @@
                         <li class="col-6 col-md-3">编号:{{ product.productNo }}</li>
                         <li class="col-6 col-md-3">名称:{{ product.title }}</li>
                         <li class="col-6 col-md-3">类型:{{ product.productType }}</li>
-
                         <li class="col-6 col-md-3">尺码:{{ product.size }}</li>
                         <li class="col-6 col-md-3">制作周期:{{ product.cycle }}</li>
                         <li class="col-6 col-md-3">货号:{{ product.articleNumber }}</li>
@@ -40,15 +39,18 @@
                         <li></li>
                 </ul>
                 <div id="alert"></div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col-md-4 col-md-offset-8">
+                <div class="row justify-content-end">
+                    <div class="col-md-4">
                         <div class="text-price text-bold my-3">价格:{{ product.price }}元</div>
                         {{ include('default/goods_number.html.twig',{'id':product.id, 'num': 1, 'max': product.stock }) }}
-                        <div id="add-car" class="btn btn-add-car my-3" data-id="{{ product.id }}">添加到购物车</div>
                     </div>
                 </div>
-
+                <div class="row justify-content-end">
+                    <div class="col-md-offset-8 text-right">
+                        <div id="add-car" class="btn btn-outline-orange my-3" data-id="{{ product.id }}">添加到购物车</div>
+                        <div id="shop" class="btn btn-add-car my-3" data-id="{{ product.id }}">直接购买</div>
+                    </div>
+                </div>
             </div>
         </div>
             {% if product.description %}

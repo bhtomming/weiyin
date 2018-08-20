@@ -9,11 +9,12 @@
         <div class="row mt-3">
             <div class="col">
                 <a href="{{ path('member_edit',{id: member.id}) }}" class="float-right">修改资料</a>
-                <p class="my-2">会员姓名:{{ member.username }}</p>
+                <p class="my-2">会员用户名:{{ member.username }}</p>
                 <p class="my-2">邮箱: {{ member.email }}</p>
                 <p class="my-2">手机号: {{ member.phone }}</p>
+                <p class="my-2">性别: {{ member.sex }}</p>
+                <p class="my-2">生日: {{ member.birthday|date('Y年m月d日') }}</p>
                 <p class="my-2">我的地址:<a href="{{ path('address_new') }}"  class="float-right">添加地址</a></p>
-
                 <div class="my-3">
                     {% for address in member.address %}
                         <div class="my-3">
@@ -26,9 +27,6 @@
                     {% endfor %}
                 </div>
             </div>
-
         </div>
-
-
     </div>
 {% endblock %}

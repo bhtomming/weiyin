@@ -285,123 +285,7 @@ class AdminController extends BaseAdminController
         return parent::listAction();
     }
 
-    //修改商品
-    public function editProductAction(){
-        $id = $this->request->get('id');
-        $product = $this->em->getRepository(Product::class)->find($id);
-        if(!($product instanceof Product)){
-            throw $this->createNotFoundException('没有该商品');
-        }
-        $authorization = $this->container->get('security.authorization_checker');
-        if($product->getProvider() != $this->getUser() && !$authorization->isGranted('ROLE_ADMIN')){
-            throw $this->createAccessDeniedException('你无权访问');
-        }
-        $this->dispatch(EasyAdminEvents::PRE_EDIT);
 
-        $id = $this->request->query->get('id');
-        $easyadmin = $this->request->attributes->get('easyadmin');
-        $entity = $easyadmin['item'];
-
-        if ($this->request->isXmlHttpRequest() && $property = $this->request->query->get('property')) {
-            $newValue = 'true' === mb_strtolower($this->request->query->get('newValue'));
-            $fieldsMetadata = $this->entity['list']['fields'];
-
-            if (!isset($fieldsMetadata[$property]) || 'toggle' !== $fieldsMetadata[$property]['dataType']) {
-                throw new \RuntimeException(sprintf('The type of the "%s" property is not "toggle".', $property));
-            }
-
-            $this->updateEntityProperty($entity, $property, $newValue);
-
-            // cast to integer instead of string to avoid sending empty responses for 'false'
-            return new Response((int) $newValue);
-        }
-
-        $fields = $this->entity['edit']['fields'];
-
-        $editForm = $this->executeDynamicMethod('create<EntityName>EditForm', array($entity, $fields));
-        $deleteForm = $this->createDeleteForm($this->entity['name'], $id);
-
-
-        if(!($this->isGranted('ROLE_ADMIN'))){
-            $editForm->remove('price');
-            $editForm->remove('selling');
-            $editForm->remove('provider');
-            $editForm->remove('isFront');
-        }
-        $editForm->handleRequest($this->request);
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_UPDATE, array('entity' => $entity));
-
-            $this->executeDynamicMethod('preUpdate<EntityName>Entity', array($entity));
-            $this->executeDynamicMethod('update<EntityName>Entity', array($entity));
-
-            $this->dispatch(EasyAdminEvents::POST_UPDATE, array('entity' => $entity));
-
-            return $this->redirectToReferrer();
-        }
-
-        $this->dispatch(EasyAdminEvents::POST_EDIT);
-
-        $parameters = array(
-            'form' => $editForm->createView(),
-            'entity_fields' => $fields,
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-
-        return $this->executeDynamicMethod('render<EntityName>Template', array('edit', $this->entity['templates']['edit'], $parameters));
-    }
-
-    //添加商品
-    public function newProductAction(){
-        $this->dispatch(EasyAdminEvents::PRE_NEW);
-
-        $entity = $this->executeDynamicMethod('createNew<EntityName>Entity');
-
-        $easyadmin = $this->request->attributes->get('easyadmin');
-        $easyadmin['item'] = $entity;
-        $this->request->attributes->set('easyadmin', $easyadmin);
-
-        $fields = $this->entity['new']['fields'];
-
-        $newForm = $this->executeDynamicMethod('create<EntityName>NewForm', array($entity, $fields));
-
-
-        if(!($this->isGranted('ROLE_ADMIN'))){
-            $newForm->remove('price');
-            $newForm->remove('selling');
-            $newForm->remove('provider');
-        }
-
-        $newForm->handleRequest($this->request);
-        if ($newForm->isSubmitted() && $newForm->isValid()) {
-            $this->dispatch(EasyAdminEvents::PRE_PERSIST, array('entity' => $entity));
-            if(null == $entity->getProvider()){
-                $entity->setProvider($this->getUser());
-            }
-
-            $this->executeDynamicMethod('prePersist<EntityName>Entity', array($entity));
-            $this->executeDynamicMethod('persist<EntityName>Entity', array($entity));
-
-            $this->dispatch(EasyAdminEvents::POST_PERSIST, array('entity' => $entity));
-
-            return $this->redirectToReferrer();
-        }
-
-        $this->dispatch(EasyAdminEvents::POST_NEW, array(
-            'entity_fields' => $fields,
-            'form' => $newForm,
-            'entity' => $entity,
-        ));
-
-        $parameters = array(
-            'form' => $newForm->createView(),
-            'entity_fields' => $fields,
-            'entity' => $entity,
-        );
-
-        return $this->executeDynamicMethod('render<EntityName>Template', array('new', $this->entity['templates']['new'], $parameters));
-    }
 
     //订单列表
     public function listGoodsAction(){
@@ -413,6 +297,7 @@ class AdminController extends BaseAdminController
         return parent::listAction();
     }
 
+    //已付款订单
     public function paidAction(){
         $this->entity['list']['dql_filter'] = 'entity.status = 1';
         if(!($this->isGranted('ROLE_ADMIN'))){
@@ -422,6 +307,7 @@ class AdminController extends BaseAdminController
         return  parent::listAction();
     }
 
+    //显示所有订单
     public function showGoodsAction(){
         if(!($this->isGranted('ROLE_ADMIN'))){
             unset($this->entity['show']['fields']['totalAmount']);
@@ -433,6 +319,7 @@ class AdminController extends BaseAdminController
         return parent::showAction();
     }
 
+    //未付款订单
     public function unpaidAction(){
         $this->entity['list']['dql_filter'] = 'entity.status = 0';
         if(!($this->isGranted('ROLE_ADMIN'))){
@@ -442,6 +329,7 @@ class AdminController extends BaseAdminController
         return  parent::listAction();
     }
 
+    //未查阅订单
     public function unreadAction(){
         if($this->isGranted('ROLE_ADMIN')){
             $this->entity['list']['dql_filter'] = 'entity.adminRead = 0';
@@ -464,6 +352,43 @@ class AdminController extends BaseAdminController
             $query->andWhere('g.providerRead = false');
         }
         return $query;
+    }
+
+    public function whichEntityAction(){
+        $entity = $this->isGranted('ROLE_ADMIN') ? 'Product' : 'Provider_Product';
+        return $this->redirectToRoute('easyadmin',array(
+            'entity'=>$entity,
+            'action'=>'list',
+        ));
+    }
+
+    //商品列表
+    public function listProvider_ProductAction(){
+        if(!($this->isGranted('ROLE_ADMIN'))){
+            $this->entity['list']['dql_filter'] = 'entity.provider = '.$this->getUser()->getId();
+        }
+        return parent::listAction();
+    }
+
+    public function editProvider_ProductAction(){
+        $id = $this->request->get('id');
+        $product = $this->em->getRepository(Product::class)->find($id);
+        if(!($product instanceof Product)){
+            throw $this->createNotFoundException('没有该商品');
+        }
+        if($product->getProvider() != $this->getUser() && !$this->isGranted('ROLE_ADMIN')){
+            throw $this->createAccessDeniedException('你无权访问');
+        }
+        return parent::editAction();
+    }
+
+    public function prePersistProvider_ProductEntity($entity)
+    {
+        if(!$entity instanceof Product){
+            return;
+        }
+        $entity->setProvider($this->getUser());
+        parent::prePersistEntity($entity);
     }
 
 
