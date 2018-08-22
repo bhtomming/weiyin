@@ -27,14 +27,18 @@
                             <td>{{ include('default/goods_number.html.twig',{'id': cart.product.id,'num':cart.amount, 'max': cart.product.stock }) }}</td>
                             <td><i class="btn icon icon-trash float-md-right" data-cart-id="{{ cart.id }}" data-id="{{ cart.product.id }}">删除</i></td>
                         </tr>
-                    <input type="hidden" name="cart_id" id="cart_id" value="{{ cart.id }}" />
+                    <input type="hidden" name="cart_id" id="cart_id_{{ cart.id }}" value="{{ cart.id }}" />
                     {% set total_amount = total_amount + cart.amount * cart.product.price %}
                 {% endfor %}
                         </tbody>
                     </table>
                 </div>
             <div class="row">
-                <div class="col"></div>
+                <div class="col">
+                    <button class="btn btn-outline-while my-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        帮朋友购买
+                    </button>
+                </div>
                 <div class="col-xs-6 col-md-2 justify-content-end">
                     总金额:<em id="total_amount" class="text-price" >{{ total_amount }}</em>元<br/>
                     {% if coupons %}
@@ -48,16 +52,15 @@
                         </label>
 
                     {% endif %}
-                    <button class="btn btn-outline-while my-5" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        帮朋友购买
-                    </button>
                 </div>
             </div>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
                     <div class="alert" id="friend-alert"></div>
-                    <div class="input-group">
-                        <label for="friend_phone">手机号:</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <label for="friend_phone" class="input-group-text">手机号:</label>
+                        </div>
                         <input id="friend_phone" name="friend_phone" class="form-control" type="text" />
                         <div class="input-group-append">
                             <input id="check_phone" type="button" class="btn btn-orange" value="验证好友电话"  placeholder="请您输入朋友的手机号"/>
@@ -76,7 +79,7 @@
                     <div class="col">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if app.user.defaultAddress %}
-                                <div class="address">收货地址:{{  app.user.defaultAddress  }}</div>
+                                <div class="address">收货地址：{{  app.user.defaultAddress  }}</div>
                             {% else %}
                                 <div class="address alert alert-warning">您还没有添加收货地址,请先<a href="{{ path('address_new') }}">添加地址</a></div>
                             {% endif %}
@@ -85,7 +88,7 @@
                 </div>
                 <div class="row my-5">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-                    <div class="col text-center"><input type="button" name="submit" id="submit" class="btn btn-outline-orange" value="生成订单"/> </div>
+                    <div class="col text-center"><input type="button" name="submit" id="submit" class="btn btn-outline-orange" value="购买"/> </div>
                 </div>
             </form>
             {% else %}

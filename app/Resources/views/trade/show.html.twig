@@ -38,7 +38,7 @@
                             <td>合计:{{ trade.totalAmount }}元</td>
                             <td>
                                 {% if trade.status == 0 %}
-                                    <a class="btn btn-warning" href="{{ path('pay',{'id':trade.id}) }}">现在付款</a>
+                                    <a class="btn btn-outline-orange" href="{{ path('pay',{'id':trade.id}) }}">现在付款</a>
                                 {% endif %}
                             </td>
                         </tr>

@@ -3,7 +3,7 @@
     <div class="panel-body">
         {% if product.provider == app.user or is_granted('ROLE_ADMIN') %}
         {% if is_granted('ROLE_ADMIN') %}
-            衣服编号:{% for no in  strade.tradeNo %}{{ no }}、{% endfor %}<br/>
+            衣服编号:{% for no in  strade.tradeNo %}{{ no }} {{ loop.last ? "" : "、" }}{% endfor %}<br/>
             单价:{{ product.price }}<br/>
             金额:{{ strade.amount }}<br/>
         {% else %}

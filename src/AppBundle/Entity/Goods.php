@@ -144,6 +144,18 @@ class Goods
      */
     private $payNo;
 
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="paidAt", type="datetime", nullable=true)
+     */
+    private $paidAt;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="expiresIn", type="datetime", nullable=true)
+     */
+    private $expiresIn;
+
 
     /**
      * Get id
@@ -326,6 +338,7 @@ class Goods
             $this->setUpdatedAt($createdAt);
         }
 
+
         return $this;
     }
 
@@ -390,8 +403,9 @@ class Goods
 
     public function __construct()
     {
-        $this->setTradeNo('WYDD'.date('YmdHis').rand(1,9999));
         $this->setCreatedAt(new \DateTime('now'));
+        $this->setExpiresIn(new \DateTime('+1 days'));
+        $this->setTradeNo('WYDD'.date('YmdHis').rand(1,9999));
         $this->goodsDetail = new ArrayCollection();
         $this->setStatus($this::UNPAID);
         $this->setAdminRead();
@@ -540,16 +554,37 @@ class Goods
      * @ORM\PreUpdate
      */
     public function checkStatus(){
+        if($this->expiresIn == null){
+            $day = $this->getCreatedAt()->format('Y-m-d');
+            $this->setExpiresIn(new \DateTime($day));
+        }
         if($this->status == self::UNPAID){
-            $date =  $this->createdAt->add(new \DateInterval('P1D'))->format('Y-m-d');
-            $testTime = new \DateTime($date.' 03:00');
             $nowTime = new \DateTime('now');
-            $interval = $nowTime->diff($testTime);
+            $interval = $nowTime->diff($this->getExpiresIn());
             if( '-' == $interval->format('%R')){
                 $this->setStatus(self::CLOSED);
             }
         }
         return $this;
+    }
+
+    public function setPaidAt(\DateTime $paidAt){
+        $this->paidAt = $paidAt;
+        return $this;
+    }
+
+    public function getPaidAt(){
+        return $this->paidAt;
+    }
+
+    public function setExpiresIn(\DateTime $expiresIn){
+        $expiresIn->add(new \DateInterval('P1D'));
+        $this->expiresIn = $expiresIn->setTime(03,00,00);
+        return $this;
+    }
+
+    public function getExpiresIn(){
+        return $this->expiresIn;
     }
 
 }

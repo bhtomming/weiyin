@@ -78,11 +78,9 @@ class AppSubscriber implements EventSubscriberInterface
     }
 
     //监听订单支付成功后的事件
-    public function checkTrade(GenericEvent $event){
-        $trade = $event->getSubject();
-        $em = $event->getArgument('em');
-
-        if(!$trade instanceof Goods){
+    public function checkTrade(TradeEvents $event){
+        $trade = $event->getGoods();
+        if(!$trade instanceof Goods || $trade->getStatus() == Goods::PAID){
             return;
         }
         $tradeItems = $trade->getGoodsDetail();
@@ -91,15 +89,18 @@ class AppSubscriber implements EventSubscriberInterface
             //设置商品销量库存
             $product->setSales($product->getSales() + $tradeItem->getNumber());
             $product->setStock($product->getStock() - $tradeItem->getNumber());
+
             //商品没有库存自动下架
             if($product->getStock() == 0){
                 $product->setSelling(false);
             }
             $product->setUpdatedAt(new \DateTime('now'));
-            $em->persist($product);
-            $em->flush();
+            /*$em->persist($product);
+            $em->flush();*/
         }
+        $trade->setPaidAt(new \DateTime('now'));
         $trade->setStatus(Goods::PAID);
+        return;
     }
 
 

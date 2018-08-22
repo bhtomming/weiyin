@@ -65,7 +65,7 @@ class TradeController extends Controller
             $cart = $em->getRepository(Cart::class)->find($cart_id);
             if(!$cart instanceof Cart){
                 return new JsonResponse(array(
-                    'msg'=>'没有你要购买的物品',
+                    'msg'=>'您是否正确添加商品?',
                     'error' => '出现错误',
                 ),202);
             }

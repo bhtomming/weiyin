@@ -15,6 +15,10 @@ $(function(){
 	        total_amount = parseFloat(total_amount) - parseFloat(amount);
 	        total.text(total_amount);
             $(this).parent().parent().remove();
+            $("#cart_id_"+id).remove();
+            if(total_amount === 0){
+	            location.reload();
+            }
         }
     });
 
@@ -72,9 +76,12 @@ $(function(){
         data = $("#cart_view").serializeObject();
         $.post(getPath("/trade/create"),data,function(data,status){
             if(null !== data.url && 'success' === status){
-                window.location.href = data.url;
+               window.location.href = data.url;
             }
-            $(".alert-error").addClass("alert-danger").html(data.msg);
+            if(data.msg !== null || 'undefined' !== data.msg){
+	            $(".alert-error").addClass("alert-danger").html(data.msg);
+            }
+
         });
     });
 

@@ -1,25 +1,28 @@
+{% if null == item.user.shape.last %}
+    该会员非常懒,没有添加任何数据.
+{% else %}
 {% set shape = item.user.shape.last %}
 <table>
     <tbody>
-    {% if shape.neckAround is null %}
+    {% if shape.neckAround%}
     <tr>
         <th>颈围</th>
         <td>{{ shape.neckAround }}</td>
     </tr>
     {% endif %}
-    {% if shape.neckRoot %}
+    {% if shape.neckRoot%}
     <tr>
         <th>颈根围</th>
         <td>{{ shape.neckRoot }}</td>
     </tr>
     {% endif %}
-    {% if shape.shoulderLength %}
+    {% if shape.shoulderLength%}
     <tr>
         <th>肩长</th>
         <td>{{ shape.shoulderLength }}</td>
     </tr>
     {% endif %}
-    {% if shape.preShoulderWidth %}
+    {% if shape.preShoulderWidth  %}
     <tr>
         <th>前总肩宽</th>
         <td>{{ shape.preShoulderWidth }}</td>
@@ -357,3 +360,4 @@
     {% endif %}
     </tbody>
 </table>
+{% endif %}

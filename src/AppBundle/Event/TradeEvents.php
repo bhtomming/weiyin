@@ -9,11 +9,25 @@
 namespace AppBundle\Event;
 
 
-class TradeEvents
+use AppBundle\Entity\Goods;
+use Symfony\Component\EventDispatcher\Event;
+
+class TradeEvents extends Event
 {
     /** @Event("Symfony\Component\EventDispatcher\GenericEvent") */
     const PRE_PAID='app.trade_paid';
     /** @Event("Symfony\Component\EventDispatcher\GenericEvent") */
     const PRE_CREATE='app.trade_create';
+    protected $goods;
+
+    public function __construct(Goods $goods)
+    {
+        $this->goods = $goods;
+    }
+
+    public function getGoods(){
+        return $this->goods;
+    }
+
 
 }
